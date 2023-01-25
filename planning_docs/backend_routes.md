@@ -246,8 +246,6 @@ user's information.
 
 ## Questions
 
-
-
 ## Answers and Comments
 
 ### Answers
