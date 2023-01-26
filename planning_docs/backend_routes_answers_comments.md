@@ -41,3 +41,222 @@ Description of what the route does
     ```
 
 ## Answers and Comments
+
+# Get all Answers and Comments of Current User
+Returns all the answers/comments written by the current user.
+
+Require Authentication: true
+
+Request
+
+Method: GET
+URL: /api/answers/current
+Body: none
+Successful Response
+
+Status Code: 200
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "Answers": [
+    {
+      "id": 1,
+      "questionId": 1,
+      "userId": 1,
+      "body": "bla bla bla bla ",
+      "stars": 5,
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36" ,
+      "answerVotes":12,
+
+      "Answer Comments": {
+        "id": 1,
+        "answerId": "1",
+        "body": "hello hello hello hello ",
+        "answerCommentVotes": 11,
+      },
+    }
+  ]
+}
+
+# Create an Answers/Comments for a question based on the question Id
+Create and return a new answers/comments for a question specified by id.
+
+Require Authentication: true
+
+Request
+
+Method: POST
+
+URL: /api/answers/:questionId/answers
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "answers": "bla bla bla bla bla bla bla !",
+  
+}
+Successful Response
+
+Status Code: 201
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "id": 1,
+  "answerId": 1,
+  "questionId": 1,
+  "body": "bla bla bla bla !",
+  "createdAt": "2021-11-19 20:39:36",
+  "updatedAt": "2021-11-19 20:39:36"
+}
+Error Response: Body validation errors
+
+Status Code: 400
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "message": "Validation error",
+  "statusCode": 400,
+  "errors": {
+    "body": "answer text is required",
+  }
+}
+Error response: Couldn't find a Spot with the specified id
+
+Status Code: 404
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "message": "question couldn't be found",
+  "statusCode": 404
+}
+
+
+# Edit an Answers/Questions 
+Update and return an existing answers.
+
+Require Authentication: true
+
+Require proper authorization: Answers must belong to the current user
+
+Request
+
+Method: PUT
+
+URL: /api/answers/:answerId
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "body": "new comments here!",
+}
+
+
+Successful Response
+
+Status Code: 200
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "id": 1,
+  "questionId": 1,
+  "answers": "This was an awesome spot!",
+  "createdAt": "2021-11-19 20:39:36",
+  "updatedAt": "2021-11-20 10:06:40"
+}
+
+Error Response: Body validation errors
+
+Status Code: 400
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "message": "Validation error",
+  "statusCode": 400,
+  "errors": {
+    "answers": "Review text is required",
+  }
+}
+Error response: Couldn't find an answer/comments with the specified id
+
+Status Code: 404
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "message": "answers couldn't be found",
+  "statusCode": 404
+}
+
+# Delete a Review
+Delete an existing answers/comments.
+
+Require Authentication: true
+
+Require proper authorization: Answers must belong to the current user
+
+Request
+
+Method: DELETE
+URL: /api/answers/:answerId
+Body: none
+
+Successful Response
+
+Status Code: 200
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "message": "Successfully deleted",
+  "statusCode": 200
+}
+Error response: Couldn't find an answers with the specified id
+
+Status Code: 404
+
+Headers:
+
+Content-Type: application/json
+Body:
+
+{
+  "message": "Answers couldn't be found",
+  "statusCode": 404
+}
