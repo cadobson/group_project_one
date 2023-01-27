@@ -67,7 +67,7 @@ Search for all of the questions that have a particular tag, specified by tag ID.
               "TagName": "Shakespeare",
               "createdAt": "2021-11-19 20:39:36",
               "updatedAt": "2021-11-19 20:39:36",
-            }
+            },
         "Questions": [
           {
             "id": 1,
@@ -119,6 +119,55 @@ Search for all of the questions that have a particular tag, specified by tag ID.
 ### Logged-in users can...
 
 * Create a tag for a question they made
+
+* Require Authentication: True
+* Request
+  * Method: POST
+  * URL: /api/questions/:id/tags
+  * Body: 
+
+ ```json
+  {
+    "tagName": "Physics",
+  }
+  ```
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+      {
+        "Tags": { 
+            "id": 1,
+            "tagName": "Physics",
+            "createdAt": "2021-11-19 20:39:36",
+            "updatedAt": "2021-11-19 20:39:36"
+          },
+          "Questions": {
+            "id": 16,
+            "askerId": 13,
+            "title:" "What is the definition of escape velocity?"  
+            "Body:" "I think it's when gravitional potential energey equals kinetic energy"
+            "createdAt": "2021-11-19 20:39:36",
+            "updatedAt": "2021-11-19 20:39:36",
+          }
+      }
+  ```
+* Error response: User does not own the question to-be-tagged.
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+        {
+        "message": "User does not own the question to-be-tagged",
+        "statusCode": 404,
+      }
+    ```
+
 * Edit a tag for a question they made
 * Delete a tag for a question they made
 
