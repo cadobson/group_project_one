@@ -1,45 +1,3 @@
-# Generic Route Information
-
-Description of what the route does
-
-* Require Authentication: true/false
-* Request
-  * Method: GET/POST/PUT/DELETE
-  * URL: /api/whatevertheurlis
-  * Body:
-
-    ```json
-    {
-      "whateverTag": "whateverValue",
-    }
-    ```
-
-* Successful Response
-  * Status Code: 200/404/500/whatever
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "whateverTag": "whateverValue",
-    }
-* Error response: Description of why it failed
-  * Status Code: 200/404/500/whatever
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "Why it failed",
-      "statusCode": 403,//or whatever
-      "errors": {
-        "email": "why this one thing failed"
-      }
-    }
-    ```
-
 # Tags
 
 ## 3: Search Questions
@@ -62,12 +20,13 @@ Search for all of the questions that have a particular tag, specified by tag ID.
 
     ```json
     {
-      "Tags": {
-            "id": 1,
-            "TagName": "Shakespeare",
-            "createdAt": "2021-11-19 20:39:36",
-            "updatedAt": "2021-11-19 20:39:36",
-          },
+      "Tags": 
+        {
+          "id": 1,
+          "TagName": "Shakespeare",
+          "createdAt": "2021-11-19 20:39:36",
+          "updatedAt": "2021-11-19 20:39:36",
+        },
       "Questions": [
         {
           "id": 1,
@@ -144,8 +103,9 @@ SOURCE: https://helpcenter.veeam.com/docs/backup/em_rest/query_and_or.html?ver=1
           "Body:" "It seems like electrons might have an escape velocity, too."
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "Tags": { 
-            "tagName": ["Physics", "Chemistry"]
+          "Tags": 
+            { 
+              "tagName": ["Physics", "Chemistry"]
             }
           }, 
           {
@@ -204,7 +164,8 @@ SOURCE: https://helpcenter.veeam.com/docs/backup/em_rest/query_and_or.html?ver=1
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36"
         },
-        "Questions": {
+        "Questions": 
+        {
           "id": 16,
           "askerId": 13,
           "title:" "What is the definition of escape velocity?"  
