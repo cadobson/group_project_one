@@ -118,7 +118,7 @@ Returns the details of a question specified by its id
           },
           "createdAt": "2023-02-19 20:30:45",
           "updatedAt": "2023-02-19 20:35:45",
-          "comments": [
+          "Comments": [
             {
               "id": 1,
               "body": "This is not true. Existence is an elaborate government conspiracy, like birds and the IRS.",
@@ -215,7 +215,7 @@ Description of what the route does
     ```
 
 * Successful Response
-  * Status Code: 200
+  * Status Code: 201
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -299,11 +299,11 @@ Description of what the route does
     }
     ```
 
-## Generic Route Information
+## Delete a question
 
-Description of what the route does
+Delete a question that
 
-* Require Authentication: true/false
+* Require Authentication: true
 * Request
   * Method: DELETE
   * URL: /api/questions/:questionId
@@ -321,7 +321,7 @@ Description of what the route does
     }
     ```
 
-* Error response: Description of why it failed
+* Error response: Question couldn't be found
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
