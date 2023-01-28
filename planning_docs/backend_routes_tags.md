@@ -82,9 +82,9 @@ SOURCE: https://helpcenter.veeam.com/docs/backup/em_rest/query_and_or.html?ver=1
     {
       "Tags": 
         {
-          "tag1": "chemistry",
-          "tag2": "physics",
-          "tag3": "shakespeare"
+          "tag1": "Chemistry",
+          "tag2": "Physics",
+          "tag3": "Shakespeare"
         }
     }
     ```
