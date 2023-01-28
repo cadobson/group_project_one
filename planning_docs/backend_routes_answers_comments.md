@@ -63,24 +63,26 @@ Description of what the route does
 ```json
 
 {
-  "Answers": [
-    {
-      "id": 1,
-      "questionId": 1,
-      "userId": 1,
-      "body": "bla bla bla bla ",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36" ,
-      "answerVotes":12,
-
-      "Comments": {
+  "Answers":
+    [
+      {
         "id": 1,
-        "answerId": "1",
-        "body": "hello hello hello hello ",
-        "answerCommentVotes": 11,
-      },
-    }
-  ]
+        "questionId": 1,
+        "userId": 1,
+        "body": "Human evolution is the lengthy process of change by which people originated from apelike ancestors. ",
+        "createdAt": "2021-11-19 20:39:36",
+        "updatedAt": "2021-11-19 20:39:36" ,
+      
+        "Comments":[
+          {
+            "id": 1,
+            "answerId": "1",
+            "body": "Scientific evidence shows that the physical and behavioral traits shared by all people originated from apelike ancestors and evolved over a period of approximately six million years. ",
+          },
+        ] 
+      }
+    ]
+   
 }
 ```
 
@@ -93,14 +95,14 @@ Description of what the route does
 
 * Method: POST
 
-* URL: /api/answers/:questionId/answers
+* URL: /api/questions/:questionId
 
 * Headers:
     * Content-Type: application/json
 * Body:
 ```json
 {
-  "answers": "bla bla bla bla bla bla bla !",
+  "answers": "Human evolution is the lengthy process of change by which people originated from apelike ancestors.",
   
 }
 ```
@@ -118,7 +120,7 @@ Description of what the route does
   "id": 1,
   "answerId": 1,
   "questionId": 1,
-  "body": "bla bla bla bla !",
+  "answers": "Human evolution is the lengthy process of change by which people originated from apelike ancestors.",
   "createdAt": "2021-11-19 20:39:36",
   "updatedAt": "2021-11-19 20:39:36"
 }
@@ -135,11 +137,11 @@ Description of what the route does
   "message": "Validation error",
   "statusCode": 400,
   "errors": {
-    "body": "answer text is required",
+    "answers": "answer text is required",
   }
 }
 ```
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a question with the specified id
 
 * Status Code: 404
 
@@ -163,7 +165,7 @@ Description of what the route does
 
 * Method: POST
 
-* URL: /api/comments/:answerId/comments
+* URL: /api/answers/:answerId
 
 * Headers:
 
@@ -171,7 +173,7 @@ Description of what the route does
 * Body:
 ```json
 {
-  "answers": "bla bla bla bla bla bla bla !",
+  "answers": "Human evolution is the lengthy process of change by which people originated from apelike ancestors.",
   
 }
 ```
@@ -188,7 +190,7 @@ Description of what the route does
   "id": 1,
   "answerId": 1,
   "questionId": 1,
-  "body": "bla bla bla bla !",
+  "answers": "Human evolution is the lengthy process of change by which people originated from apelike ancestors.",
   "createdAt": "2021-11-19 20:39:36",
   "updatedAt": "2021-11-19 20:39:36"
 }
@@ -210,7 +212,7 @@ Description of what the route does
   }
 }
 ```
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find an question with the specified id
 
 * Status Code: 404
 
@@ -332,7 +334,7 @@ Description of what the route does
 {
   "id": 1,
   "questionId": 1,
-  "comments": "This was an awesome spot!",
+  "comments": "I think that is right",
   "createdAt": "2021-11-19 20:39:36",
   "updatedAt": "2021-11-20 10:06:40"
 }
@@ -456,46 +458,7 @@ Description of what the route does
 ```
 
 ## Logged out-users
-### Get all Answers and Comments based on question Id
-* Returns all the answers/comments written by the question Id
 
-* Require Authentication: false
-
-* Request
-
-* Method: GET
-* URL: /api/answers/:questionId
-* Body: none
-* Successful Response
-
-* Status Code: 200
-
-* Headers:
-
-    * Content-Type: application/json
-* Body:
-```json 
-{
-  "Answers": [
-    {
-      "id": 1,
-      "questionId": 1,
-      "body": "bla bla bla bla ",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36" ,
-      "answerVotes":12,
-
-      "Comments": {
-        "id": 1,
-        "answerId": "1",
-        "body": "hello hello hello hello ",
-        "answerCommentVotes": 11,
-      },
-    }
-  ]
-}
-
-```
 ### Get an Answer based Answer Id
 * Returns all the Answer based on the Answer Id
 
@@ -516,16 +479,15 @@ Description of what the route does
 * Body:
 ```json
 {
-  "Answers": [
+  "Answers": 
     {
       "id": 1,
       "questionId": 1,
-      "body": "bla bla bla bla ",
+      "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates. ",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36" ,
-      "answerVotes":12,
     }
-  ]
+  
 }
 ```
 ### Get a Comment based Comment Id
@@ -548,16 +510,15 @@ Description of what the route does
 * Body:
 ```json
 {
-  "Comment": [
+  "Comment": 
     {
       "id": 1,
       "answerId": 1,
-      "body": "bla bla bla bla ",
+      "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates. ",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36" ,
-      "commentVotes":12,
     }
-  ]
+  
 }
 ```
 ### Get all Answers and Comments based on userID
@@ -584,17 +545,17 @@ Description of what the route does
     {
       "id": 1,
       "questionId": 1,
-      "body": "bla bla bla bla ",
+      "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates. ",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36" ,
-      "answerVotes":12,
 
-      "Comments": {
+      "Comments": [
+        {
         "id": 1,
         "answerId": "1",
-        "body": "hello hello hello hello ",
-        "answerCommentVotes": 11,
-      },
+        "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates. ",
+      }
+      ],
     }
   ]
 }
