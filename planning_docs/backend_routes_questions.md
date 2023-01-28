@@ -156,7 +156,7 @@ Description of what the route does
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/questions/user/:userId
+  * URL: /api/user/:userId/questions
   * Body: none
 
 * Successful Response
