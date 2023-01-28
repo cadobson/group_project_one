@@ -241,7 +241,7 @@ SOURCE: https://helpcenter.veeam.com/docs/backup/em_rest/query_and_or.html?ver=1
   * Body:
     ```json
     {
-      "message": "Successfully deleted",
+      "message": "Question successfully deleted",
       "statusCode": 200
     }
     ```
