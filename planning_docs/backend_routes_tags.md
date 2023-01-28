@@ -201,7 +201,7 @@ SOURCE: https://helpcenter.veeam.com/docs/backup/em_rest/query_and_or.html?ver=1
     ```
 * Successful Response
   * Status Code: 200
-  * Headers:s
+  * Headers:
     * Content-Type: application/json
   * Body:
     ```json
