@@ -4,12 +4,12 @@
 
 ### Logged-out users can...
 
-Search for all of the questions that have a particular tag, specified by tag ID.
+Search for all of the questions that have a particular tag, specified by tag name.
 
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/questions/tags/:tagId
+  * URL: /api/questions/tags/:tagName
   * Body: none
 
 * Successful Response
