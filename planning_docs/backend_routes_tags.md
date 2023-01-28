@@ -175,15 +175,15 @@ SOURCE: https://helpcenter.veeam.com/docs/backup/em_rest/query_and_or.html?ver=1
         }
     }
     ```
-* Error response: User does not own the question to-be-tagged.
-  * Status Code: 404
+* Error response:
+  * Status Code: 403
   * Headers:
     * Content-Type: application/json
   * Body:
     ```json
     {
       "message": "User does not own the question to-be-tagged",
-      "statusCode": 404,
+      "statusCode": 403,
     }
     ```
 ### Edit a tag for a question they made
