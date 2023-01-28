@@ -40,26 +40,27 @@ Description of what the route does
     }
     ```
 
-## Answers and Comments
-# Logged-in users
-## Get all Answers and Comments of the  Current User
-Returns all the answers/comments written by the current user.
+# Answers and Comments
+## Logged-in users
+### Get all Answers and Comments of the  Current User
+* Returns all the answers/comments written by the current user.
 
-Require Authentication: true
+* Require Authentication: true
 
-Request
+* Request
 
-Method: GET
-URL: /api/answers/current
-Body: none
-Successful Response
+* Method: GET
+* URL: /api/answers/current
+* Body: none
+* Successful Response
 
-Status Code: 200
+* Status Code: 200
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
+    * Content-Type: application/json
+* Body:
+```json
 
 {
   "Answers": [
@@ -72,7 +73,7 @@ Body:
       "updatedAt": "2021-11-19 20:39:36" ,
       "answerVotes":12,
 
-      "Answer Comments": {
+      "Comments": {
         "id": 1,
         "answerId": "1",
         "body": "hello hello hello hello ",
@@ -81,36 +82,38 @@ Body:
     }
   ]
 }
+```
 
-# Create an Answer for a question based on the question Id
-Create and return a new answers/comments for a question specified by id.
+### Create an Answer for a question based on the question Id
+* Create and return a new answer for a question specified by id.
 
-Require Authentication: true
+* Require Authentication: true
 
-Request
+* Request
 
-Method: POST
+* Method: POST
 
-URL: /api/answers/:questionId/answers
+* URL: /api/answers/:questionId/answers
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+* Headers:
+    * Content-Type: application/json
+* Body:
+```json
 {
   "answers": "bla bla bla bla bla bla bla !",
   
 }
-Successful Response
+```
+* Successful Response
 
-Status Code: 201
+* Status Code: 201
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
+    * Content-Type: application/json
+* Body:
 
+```json
 {
   "id": 1,
   "answerId": 1,
@@ -119,15 +122,15 @@ Body:
   "createdAt": "2021-11-19 20:39:36",
   "updatedAt": "2021-11-19 20:39:36"
 }
-Error Response: Body validation errors
+```
+* Error Response: Body validation errors
 
-Status Code: 400
+* Status Code: 400
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+* Headers:
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "Validation error",
   "statusCode": 400,
@@ -135,49 +138,52 @@ Body:
     "body": "answer text is required",
   }
 }
-Error response: Couldn't find a Spot with the specified id
+```
+* Error response: Couldn't find a Spot with the specified id
 
-Status Code: 404
+* Status Code: 404
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "question couldn't be found",
   "statusCode": 404
 }
+```
 
-# Create a Comment for a question based on the question Id
-Create and return a new comment for a answer specified by id.
+### Create a Comment for an answer based on the answers Id
+* Create and return a new comment for an answer specified by id.
 
-Require Authentication: true
+* Require Authentication: true
 
-Request
+* Request
 
-Method: POST
+* Method: POST
 
-URL: /api/comments/:answerId/comments
+* URL: /api/comments/:answerId/comments
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "answers": "bla bla bla bla bla bla bla !",
   
 }
-Successful Response
+```
+* Successful Response
 
-Status Code: 201
+* Status Code: 201
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "id": 1,
   "answerId": 1,
@@ -186,15 +192,16 @@ Body:
   "createdAt": "2021-11-19 20:39:36",
   "updatedAt": "2021-11-19 20:39:36"
 }
-Error Response: Body validation errors
+```
+* Error Response: Body validation errors
 
-Status Code: 400
+* Status Code: 400
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "Validation error",
   "statusCode": 400,
@@ -202,69 +209,71 @@ Body:
     "body": "answer text is required",
   }
 }
-Error response: Couldn't find a Spot with the specified id
+```
+* Error response: Couldn't find a Spot with the specified id
 
-Status Code: 404
+* Status Code: 404
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "answer couldn't be found",
   "statusCode": 404
 }
+```
 
-# Edit an Answer
-Update and return an existing answer.
+### Edit an Answer
+* Update and return an existing answer.
 
-Require Authentication: true
+* Require Authentication: true
 
-Require proper authorization: Answers must belong to the current user
+* Require proper authorization: Answers must belong to the current user
 
-Request
+* Request
 
-Method: PUT
+* Method: PUT
 
-URL: /api/answers/:answerId
+* URL: /api/answers/:answerId
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
-  "body": "new comments here!",
+  "body": "new answers here!",
 }
+```
 
+* Successful Response
 
-Successful Response
+* Status Code: 200
 
-Status Code: 200
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
   "id": 1,
   "questionId": 1,
-  "answers": "This was an awesome spot!",
+  "answers": "new answers",
   "createdAt": "2021-11-19 20:39:36",
   "updatedAt": "2021-11-20 10:06:40"
 }
+```
+* Error Response: Body validation errors
 
-Error Response: Body validation errors
+* Status Code: 400
 
-Status Code: 400
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "Validation error",
   "statusCode": 400,
@@ -272,191 +281,200 @@ Body:
     "answers": "body text is required",
   }
 }
-Error response: Couldn't find a question with the specified id
+```
+* Error response: Couldn't find a question with the specified id
 
-Status Code: 404
+* Status Code: 404
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
-  "message": "question couldn't be found",
+  "message": "answer couldn't be found",
   "statusCode": 404
 }
+```
 
-# Edit a comment
-Update and return an existing comment.
+### Edit a comment
+* Update and return an existing comment.
 
-Require Authentication: true
+* Require Authentication: true
 
-Require proper authorization: Answers must belong to the current user
+* Require proper authorization: Comments must belong to the current user
 
-Request
+* Request
 
-Method: PUT
+* Method: PUT
 
-URL: /api/answers/:answerId/comments
+* URL: /api/comments/:commentId
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
   "body": "new comments here!",
 }
+```
 
+* Successful Response
 
-Successful Response
+* Status Code: 200
 
-Status Code: 200
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
   "id": 1,
   "questionId": 1,
-  "answers": "This was an awesome spot!",
+  "comments": "This was an awesome spot!",
   "createdAt": "2021-11-19 20:39:36",
   "updatedAt": "2021-11-20 10:06:40"
 }
+```
+* Error Response: Body validation errors
 
-Error Response: Body validation errors
+* Status Code: 400
 
-Status Code: 400
+* Headers:
 
-Headers:
+    * Content-Type: application/json
+* Body:
 
-Content-Type: application/json
-Body:
-
+```json
 {
   "message": "Validation error",
   "statusCode": 400,
   "errors": {
-    "answers": "body text is required",
+    "comments": "body text is required",
   }
 }
-Error response: Couldn't find an answer with the specified id
+```
+* Error response: Couldn't find an answer with the specified id
 
-Status Code: 404
+* Status Code: 404
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
-  "message": "answers couldn't be found",
+  "message": "comment couldn't be found",
   "statusCode": 404
 }
+``` 
+### Delete an Answer
+* Delete an existing answer
 
-# Delete an Answer
-Delete an existing answer
+* Require Authentication: true
 
-Require Authentication: true
+* Require proper authorization: Answers must belong to the current user
 
-Require proper authorization: Answers must belong to the current user
+* Request
 
-Request
+* Method: DELETE
+* URL: /api/answers/:answerId
+* Body: none
 
-Method: DELETE
-URL: /api/answers/:answerId
-Body: none
+* Successful Response
 
-Successful Response
+* Status Code: 200
 
-Status Code: 200
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "Successfully deleted",
   "statusCode": 200
 }
-Error response: Couldn't find an answers with the specified id
+```
+* Error response: Couldn't find the answer with the specified id
 
-Status Code: 404
+* Status Code: 404
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
-  "message": "Answers couldn't be found",
+  "message": "Answer couldn't be found",
   "statusCode": 404
 }
+```
 
-# Delete a Comment
-Delete an existing comment
 
-Require Authentication: true
+### Delete a Comment
+* Delete an existing comment
 
-Require proper authorization: comment must belong to the current user
+* Require Authentication: true
 
-Request
+* Require proper authorization: comment must belong to the current user
 
-Method: DELETE
-URL: /api/comments/:commentId
-Body: none
+* Request
 
-Successful Response
+* Method: DELETE
+* URL: /api/comments/:commentId
+* Body: none
 
-Status Code: 200
+* Successful Response
 
-Headers:
+* Status Code: 200
 
-Content-Type: application/json
-Body:
+* Headers:
 
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "Successfully deleted",
   "statusCode": 200
 }
-Error response: Couldn't find an answers with the specified id
+```
 
-Status Code: 404
+* Error response: Couldn't find an answers with the specified id
 
-Headers:
+* Status Code: 404
 
-Content-Type: application/json
-Body:
+* Headers:
 
+    * Content-Type: application/json
+* Body:
+```json
 {
   "message": "Answers couldn't be found",
   "statusCode": 404
 }
+```
 
+## Logged out-users
+### Get all Answers and Comments based on question Id
+* Returns all the answers/comments written by the question Id
 
-# Logged out-users
-## Get all Answers and Comments based on question Id
-Returns all the answers/comments written by the question Id
+* Require Authentication: false
 
-Require Authentication: false
+* Request
 
-Request
+* Method: GET
+* URL: /api/answers/:questionId
+* Body: none
+* Successful Response
 
-Method: GET
-URL: /api/answers/questionId
-Body: none
-Successful Response
+* Status Code: 200
 
-Status Code: 200
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json 
 {
   "Answers": [
     {
@@ -467,7 +485,7 @@ Body:
       "updatedAt": "2021-11-19 20:39:36" ,
       "answerVotes":12,
 
-      "Answer Comments": {
+      "Comments": {
         "id": 1,
         "answerId": "1",
         "body": "hello hello hello hello ",
@@ -477,26 +495,26 @@ Body:
   ]
 }
 
+```
+### Get an Answer based Answer Id
+* Returns all the Answer based on the Answer Id
 
-## Get an Answer based Answer Id
-Returns all the Answer based on the Answer Id
+* Require Authentication: false
 
-Require Authentication: false
+* Request
 
-Request
+* Method: GET
+* URL: /api/answers/answerId
+* Body: none
+* Successful Response
 
-Method: GET
-URL: /api/answers/answerId
-Body: none
-Successful Response
+* Status Code: 200
 
-Status Code: 200
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+  * Content-Type: application/json
+* Body:
+```json
 {
   "Answers": [
     {
@@ -509,26 +527,26 @@ Body:
     }
   ]
 }
+```
+### Get a Comment based Comment Id
+* Returns the comment based on the Comment Id
 
-## Get a Comment based Comment Id
-Returns the comment based on the Comment Id
+* Require Authentication: false
 
-Require Authentication: false
+* Request
 
-Request
+* Method: GET
+* URL: /api/comments/:commentId
+* Body: none
+* Successful Response
 
-Method: GET
-URL: /api/comments/:commentId
-Body: none
-Successful Response
+* Status Code: 200
 
-Status Code: 200
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+```json
 {
   "Comment": [
     {
@@ -541,26 +559,26 @@ Body:
     }
   ]
 }
+```
+### Get all Answers and Comments based on userID
+* Returns all the answers/comments written based on the UserId
 
-## Get all Answers and Comments based on userID
-Returns all the answers/comments written based on the UserId
+* Require Authentication: false
 
-Require Authentication: false
+* Request
 
-Request
+* Method: GET
+* URL: /api/answers/userId 
+* Body: none
+* Successful Response
 
-Method: GET
-URL: /api/answers/userId 
-Body: none
-Successful Response
+* Status Code: 200
 
-Status Code: 200
+* Headers:
 
-Headers:
-
-Content-Type: application/json
-Body:
-
+    * Content-Type: application/json
+* Body:
+``` json
 {
   "Answers": [
     {
@@ -571,7 +589,7 @@ Body:
       "updatedAt": "2021-11-19 20:39:36" ,
       "answerVotes":12,
 
-      "Answer Comments": {
+      "Comments": {
         "id": 1,
         "answerId": "1",
         "body": "hello hello hello hello ",
@@ -580,3 +598,4 @@ Body:
     }
   ]
 }
+```
