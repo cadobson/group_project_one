@@ -42,26 +42,26 @@ Description of what the route does
 
 ## Search
 
-# Search for questions based on tag
+### Search for questions based on tag
 
-Returns all the question/answers/comments based on tags
-Require Authentication: False
+* Returns all the question/answers/comments based on tags
+* Require Authentication: False
 
-Request
+* Request
 
-Method: GET
-URL: /api/tags
-Body: none
-Successful Response
+* Method: GET
+* URL: /api/tags/:tags
+* Body: none
+* Successful Response
  
-Status Code: 200
+* Status Code: 200
 
-Headers:
+* Headers:
 
-Content-Type: application/json
-Body:
-
- ```{
+* Content-Type: application/json
+* Body:
+```json 
+  {
     "Questions": [
       {
         "id": 1,
@@ -72,18 +72,20 @@ Body:
         "createdAt": "2021-11-19 20:39:36",
         "updatedAt": "2021-11-19 20:39:36" ,
 
-        "Answer": {
+        "Answer": {[
           "firstName": "demo1",
           "lastName": "user1",
 
           "body": "hello hello hello hello ",
-        },
-        "Comments":{
-          "firstName": "demo2",
-          "lastName": "user2",
+          "Comments":{
+            "firstName": "demo2",
+            "lastName": "user2",
 
-          "body": "hey hey hey hey"
+            "body": "hey hey hey hey" 
+        }
+        ]
         }
       }
     ]
   }
+  ```
