@@ -192,7 +192,7 @@ SOURCE: https://helpcenter.veeam.com/docs/backup/em_rest/query_and_or.html?ver=1
 * Require Authentication: True
 * Request
   * Method: POST
-  * URL: /api/tags/:tagsId
+  * URL: /api/tags/:tagId
   * Body: 
     ```json
     {
