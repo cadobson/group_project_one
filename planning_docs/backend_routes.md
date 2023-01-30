@@ -1173,46 +1173,6 @@ Has the following effect: if the proposed tag does not exist in the Tags table, 
     }
     ```
 
-### Edit a tag for a question they made
-
-* Require Authentication: True
-* Request
-  * Method: POST
-  * URL: /api/tags/:tagId
-  * Body:
-    ```json
-    {
-      "tagName": "Chemistry",
-    }
-    ```
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-    ```json
-    {
-    "Tags":
-      {
-        "id": 11,
-        "tagName": "Chemistry",
-        "createdAt": "2021-11-19 20:39:36",
-        "updatedAt": "2021-11-19 20:39:36"
-      },
-    }
-    ```
-* Error response:
-  * Status Code: 404
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-    ```json
-    {
-      "message": "Tag does not exist",
-      "statusCode": 404,
-    }
-    ```
-
 ### Delete a tag for a question they made
 
 Has the effect of deleting the association between a question and a tag. The tag is deleted if it is the last question that has that particular tag.
