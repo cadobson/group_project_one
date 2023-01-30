@@ -149,9 +149,40 @@ Returns the details of a question specified by its id
     }
     ```
 
+### Get the title and body of a question
+
+Returns the title and body of a question without any of the child answers or comments
+
+* Require Authentication: false
+* Request
+  * Method: GET
+  * URL: /api/questions/:questionId/truncated
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "id": 1,
+      "Asker": {
+        "askerId": 1,
+        "askerName": "John Smith",
+        "askerProfileImg": "https://www.imgur.com/image.png"
+      },
+      "title": "Why does existence exist?",
+      "body": "To elaborate, why is there something rather than nothing?",
+      "createdAt": "2023-02-19 20:30:45",
+      "updatedAt": "2023-02-19 20:35:45",
+    }
+    ```
+
 ### Get all questions by a user by user id
 
-Description of what the route does
+Gets all of the questions that a particular user has asked.
 
 * Require Authentication: false
 * Request
