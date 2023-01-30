@@ -584,15 +584,16 @@ Delete a question that
   * Body:
     ```json
     {
-      "Comment":
-        {
-          "id": 1,
-          "answerId": 1,
-          "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates. ",
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36" ,
-        }
-
+      "id": 1,
+      "answerId": 1,
+      "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates.",
+      "Commenter": {
+        "commenterId": 2,
+        "commenterName": "Cohn Cmith",
+        "commenterProfileImg": "https://www.imgur.com/image.png"
+      },
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36",
     }
     ```
 
@@ -993,7 +994,7 @@ Returns a particular Answer based on the Answer Id
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/answers/answerId
+  * URL: /api/answers/:answerId
   * Body: none
 * Successful Response
   * Status Code: 200
@@ -1002,14 +1003,67 @@ Returns a particular Answer based on the Answer Id
   * Body:
     ```json
     {
-      "Answers":
+      "id": 1,
+      "questionId": 1,
+      "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates.",
+      "Answerer": {
+        "answererId": 2,
+        "answererName": "Bohn Bmith",
+        "answererProfileImg": "https://www.imgur.com/image.png"
+      },
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36",
+      "Comments": [
         {
           "id": 1,
-          "questionId": 1,
-          "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates. ",
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36" ,
+          "body": "This is a comment to the answer: human evolution, the process by which human beings developed on Earth from now-extinct primates.",
+          "Commenter": {
+            "commenterId": 2,
+            "commenterName": "Cohn Cmith",
+            "commenterProfileImg": "https://www.imgur.com/image.png"
+          },
         }
+      ]
+    }
+    ```
+* Error response: Couldn't find an answer with the specified id
+  * Status Code: 404
+  * Headers:
+      * Content-Type: application/json
+  * Body:
+    ``` json
+    {
+      "message": "Answer couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+### Get the Title and Body of an Answer based Answer Id
+
+Returns a particular Answer based on the Answer Id without any of the comments
+
+* Require Authentication: false
+* Request
+  * Method: GET
+  * URL: /api/answers/:answerId/truncated
+  * Body: none
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+    {
+      "id": 1,
+      "questionId": 1,
+      "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates.",
+      "Answerer": {
+        "answererId": 2,
+        "answererName": "Bohn Bmith",
+        "answererProfileImg": "https://www.imgur.com/image.png"
+      },
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36",
     }
     ```
 * Error response: Couldn't find an answer with the specified id
@@ -1030,7 +1084,7 @@ Returns a particular Answer based on the Answer Id
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/answers/userId
+  * URL: /api/answers/:userId
   * Body: none
 * Successful Response
   * Status Code: 200

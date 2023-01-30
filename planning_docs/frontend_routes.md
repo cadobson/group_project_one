@@ -80,3 +80,15 @@ An abbreviated version of the answer page. On this page, a user can view the req
 A search feature that allows users to find all of the questions that have a particular tag attached to them.
 
 * `GET /tags/:tagName`
+
+## `/users/:userId`
+
+A page to view all of the questions, answers, and comments by a particular user.
+
+TODO: Fill in the backend routes
+
+## `/users/current`
+
+A page to view all of the questions, answers, and comments by the current user.
+
+TODO: Fill in the backend routes
