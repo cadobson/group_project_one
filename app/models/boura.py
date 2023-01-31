@@ -26,7 +26,12 @@ class Question(db.Model):
 
     answers = db.relationship('Answer',
                               back_populates='questions',
+                 
                               cascade="all, delete-orphan"
+    )
+
+    askers = db.relationship('User',
+                            back_populates='questions'
     )
 
     def to_dict(self):
@@ -77,6 +82,10 @@ class Answer(db.Model):
                                       cascade="all, delete-orphan"
     )
 
+    answerers = db.relationship('User',
+                                back_populates='answers'
+    )
+
     def to_dict(self):
         return {
             "id":self.id,
@@ -96,12 +105,27 @@ class AnswerComment (db.Model):
     body = db.Column(db.String(10000), nullable = False)
 
     commenter_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    answer_id = db.Column(db.Integer, db.Foreignkey('answers.id'))
+    answer_id = db.Column(db.Integer, db.ForeignKey('answers.id'))
 
     answers = db.relationship('Answer',
                               back_populates='answer_comments'
     )
 
+    commenters = db.relationship('User',
+                                 back_populates='answer_comments'
+    )
+
+    def to_dict(self):
+        return {
+            "id":self.id,
+            "body": self.body,
+            "answerer_id":self.answerer_id,
+            "question_id": self.question_id,
+            "questions": self.questions,
+            "answer_comments": self.answer_comments
+
+
+        }
 
 
 

@@ -13,9 +13,23 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    firstName = db.Column(db.String(255), nullable=False)
-    lastName = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(255), nullable=False)
+    last_name = db.Column(db.String(255), nullable=False)
     profileimg = db.Column(db.String(255))
+
+    questions = db.relationship('Question',
+                                back_populates='users',
+                                cascade="all, delete-orphan"
+    )
+    answers = db.relationship('Answer',
+                                back_populates='users',
+                                cascade="all, delete-orphan"
+    )
+
+    answer_comments = db.relationship('AnswerComment',
+                                back_populates='users',
+                                cascade="all, delete-orphan"
+    )
 
     @property
     def password(self):
@@ -33,8 +47,8 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'firstName': self.firstName,
-            'lastName': self.lastName,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
             'profileimg':self.profileimg
             
         }
