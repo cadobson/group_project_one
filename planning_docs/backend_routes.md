@@ -628,7 +628,12 @@ Delete a question that
         {
           "id": 1,
           "questionId": 1,
-          "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates. ",
+          "body": "human evolution, the process by which human beings developed on Earth from now-extinct primates.",
+          "Answerer": {
+            "askerId": 1,
+            "askerName": "John Smith",
+            "askerProfileImg": "https://www.imgur.com/image.png"
+          },
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36" ,
         }
@@ -1093,6 +1098,11 @@ Returns a particular Answer based on the Answer Id without any of the comments
   * Body:
     ``` json
     {
+      "Commenter": {
+        "askerId": 1,
+        "askerName": "John Smith",
+        "askerProfileImg": "https://www.imgur.com/image.png"
+      },
       "Comments": [
         {
         "id": 1,
