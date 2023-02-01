@@ -22,9 +22,9 @@ def seed():
         db.session.commit()
     seed_users()
     # Add other seed functions here
+    seed_tags()
     seed_questions()
     seed_answers()
-    seed_tags()
     seed_answer_comments()
 
 
