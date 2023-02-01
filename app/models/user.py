@@ -18,16 +18,16 @@ class User(db.Model, UserMixin):
     profileimg = db.Column(db.String(255))
 
     questions = db.relationship('Question',
-                                back_populates='users',
+                                back_populates='askers',
                                 cascade="all, delete-orphan"
     )
     answers = db.relationship('Answer',
-                                back_populates='users',
+                                back_populates='answerers',
                                 cascade="all, delete-orphan"
     )
 
     answer_comments = db.relationship('AnswerComment',
-                                back_populates='users',
+                                back_populates='commenters',
                                 cascade="all, delete-orphan"
     )
 
