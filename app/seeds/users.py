@@ -6,7 +6,7 @@ def seed_users():
     demo = User(
         username='Demo', 
         email='demo@aa.io',
-        hashed_password='password',
+        password='password',
         first_name='Emma',
         last_name='Wang',
         profileimg='imgur.com' 
@@ -14,7 +14,7 @@ def seed_users():
     marnie = User(
         username='marnie', 
         email='marnie@aa.io', 
-        hashed_password='password',
+        password='password',
         first_name='David',
         last_name='Smith',
         profileimg='imgur.com'
@@ -23,7 +23,7 @@ def seed_users():
     bobbie = User(
         username='bobbie', 
         email='bobbie@aa.io', 
-        hashed_password='password',
+        password='password',
         first_name='Sarah',
         last_name='Johnson',
         profileimg='imgur.com'
