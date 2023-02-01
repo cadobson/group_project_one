@@ -1,5 +1,6 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
+from . import seed_questions,seed_answers
 
 from app.models.db import db, environment, SCHEMA
 
@@ -18,6 +19,8 @@ def seed():
         db.session.commit()
     seed_users()
     # Add other seed functions here
+    seed_questions()
+    seed_answers()
 
 
 # Creates the `flask seed undo` command
