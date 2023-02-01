@@ -3,13 +3,14 @@ from .users import seed_users, undo_users
 from .answers import seed_answers
 from .questions import seed_questions
 from .tags import seed_tags, undo_tags
+from .answer_comments import seed_answer_comments, undo_answer_comments
+# from .answer_comments import seed_answer_comments, undo_answer_comments
 
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
 seed_commands = AppGroup('seed')
-
 
 # Creates the `flask seed all` command
 @seed_commands.command('all')
@@ -24,6 +25,7 @@ def seed():
     seed_questions()
     seed_answers()
     seed_tags()
+    seed_answer_comments()
 
 
 # Creates the `flask seed undo` command
@@ -31,4 +33,5 @@ def seed():
 def undo():
     undo_users()
     undo_tags()
+    undo_answer_comments()
     # Add other undo functions here
