@@ -35,13 +35,22 @@ class Question(db.Model):
     )
 
     def to_dict(self):
-        return {
-            "id" :self.id,
-            "title" : self.title,
-            "body" :self.body,
-            "askId": self.ask_id,
-            "askers":self.askers.to_dict()
-        }
+        if self.askers:
+            return {
+                "id" :self.id,
+                "title" : self.title,
+                "body" :self.body,
+                "askId": self.ask_id,
+                "askers":self.askers.to_dict()
+            }
+        else: 
+            return {
+                "id" :self.id,
+                "title" : self.title,
+                "body" :self.body,
+                "askId": self.ask_id,
+                "askers": None
+            }
 
     
 class Tag(db.Model):
