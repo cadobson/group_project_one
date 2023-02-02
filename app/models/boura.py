@@ -39,7 +39,8 @@ class Question(db.Model):
             "id" :self.id,
             "title" : self.title,
             "body" :self.body,
-            "askId": self.ask_id
+            "askId": self.ask_id,
+            "askers":self.askers.to_dict()
         }
 
     
