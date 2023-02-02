@@ -28,26 +28,35 @@ def get_simple_form():
 def post_simple_form():
     form = QuestionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
             
-        data = form.data
+            data = form.data
             
-        new_question = Question(
-            title = data['title'],
-            body = data['body'],
+
+            new_question = Question(
+                title = data['title'],
+                body = data['body'],
+                ask_id = current_user.id,
         )
         # data = request.json
         # new_question = Question(**data)
         # print(new_question)
-        db.session.add(new_question)
-        db.session.commit()
+            db.session.add(new_question)
+            db.session.commit()
 
 
-        result = {
-            "title":new_question.title,
-            "body":new_question.body,
-        }
+            result = {
+                "title":new_question.title,
+                "body":new_question.body,
+                "ask_id":new_question.ask_id,
+                "askers":current_user.to_dict()
+            }
 
-        return result
+            return result
     return {'errors': ['Unauthorized']}
+
+
+
+     
 
