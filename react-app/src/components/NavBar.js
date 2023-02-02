@@ -26,7 +26,7 @@ const NavBar = ({ loaded }) => {
   return (
     <nav className="navigation-holder">
 
-      <NavLink to='/' exact={true} activeClassName='active'>Home</NavLink>
+      <NavLink to='/' exact={true} activeClassName='active'><span id="home-logo">Boura</span></NavLink>
 
       <NavLink to='/users' exact={true} activeClassName='active'>
         Users

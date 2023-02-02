@@ -10,6 +10,8 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import Questions from './components/Questions';
 
+import "./overall-style.css"
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -28,7 +30,8 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar loaded={loaded} />
-      <Switch>
+      <div className='central-column'>
+        <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
@@ -42,10 +45,11 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
           <Questions />
         </Route>
       </Switch>
+      </div>
+
     </BrowserRouter>
   );
 }
