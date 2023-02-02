@@ -7,18 +7,18 @@
     <title>My Instrument</title>
 </head>
 <body>
-    <form method="post" action="/question_form">
+    <form method="post" action="/api/questions/question_form">
         {{ form.csrf_token }}
         <div>
             {{ form.title.label }}
-            {{ form.title() }}
+            {{ form.title }}
         </div>
         <div>
             {{ form.body.label }}
-            {{ form.body() }}
+            {{ form.body }}
         </div>
         <div>
-            {{ form.submit() }}
+            {{ form.submit }}
         </div>
     </form>
 </body>

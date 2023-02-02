@@ -1,6 +1,7 @@
 import flask
-from flask import Blueprint, render_template, jsonify, redirect
+from flask import Blueprint, render_template, jsonify, redirect, request
 from flask_login import login_required
+from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Question, db
 from sqlalchemy.orm import joinedload
 from app.forms import QuestionForm
@@ -18,25 +19,35 @@ def get_all_questions():
     return {"Questions": data}
 
 
-@question_routes.route('/question_form', methods = ['GET'])
+@question_routes.route('/question_form', methods=['GET'])
 def get_simple_form():
         simple_form = QuestionForm()
         return render_template('simple_form.html', form=simple_form)
 
-@question_routes.route('/question_form', methods = ['POST'])
+@question_routes.route('/question_form', methods=['POST'])
 def post_simple_form():
-        simple_form = QuestionForm()
-       
-        if simple_form.validate_on_submit():
-            data = simple_form.data
+    form = QuestionForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
             
-            new_question = QuestionForm(
-                title = data['title'],
-                body = data['body']
-            )
+        data = form.data
+            
+        new_question = Question(
+            title = data['title'],
+            body = data['body'],
+        )
+        # data = request.json
+        # new_question = Question(**data)
+        # print(new_question)
+        db.session.add(new_question)
+        db.session.commit()
 
-            db.session.add(new_question)
-            db.session.commit()
-            return redirect("/api/questions")
-        return 'Bad Data'
+
+        result = {
+            "title":new_question.title,
+            "body":new_question.body,
+        }
+
+        return result
+    return {'errors': ['Unauthorized']}
 
