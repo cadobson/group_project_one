@@ -95,8 +95,6 @@ class Answer(db.Model):
             "question_id": self.question_id,
             "questions": self.questions,
             "answer_comments": self.answer_comments
-
-
         }
 
 class AnswerComment (db.Model):
