@@ -15,3 +15,4 @@ def get_all_questions():
     data = [question.to_dict() for question in questions ]
 
     return {"Questions":data}
+
