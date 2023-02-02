@@ -52,3 +52,12 @@ class User(db.Model, UserMixin):
             'profileimg':self.profileimg
             
         }
+
+    def to_dict_public(self):
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'profileimg':self.profileimg
+            
+        }
