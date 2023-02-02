@@ -17,7 +17,7 @@ export const loadQuestionsFromBackend = () => async dispatch => {
 const questionsReducer = (state = {}, action) => {
   switch (action.type) {
     case (SET_QUESTIONS): {
-      return action.questions
+      return action.questions.Questions
     }
     default: {
       return state
