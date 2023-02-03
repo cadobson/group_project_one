@@ -16,3 +16,37 @@
   background-color: #ccc;
   margin: 10px 0;
 }
+
+form {
+  width: 300px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type=text], input[type=password], textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #B92B27;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.logout-button {
+  width: max-content;
+}
+
+button:hover {
+  background-color: #CC6966;
+}

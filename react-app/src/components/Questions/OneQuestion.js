@@ -2,7 +2,13 @@ import "./Questions.css"
 
 const OneQuestion = ({question}) => {
   let {title, body, askers} = question
-  let name = askers.first_name + " " + askers.last_name
+  let name
+  if (askers) {
+    name = askers.first_name + " " + askers.last_name
+  }
+  else {
+    name = "No name provided"
+  }
 
   return (
     <>
