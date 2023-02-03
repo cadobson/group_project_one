@@ -25,35 +25,32 @@ def get_simple_form():
         simple_form = QuestionForm()
         return render_template('simple_form.html', form=simple_form)
 
-@question_routes.route('/question_form', methods=['POST'])
+@question_routes.route('/', methods=['POST'])
 def post_simple_form():
-    form = QuestionForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.is_authenticated:
-        if form.validate_on_submit():
             
-            data = json.loads(request.data)
+        data = json.loads(request.data)
             
-            new_question = Question(
-                title = data['title'],
-                body = data['body'],
-                ask_id = current_user.id,
+        new_question = Question(
+            title = data['title'],
+            body = data['body'],
+            ask_id = current_user.id,
         )
         # data = request.json
         # new_question = Question(**data)
         # print(new_question)
-            db.session.add(new_question)
-            db.session.commit()
+        db.session.add(new_question)
+        db.session.commit()
 
 
-            result = {
-                "title":new_question.title,
-                "body":new_question.body,
-                "ask_id":new_question.ask_id,
-                "askers":current_user.to_dict()
-            }
+        result = {
+            "title":new_question.title,
+            "body":new_question.body,
+            "ask_id":new_question.ask_id,
+            "askers":current_user.to_dict()
+        }
 
-            return result
+        return result
     return {'errors': ['Unauthorized']}
 
 
