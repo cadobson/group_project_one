@@ -18,9 +18,10 @@ const deleteQuestion = () => ({
 })
 
 export const loadQuestionFromBackend = (questionId) => async dispatch => {
-  const questionDataRes = await fetch(`api/questions/${questionId}`)
+  const questionDataRes = await fetch(`api/questions/${questionId}/`)
   if (questionDataRes.ok) {
     const questionData = await questionDataRes.json();
+
     dispatch(setQuestion(questionData))
   }
   return questionDataRes
@@ -31,7 +32,7 @@ export const sendQuestionCreationRequest = (questionToCreate) => async dispatch 
     method: "POST",
     body: JSON.stringify(questionToCreate)
   }
-  const createQuestionRes = await fetch(`/api/questions`, reqObj)
+  const createQuestionRes = await fetch(`/api/questions/`, reqObj)
   if (createQuestionRes.ok) {
     const newQuestionData = await createQuestionRes.json();
     dispatch(setQuestion(newQuestionData))
@@ -44,7 +45,7 @@ export const sendQuestionEditRequest = (questionToEdit, questionId) => async dis
     method: "POST",
     body: JSON.stringify(questionToEdit)
   }
-  const editQuestionRes = await fetch(`/api/questions/${questionId}`, reqObj)
+  const editQuestionRes = await fetch(`/api/questions/${questionId}/`, reqObj)
   if (editQuestionRes.ok) {
     const updatedQuestionData = await editQuestionRes.json();
     dispatch(setQuestion(updatedQuestionData))
@@ -56,7 +57,7 @@ export const sendQuestionDeleteRequest = (questionId) => async dispatch => {
   const reqObj = {
     method: "DELETE"
   }
-  const deleteQuestionRes = await fetch(`/api/questions/${questionId}`, reqObj)
+  const deleteQuestionRes = await fetch(`/api/questions/${questionId}/`, reqObj)
   if (deleteQuestionRes.ok) {
     dispatch(deleteQuestion())
     dispatch(loadQuestionsFromBackend)
@@ -67,7 +68,7 @@ export const sendQuestionDeleteRequest = (questionId) => async dispatch => {
 const questionReducer = (state = {}, action) => {
   switch (action.type) {
     case (SET_QUESTION): {
-      return action.question.Question
+      return {...action.question}
     }
     case (DELETE_QUESTION): {
       return {}

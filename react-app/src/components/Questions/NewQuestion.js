@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
+import { sendQuestionCreationRequest } from "../../store/question"
 
 
 const NewQuestion = () => {
   const [title, setTitle] = useState("What do you want to ask?")
   const [body, setBody] = useState("")
   const [showBody, setShowBody] = useState(false)
+  const [localErrors, setLocalErrors] = useState([])
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -14,7 +16,19 @@ const NewQuestion = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    alert("You clicked submit.")
+    const newLocalErrors = []
+    if (!title.length || !showBody) newLocalErrors.push("You can't ask a question if there isn't any text!")
+    if (newLocalErrors.length) {
+      setLocalErrors(newLocalErrors)
+      return
+    }
+    const newQuestionData = {title, body}
+    dispatch(sendQuestionCreationRequest(newQuestionData))
+      .then((data) => {console.log("SUCCESS:", data)})//TODO: replace with history.push(`/questions/${data.id}`)
+      .catch(async (res) => {//TODO: Implement error storage and display
+        console.log("ERRORS:")
+        console.log(res)
+      })
   }
 
   const handleFocus = (e) => {
@@ -37,6 +51,7 @@ const NewQuestion = () => {
       <div className="card-for-new-question">
         New Question
         <form onSubmit={handleSubmit}>
+          {localErrors.map((error, index) => <li key={index}>{error}</li>)}
           <label>
             Title:
             <input
@@ -47,6 +62,7 @@ const NewQuestion = () => {
               />
           </label>
           {showBody && bodyForm}
+
           <label>
             <input type="submit" value="Post" />
           </label>
