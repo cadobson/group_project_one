@@ -44,49 +44,31 @@ def post_simple_form():
         return result
     return {'errors': ['Unauthorized']}
 
-# localhost:5000/api/questions/{{questionId}}
-@question_routes.route('/<questionId>', methods=['PUT'])
-def edit_question(questionId):
-    
-    # Endpoint for updating a guide
-    
-    # @app.route("/guide/<id>", methods=["PUT"])
-    # def guide_update(id):
-    #     guide = Guide.query.get(id)
-    #     title = request.json['title']
-    #     content = request.json['content']
 
-    #     guide.title = title
-    #     guide.content = content
+@question_routes.route('/<int:id>', methods=['PUT'])
+def edit_question(id):
 
-    #     db.session.commit()
-    #     return guide_schema.jsonify(guide)
-    
-    # question = Question.query.get(questionId)
-    # print(type(question), "<------------------ what question looks like")
-
-    
     if current_user.is_authenticated:
             
-        data = json.loads(request.data)
+        data = request.json
         
-        question = Question.query.get(questionId)
-        
-        if not question: 
-            return {'errors': ['Question ID does not exist']}
-    
-        question.title = data['title'],
-        question.body = data['body'],
+        question=Question.query.get_or_404(id)
 
-        # db.session.add(question)
+     
+        # if not question: 
+        #     return {'errors': ['Question ID does not exist']}
+        
+        question.title = data['title']
+        question.body = data['body']
+
+
         db.session.commit()
 
-        # result = {
-        #     "title": question.title,
-        #     "body": question.body,
-        #     "ask_id": question.ask_id,
-        #     "askers":current_user.to_dict()
-        # }
+        result = {
+            "title": question.title,
+            "body": question.body,
 
-        #return result
+        }
+
+        return result
     return {'errors': ['Unauthorized']}
