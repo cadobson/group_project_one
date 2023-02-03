@@ -43,6 +43,10 @@ button {
   width: 100%;
 }
 
+.logout-button {
+  width: max-content;
+}
+
 button:hover {
   background-color: #CC6966;
 }
