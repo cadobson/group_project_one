@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User
+from app.models import User, Question
+from sqlalchemy.orm import joinedload
 
 user_routes = Blueprint('users', __name__)
 
@@ -23,3 +24,13 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+# Get all questions by a user by userId
+@user_routes.route('/<int:id>/questions', methods=['GET'])
+def get_question_by_id(id):
+
+    questions = Question.query.options(joinedload(Question.askers)).filter(Question.id == id)
+
+    data = [question.to_dict() for question in questions ]
+
+    return {"Questions": data}

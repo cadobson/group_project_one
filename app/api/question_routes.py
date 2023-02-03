@@ -44,7 +44,7 @@ def post_simple_form():
         return result
     return {'errors': ['Unauthorized']}
 
-### Edit a question specified by its id
+
 @question_routes.route('/<int:id>', methods=['PUT'])
 def edit_question(id):
 
@@ -54,6 +54,9 @@ def edit_question(id):
         
         question=Question.query.get_or_404(id)
 
+     
+        # if not question: 
+        #     return {'errors': ['Question ID does not exist']}
         
         question.title = data['title']
         question.body = data['body']
@@ -69,19 +72,4 @@ def edit_question(id):
 
         return result
     return {'errors': ['Unauthorized']}
-
-
-## Delete a question
-
-@question_routes.route('/<int:id>', methods=['DELETE'])
-def delete_question(id):
-    question = Question.query.get_or_404(id)
-    try:
-        db.session.delete(question)
-        db.session.commit()
-        return "Successfully"
-    except:
-        return 'This comment does not hit database'
-
-
 
