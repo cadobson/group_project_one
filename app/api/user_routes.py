@@ -29,8 +29,15 @@ def user(id):
 @user_routes.route('/<int:id>/questions', methods=['GET'])
 def get_question_by_id(id):
 
+    # auth not required; check to see if any user exists with sepcified id
+    users = User.query.all()
+    user_ids = [user.to_dict_public()['id'] for user in users]
+    if id not in user_ids:
+        return { "message": "User could not be found", "statusCode": 404}
+
     questions = Question.query.options(joinedload(Question.askers)).filter(Question.ask_id == id)
 
     data = [question.to_dict() for question in questions ]
 
     return {"Questions": data}
+
