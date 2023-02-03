@@ -5,6 +5,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Question, db
 from sqlalchemy.orm import joinedload
 from app.forms import QuestionForm
+import json
 
 question_routes = Blueprint('question_routes', __name__)
 
@@ -31,9 +32,8 @@ def post_simple_form():
     if current_user.is_authenticated:
         if form.validate_on_submit():
             
-            data = form.data
+            data = json.loads(request.data)
             
-
             new_question = Question(
                 title = data['title'],
                 body = data['body'],
