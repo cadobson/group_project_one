@@ -29,7 +29,7 @@ def user(id):
 @user_routes.route('/<int:id>/questions', methods=['GET'])
 def get_question_by_id(id):
 
-    questions = Question.query.options(joinedload(Question.askers)).filter(Question.id == id)
+    questions = Question.query.options(joinedload(Question.askers)).filter(Question.ask_id == id)
 
     data = [question.to_dict() for question in questions ]
 
