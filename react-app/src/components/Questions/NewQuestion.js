@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom"
 const NewQuestion = () => {
   const [title, setTitle] = useState("What do you want to ask?")
   const [body, setBody] = useState("")
+  const [showBody, setShowBody] = useState(false)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -15,6 +16,21 @@ const NewQuestion = () => {
 
     alert("You clicked submit.")
   }
+
+  const handleFocus = (e) => {
+    setTitle("")
+    setShowBody(true)
+  }
+
+  const bodyForm = (
+    <label>
+      Optional body:
+      <textarea
+        value={body}
+        onChange={e => setBody(e.target.value)}
+      />
+    </label>
+  )
 
   return (
     <>
@@ -27,9 +43,10 @@ const NewQuestion = () => {
               type="text"
               value={title}
               onChange={e => setTitle(e.target.value)}
-              onFocus={e => setTitle("")}>
-            </input>
+              onFocus={handleFocus}
+              />
           </label>
+          {showBody && bodyForm}
           <label>
             <input type="submit" value="Post" />
           </label>
