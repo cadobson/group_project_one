@@ -16,10 +16,6 @@ const Questions = () => {
     .then(() => {setIsLoaded(true)})
   }, [dispatch])
 
-  const dummy = {
-    title: "dummy title",
-    body: "dummy body"
-  }
   return (
     <div className="all-questions">
       <NewQuestion />

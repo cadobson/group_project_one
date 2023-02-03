@@ -1,3 +1,8 @@
+/**
+ * Reducer, actions, and thunks for getting all questions for the homepage
+ * For individual question get/post/put/delete, see question.js
+ */
+
 const SET_QUESTIONS = "questions/SET_QUESTIONS"
 
 const setQuestions = (questions) => ({
