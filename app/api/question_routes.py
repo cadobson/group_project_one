@@ -19,12 +19,6 @@ def get_all_questions():
 
     return {"Questions": data}
 
-
-@question_routes.route('/question_form', methods=['GET'])
-def get_simple_form():
-        simple_form = QuestionForm()
-        return render_template('simple_form.html', form=simple_form)
-
 @question_routes.route('/', methods=['POST'])
 def post_simple_form():
     if current_user.is_authenticated:
@@ -36,12 +30,9 @@ def post_simple_form():
             body = data['body'],
             ask_id = current_user.id,
         )
-        # data = request.json
-        # new_question = Question(**data)
-        # print(new_question)
+
         db.session.add(new_question)
         db.session.commit()
-
 
         result = {
             "title":new_question.title,
@@ -53,7 +44,49 @@ def post_simple_form():
         return result
     return {'errors': ['Unauthorized']}
 
+# localhost:5000/api/questions/{{questionId}}
+@question_routes.route('/<questionId>', methods=['PUT'])
+def edit_question(questionId):
+    
+    # Endpoint for updating a guide
+    
+    # @app.route("/guide/<id>", methods=["PUT"])
+    # def guide_update(id):
+    #     guide = Guide.query.get(id)
+    #     title = request.json['title']
+    #     content = request.json['content']
 
+    #     guide.title = title
+    #     guide.content = content
 
-     
+    #     db.session.commit()
+    #     return guide_schema.jsonify(guide)
+    
+    # question = Question.query.get(questionId)
+    # print(type(question), "<------------------ what question looks like")
 
+    
+    if current_user.is_authenticated:
+            
+        data = json.loads(request.data)
+        
+        question = Question.query.get(questionId)
+        
+        if not question: 
+            return {'errors': ['Question ID does not exist']}
+    
+        question.title = data['title'],
+        question.body = data['body'],
+
+        # db.session.add(question)
+        db.session.commit()
+
+        # result = {
+        #     "title": question.title,
+        #     "body": question.body,
+        #     "ask_id": question.ask_id,
+        #     "askers":current_user.to_dict()
+        # }
+
+        #return result
+    return {'errors': ['Unauthorized']}
