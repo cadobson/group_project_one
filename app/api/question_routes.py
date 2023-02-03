@@ -77,10 +77,19 @@ def edit_question(id):
 
 @question_routes.route('/<int:id>', methods=['DELETE'])
 def delete_question(id):
-    question = Question.query.get_or_404(id)
-    try:
+    
+    question = Question.query.get(id)
+    if not question:
+        return {"message": "Question could not be found", "statusCode": 404}
+    
+    # values must match to make sure user owns question
+    askerId = int(question.to_dict()['askId'])
+    userId = int(current_user.get_id())
+    
+    if askerId != userId:
+        return {"message": "User does not own question", "statusCode": 404}
+    
+    if current_user.is_authenticated and askerId == userId:
         db.session.delete(question)
         db.session.commit()
-        return "Successfully"
-    except:
-        return 'This comment does not hit database'
+        return { "message": "Successfully deleted", "statusCode": 200 }
