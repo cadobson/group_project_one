@@ -93,8 +93,8 @@ class Answer(db.Model):
             "body": self.body,
             "answerer_id":self.answerer_id,
             "question_id": self.question_id,
-            "questions": self.questions,
-            "answer_comments": self.answer_comments
+            "questions": self.questions.to_dict(),
+            # "answer_comments":self.answer_comments.to_dict()
         }
 
 class AnswerComment (db.Model):
@@ -118,11 +118,8 @@ class AnswerComment (db.Model):
         return {
             "id":self.id,
             "body": self.body,
-            "answerer_id":self.answerer_id,
-            "question_id": self.question_id,
-            "questions": self.questions,
-            "answer_comments": self.answer_comments
-
+            "commenter_id":self.commenter_id,
+            "answer_id":self.answer_id
 
         }
 
