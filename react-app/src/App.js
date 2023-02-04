@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import Questions from './components/Questions';
 
 import "./overall-style.css"
+import Question from './components/Question';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -30,26 +31,28 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar loaded={loaded} />
-      <div className='central-column'>
-        <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <Questions />
-        </Route>
-      </Switch>
+        <div className='central-column'>
+          <Switch>
+            <Route path='/questions/:id' exact={true}>
+              <Question />
+            </Route>
+            <Route path='/login' exact={true}>
+              <LoginForm />
+            </Route>
+            <Route path='/sign-up' exact={true}>
+              <SignUpForm />
+            </Route>
+            <ProtectedRoute path='/users' exact={true} >
+              <UsersList/>
+            </ProtectedRoute>
+            <ProtectedRoute path='/users/:userId' exact={true} >
+              <User />
+            </ProtectedRoute>
+            <Route path='/' exact={true} >
+              <Questions />
+          </Route>
+        </Switch>
       </div>
-
     </BrowserRouter>
   );
 }
