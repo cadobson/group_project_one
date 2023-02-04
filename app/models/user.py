@@ -22,13 +22,13 @@ class User(db.Model, UserMixin):
                                 cascade="all, delete-orphan"
     )
     answers = db.relationship('Answer',
-                                back_populates='answerers',
-                                cascade="all, delete-orphan"
+                             back_populates='answerers',
+                             cascade="all,delete-orphan" 
     )
 
     answer_comments = db.relationship('AnswerComment',
-                                back_populates='commenters',
-                                cascade="all, delete-orphan"
+                                     back_populates='commenters',
+                                     cascade="all, delete-orphan"
     )
 
     @property
@@ -51,6 +51,7 @@ class User(db.Model, UserMixin):
             'last_name': self.last_name,
             'profileimg':self.profileimg
             
+            
         }
 
     def to_dict_public(self):
@@ -59,5 +60,19 @@ class User(db.Model, UserMixin):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'profileimg':self.profileimg
+            
+        }
+    def to_dict_a(self):
+        return {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'answers':[answer.body for answer in self.answers]
+            
+        }
+    def to_dict_c(self):
+        return {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'comments':[comment.body for comment in self.answer_comments]
             
         }

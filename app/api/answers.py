@@ -142,7 +142,21 @@ def get_all_answers_user(id):
 
     answers = User.query.options(joinedload(User.answers)).filter(User.id == id).all()
 
-    result = [answer.answers for answer in answers]
-    print(result, " check what is inside of this result")
-    return result
+    result = [answer.to_dict_a() for answer in answers]
+
+    return {'Answers': result}
+
+
+### Get an Answer based Answer Id
+
+@answer_routes.route('/<int:id>', methods=['GET'])
+def get_answer_by_id(id):
+    answer = Answer.query.get(id)
+    if not answer:
+        return  {
+                "message": "Answer couldn't be found",
+                "statusCode": 404
+            }
+
+    return answer.to_dict()
 
