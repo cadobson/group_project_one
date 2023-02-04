@@ -3,6 +3,7 @@ from app.models import Answer, User, AnswerComment, Question,db
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from .question_routes import question_routes
+from .user_routes import user_routes
 answer_routes = Blueprint('answer_routes',__name__)
 
 
@@ -106,3 +107,42 @@ def edit_answer(id):
 
         return result
     return {'errors': ['Unauthorized']} 
+
+
+### Delete an Answer
+@answer_routes.route('/<int:id>', methods=['DELETE'])
+def delete_answer(id):
+    if current_user.is_authenticated:
+        answer = Answer.query.get(id)
+        if not answer:
+            return {
+                "message": "Answer couldn't be found",
+                "statusCode": 404
+            }
+        try:
+            db.session.delete(answer)
+            db.session.commit()
+            return "Successfully"
+        except:
+            return 'This Answer does not hit database'
+    
+    return {'errors': ['Unauthorized']} 
+
+### Get all Answers belonging to a user based on userID
+@user_routes.route('/<int:id>/answers', methods=['GET'])
+def get_all_answers_user(id):
+
+    user = User.query.get(id)
+
+    if not user:
+        return {
+            "message": "user doesn't exist",
+            "statusCode": 404
+        }
+
+    answers = User.query.options(joinedload(User.answers)).filter(User.id == id).all()
+
+    result = [answer.answers for answer in answers]
+    print(result, " check what is inside of this result")
+    return result
+

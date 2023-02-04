@@ -97,10 +97,18 @@ def edit_comment(id):
 
 @comment_routes.route('/<int:id>', methods=['DELETE'])
 def delete_comment(id):
-    comment = AnswerComment.query.get_or_404(id)
-    try:
-        db.session.delete(comment)
-        db.session.commit()
-        return "Successfully"
-    except:
-        return 'This comment does not hit database'
+    if current_user.is_authenticated:
+        comment = AnswerComment.query.get(id)
+        if not comment:
+            return {
+                "message": "Comment couldn't be found",
+                "statusCode": 404
+            }
+        try:
+            db.session.delete(comment)
+            db.session.commit()
+            return "Successfully"
+        except:
+            return 'This comment does not hit database'
+    
+    return {'errors': ['Unauthorized']} 
