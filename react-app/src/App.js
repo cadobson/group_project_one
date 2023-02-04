@@ -12,6 +12,7 @@ import Questions from './components/Questions';
 
 import "./overall-style.css"
 import Question from './components/Question';
+import Answer from './components/Answer/Answer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -35,6 +36,9 @@ function App() {
           <Switch>
             <Route path='/questions/:id' exact={true}>
               <Question />
+            </Route>
+            <Route path='/answers/:id' exact={true}>
+              <Answer />
             </Route>
             <Route path='/login' exact={true}>
               <LoginForm />

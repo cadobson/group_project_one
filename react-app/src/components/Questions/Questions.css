@@ -4,7 +4,7 @@
   width: 600px;
 }
 
-.card-for-one-question, .card-for-new-question, .question-top-of-page {
+.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-holder {
   border: 1px solid rgb(222, 224, 225);;
 
   padding: 10px;
@@ -14,8 +14,6 @@
 .question-card-title {
   font-size: 15px;
 }
-
-
 
 .border-bar {
   height: 1px;
