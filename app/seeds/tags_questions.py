@@ -1,29 +1,33 @@
-from app.models import db, Tag, environment, SCHEMA
+from app.models import db, TagQuestion, environment, SCHEMA
 
 # Adds a demo user, you can add other users here if you want
-def seed_tags():
-    tag1 = Tag(
-        tagName="Physics"
+def seed_tags_questions():
+    tag_question_4_1 = TagQuestion(
+        tag_id = 4,
+        question_id=1,
         )        
-    tag2 = Tag(
-        tagName="Chemistry"
+    tag_question_5_1 = TagQuestion(
+        tag_id=5,
+        question_id=1,
         )
-    tag3 = Tag(
-        tagName="Shakespeare"
+    tag_question_4_2 = TagQuestion(
+        tag_id=4,
+        question_id=2,        
         )
-    tag4 = Tag(
-        tagName="Health"
+    tag_question_4_3 = TagQuestion(
+        tag_id=4,
+        question_id=3,
         )
-    tag5 = Tag(
-        tagName="Fitness"
+    tag_question_5_3 = TagQuestion(
+        tag_id=5,
+        question_id=3,
         )
-
-
-    db.session.add(tag1)
-    db.session.add(tag2)
-    db.session.add(tag3)
-    db.session.add(tag4)
-    db.session.add(tag5)
+        
+    db.session.add(tag_question_4_1)
+    db.session.add(tag_question_5_1)
+    db.session.add(tag_question_4_2)
+    db.session.add(tag_question_4_3)
+    db.session.add(tag_question_5_3)
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
@@ -32,10 +36,10 @@ def seed_tags():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_tags():
+def undo_tags_questions():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM tags")
+        db.session.execute("DELETE FROM tags_questions")
         
     db.session.commit()

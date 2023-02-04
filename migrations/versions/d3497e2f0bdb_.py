@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3dedd11e0736
+Revision ID: d3497e2f0bdb
 Revises: 
-Create Date: 2023-02-02 23:53:02.602161
+Create Date: 2023-02-04 14:57:11.823913
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3dedd11e0736'
+revision = 'd3497e2f0bdb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,11 +54,12 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('tags_questions',
-    sa.Column('questions_id', sa.Integer(), nullable=False),
-    sa.Column('tags_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['questions_id'], ['questions.id'], ),
-    sa.ForeignKeyConstraint(['tags_id'], ['tags.id'], ),
-    sa.PrimaryKeyConstraint('questions_id', 'tags_id')
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('question_id', sa.Integer(), nullable=True),
+    sa.Column('tag_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['question_id'], ['questions.id'], ),
+    sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('answer_comments',
     sa.Column('id', sa.Integer(), nullable=False),

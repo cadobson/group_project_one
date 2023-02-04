@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .answers import seed_answers
 from .questions import seed_questions
 from .tags import seed_tags, undo_tags
+from .tags_questions import seed_tags_questions, undo_tags_questions
 from .answer_comments import seed_answer_comments, undo_answer_comments
 # from .answer_comments import seed_answer_comments, undo_answer_comments
 
@@ -24,6 +25,7 @@ def seed():
     # Add other seed functions here
     seed_tags()
     seed_questions()
+    seed_tags_questions()
     seed_answers()
     seed_answer_comments()
 
@@ -34,4 +36,5 @@ def undo():
     undo_users()
     undo_tags()
     undo_answer_comments()
+    undo_tags_questions()
     # Add other undo functions here
