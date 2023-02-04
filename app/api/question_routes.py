@@ -1,5 +1,3 @@
-
-
 import flask
 from flask import Blueprint, render_template, jsonify, redirect, request
 from flask_login import login_required
@@ -37,8 +35,8 @@ def post_simple_form():
         db.session.commit()
 
         result = {
-            "title":new_question.title,
-            "body":new_question.body,
+            "title": new_question.title,
+            "body": new_question.body,
             "ask_id":new_question.ask_id,
             "askers":current_user.to_dict()
         }
@@ -72,8 +70,45 @@ def edit_question(id):
         return result
     return {'errors': ['Unauthorized']}
 
+#   "Asker": {
+#     "askerId": 1,
+#     "askerName": "John Smith",
+#     "askerProfileImg": "https://www.imgur.com/image.png"
+#   },
 
-## Delete a question
+### Get a question by id without comments and answers 
+@question_routes.route('/<int:id>/truncated', methods=['GET'])
+def get_question_comm_ans(id):
+    question = Question.query.get(id)
+    question_dict = question.to_dict()
+
+    # abstract necessary information 
+    askers = question_dict['askers']
+    askerName = askers['first_name'] + ' ' + askers['last_name']
+    askerId = askers['id']
+    askerProfilImg = askers['profileimg']
+    askerObj = {
+        "askerId": askerId,
+        "askerName": askerName,
+        "askerProfilImg": askerProfilImg
+    }
+    
+    title = question_dict['title'] 
+    body = question_dict['body']
+     
+    finalObj = {
+        "id": id,
+        "Asker": askerObj,
+        "title": title,
+        "body": body,
+        "createdAt": "2023-02-19 20:30:45",
+        "updatedAt": "2023-02-19 20:35:45",
+        }
+
+
+    return finalObj
+
+## Delete a question (all routes) 
 
 @question_routes.route('/<int:id>', methods=['DELETE'])
 def delete_question(id):
