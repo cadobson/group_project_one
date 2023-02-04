@@ -128,7 +128,7 @@ Has the following effect: if the proposed tag does not exist in the Tags table, 
 
 * Require Authentication: True
 * Request
-  * Method: POST
+  * Method: PUT
   * URL: /api/tags/:tagId
   * Body:
     ```json
