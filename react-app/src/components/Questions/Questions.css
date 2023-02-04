@@ -1,15 +1,21 @@
-.all-questions {
+.all-questions, .thread-holder {
   display: flex;
   flex-direction: column;
   width: 600px;
 }
 
-.card-for-one-question, .card-for-new-question {
+.card-for-one-question, .card-for-new-question, .question-top-of-page {
   border: 1px solid black;
 
   padding: 10px;
   background-color: white;
 }
+
+.question-card-title {
+  font-size: 15px;
+}
+
+
 
 .border-bar {
   height: 1px;
@@ -32,7 +38,7 @@ input[type=text], input[type=password], textarea {
   border: 1px solid #ccc;
   box-sizing: border-box;
   border-radius: 25px;
-  background-color: #ddd;
+  background-color: #F1F2F2;
 }
 
 button {
