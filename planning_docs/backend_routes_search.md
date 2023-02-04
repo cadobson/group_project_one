@@ -50,7 +50,7 @@ Description of what the route does
 * Request
 
 * Method: GET
-* URL: /api/tags/:tagname
+* URL: /api/search
 * Body: none
 * Successful Response
  

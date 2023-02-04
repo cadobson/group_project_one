@@ -43,7 +43,19 @@ class Question(db.Model):
             "askers":self.askers.to_dict()
         }
 
-    
+    def search_result(self):
+        return {
+            "title" : self.title,
+            "body" : self.body,
+            "answers":[answer.body for answer in self.answers]
+        }
+
+
+
+
+
+
+
 class Tag(db.Model):
     __tablename__='tags'
 
@@ -94,8 +106,9 @@ class Answer(db.Model):
             "answerer_id":self.answerer_id,
             "question_id": self.question_id,
             "questions": self.questions.to_dict(),
-            # "answer_comments":self.answer_comments.to_dict()
         }
+    
+      
 
 class AnswerComment (db.Model):
     __tablename__='answer_comments'
