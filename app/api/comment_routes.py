@@ -134,3 +134,16 @@ def get_all_comments_by_userId(id):
     result = [comment.to_dict_c() for comment in comments]
 
     return {'Comments': result}
+
+
+### Get a Comment based Comment Id
+
+@comment_routes.route('/<int:id>',methods=['GET'])
+def comment_by_id(id):
+    comment = AnswerComment.query.get(id)
+    if not comment:
+        return  {
+                "message": "comment couldn't be found",
+                "statusCode": 404
+            }
+    return comment.to_dict()
