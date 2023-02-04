@@ -87,7 +87,7 @@ Description of what the route does
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/answers/userId
+  * URL: /api/users/:userId/answers
   * Body: none
 * Successful Response
   * Status Code: 200
@@ -284,7 +284,7 @@ Update and return an existing answer.
   * Require proper authorization: Answers must belong to the current user
 * Request
   * Method: PUT
-  * URL: /api/answers/:answerId
+  * URL: /api/answers/:answerId 
   * Headers:
       * Content-Type: application/json
   * Body:
@@ -503,7 +503,7 @@ Returns a particular Answer based on the Answer Id
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/answers/userId
+  * URL: /api/users/:userId/comments
   * Body: none
 * Successful Response
   * Status Code: 200
