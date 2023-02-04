@@ -3,6 +3,7 @@ from app.models import Answer, User, AnswerComment, db,Question
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from .answers import answer_routes
+from .user_routes import user_routes
 
 comment_routes = Blueprint('comment_routes',__name__)
 
@@ -112,3 +113,24 @@ def delete_comment(id):
             return 'This comment does not hit database'
     
     return {'errors': ['Unauthorized']} 
+
+
+
+### Get all Comments belonging to a user based on userID
+
+@user_routes.route('/<int:id>/comments', methods=['GET'])
+def get_all_comments_by_userId(id):
+
+    user = User.query.get(id)
+
+    if not user:
+        return {
+            "message": "user doesn't exist",
+            "statusCode": 404
+        }
+
+    comments = User.query.options(joinedload(User.answer_comments)).filter(User.id == id).all()
+
+    result = [comment.to_dict_c() for comment in comments]
+
+    return {'Comments': result}

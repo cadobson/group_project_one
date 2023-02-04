@@ -142,7 +142,9 @@ def get_all_answers_user(id):
 
     answers = User.query.options(joinedload(User.answers)).filter(User.id == id).all()
 
-    result = [answer.answers for answer in answers]
-    print(result, " check what is inside of this result")
-    return result
+    result = [answer.to_dict_a() for answer in answers]
+    # print({}, "This is result")
+    return {'Answers': result}
+
+
 
