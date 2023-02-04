@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom"
 import "./Questions.css"
 
 const OneQuestion = ({question}) => {
-  let {title, body, askers} = question
+  let {title, body, askers, id} = question
   let name
   if (askers) {
     name = askers.first_name + " " + askers.last_name
@@ -17,7 +18,10 @@ const OneQuestion = ({question}) => {
           {name}
         </div>
         <div className="question-card-title-holder">
-          <h2 className="question-card-title">{title}</h2>
+          <Link to={`questions/${id}`}>
+            <h2 className="question-card-title">{title}</h2>
+          </Link>
+
         </div>
         <div className="question-card-body">
           {body}
