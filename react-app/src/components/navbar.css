@@ -16,6 +16,9 @@
   margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
   background-color: white;
+  display: flex;
+  align-items: center;
+  height:40px;
 }
 
 #home-logo {
@@ -26,4 +29,9 @@
 
 #home-logo:hover {
   color: #CC6966;
+}
+
+.logout-button {
+  padding: 8px 20px;
+  margin: 12px 4px 4px 4px;
 }
