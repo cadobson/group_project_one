@@ -8,6 +8,7 @@ import OneQuestion from "./OneQuestion"
 const Questions = () => {
   const questionsData = useSelector(state => state.questions)
   const [isLoaded, setIsLoaded] = useState(false)
+  const currentSessionUser = useSelector(state => state.session.user)
 
   const dispatch = useDispatch()
 
@@ -18,7 +19,8 @@ const Questions = () => {
 
   return (
     <div className="all-questions">
-      <NewQuestion />
+      {currentSessionUser && <NewQuestion />}
+
       {isLoaded && (
         <>
           {questionsData.map((question) => {

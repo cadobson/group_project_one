@@ -39,7 +39,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className='login-holders'>
+    <div className='login-holder'>
       <div>
         <form onSubmit={onLoginDemo}>
         <button type="submit">Login as Demo</button>

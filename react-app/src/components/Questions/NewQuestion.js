@@ -49,11 +49,9 @@ const NewQuestion = () => {
   return (
     <>
       <div className="card-for-new-question">
-        New Question
         <form onSubmit={handleSubmit}>
           {localErrors.map((error, index) => <li key={index}>{error}</li>)}
           <label>
-            Title:
             <input
               type="text"
               value={title}

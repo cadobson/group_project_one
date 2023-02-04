@@ -17,7 +17,7 @@
   margin: 10px 0;
 }
 
-form {
+.login-holder, .signup-holder {
   width: 300px;
   padding: 16px;
   border: 1px solid #ccc;
@@ -31,6 +31,8 @@ input[type=text], input[type=password], textarea {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  border-radius: 25px;
+  background-color: #ddd;
 }
 
 button {
