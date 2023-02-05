@@ -64,6 +64,14 @@ class Question(db.Model):
             "askId": self.ask_id,
             "askers":self.askers.to_dict()
         }
+    
+    def to_dict_sans_askers(self):
+        return {
+            "id" :self.id,
+            "title" : self.title,
+            "body" :self.body,
+            "askId": self.ask_id,
+        }    
 
     def search_result(self):
         return {
@@ -71,11 +79,6 @@ class Question(db.Model):
             "body" : self.body,
             "answers":[answer.body for answer in self.answers]
         }
-
-
-
-
-
 
 
 class Tag(db.Model):
@@ -93,7 +96,7 @@ class Tag(db.Model):
     def to_dict(self):
         return {
             "id":self.id,
-            "tagName": self.title,
+            "tagName": self.tagName,
 
         }
 

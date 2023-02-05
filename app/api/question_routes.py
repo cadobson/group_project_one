@@ -2,7 +2,7 @@ import flask
 from flask import Blueprint, render_template, jsonify, redirect, request
 from flask_login import login_required
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Question, Answer, db
+from app.models import User, Question, Answer, Tag, TagQuestion, db
 from sqlalchemy.orm import joinedload
 from app.forms import QuestionForm
 import json
@@ -165,4 +165,12 @@ def delete_question(id):
 ### Get all questions with a particular tag
 @question_routes.route('/tags/<tagName>', methods=['GET'])
 def get_questions_by_tag(tagName):
-    return tagName
+    tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
+    matching_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).all()
+    matching_question_ids = list( map(lambda x: x.to_dict()['question_id'], matching_questions) )
+    
+    # abstract objects of interest
+    questions = list(map(lambda id: Question.query.get(id).to_dict_sans_askers(), matching_question_ids))
+    tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
+    return {"Tags": tags, "Questions": questions}
+
