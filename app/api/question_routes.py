@@ -2,7 +2,7 @@ import flask
 from flask import Blueprint, render_template, jsonify, redirect, request
 from flask_login import login_required
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Question, db
+from app.models import User, Question, Answer, db
 from sqlalchemy.orm import joinedload
 from app.forms import QuestionForm
 import json
@@ -70,15 +70,46 @@ def edit_question(id):
         return result
     return {'errors': ['Unauthorized']}
 
-#   "Asker": {
-#     "askerId": 1,
-#     "askerName": "John Smith",
-#     "askerProfileImg": "https://www.imgur.com/image.png"
-#   },
+### Get a question by id with comments and answers 
+@question_routes.route('/<int:id>', methods=['GET'])
+def get_question_comm_ans(id):
+    question = Question.query.get(id)
+    question_dict = question.to_dict()
+    
+    answers = Answer.query.filter(Answer.question_id == id).all()
+    answer_dict = [answer.to_dict() for answer in answers]
+    print(answer_dict[0]['questions'].to_dict(), "<-----------------------------------------")
+
+    # abstract necessary information 
+    askers = question_dict['askers']
+    askerName = askers['first_name'] + ' ' + askers['last_name']
+    askerId = askers['id']
+    askerProfilImg = askers['profileimg']
+    askerObj = {
+        "askerId": askerId,
+        "askerName": askerName,
+        "askerProfilImg": askerProfilImg
+    }
+    
+    title = question_dict['title'] 
+    body = question_dict['body']
+     
+    finalObj = {
+        "id": id,
+        "Asker": askerObj,
+        "title": title,
+        "body": body,
+        "createdAt": "2023-02-19 20:30:45",
+        "updatedAt": "2023-02-19 20:35:45",
+        "Answers": [],
+        "Comments": []
+        }
+
+    return finalObj
 
 ### Get a question by id without comments and answers 
 @question_routes.route('/<int:id>/truncated', methods=['GET'])
-def get_question_comm_ans(id):
+def get_question_sans_comm_ans(id):
     question = Question.query.get(id)
     question_dict = question.to_dict()
 
@@ -128,3 +159,10 @@ def delete_question(id):
         db.session.delete(question)
         db.session.commit()
         return { "message": "Successfully deleted", "statusCode": 200 }
+
+## Tags
+
+### Get all questions with a particular tag
+@question_routes.route('/tags/<tagName>', methods=['GET'])
+def get_questions_by_tag(tagName):
+    return tagName
