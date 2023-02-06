@@ -180,6 +180,7 @@ def get_questions_by_tag(tagName):
     return {"Tags": tags, "Questions": questions}
 
 # ## Delete a tag for a question they made
-# @question_routes.route('/tags/<tagName>', methods=['GET'])
-# def delete_question_tag(tagName):
-    
+@question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
+def delete_question_tags(tagName):
+    if current_user.is_authenticated:
+        return 'hello world'

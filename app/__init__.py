@@ -9,6 +9,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.answers import answer_routes
 from .api.question_routes import question_routes
+from .api.tag_routes import tag_routes
 from .api.comment_routes import comment_routes
 from .api.search_routes import search_routes
 from .seeds import seed_commands
@@ -34,6 +35,7 @@ app.register_blueprint(user_routes, url_prefix='/api/user')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(answer_routes, url_prefix='/api/answers')
 app.register_blueprint(question_routes, url_prefix='/api/questions')
+app.register_blueprint(tag_routes, url_prefix='/api/tags')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(search_routes, url_prefix='/api/search')
 
