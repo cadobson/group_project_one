@@ -165,7 +165,12 @@ def delete_question(id):
 ### Get all questions with a particular tag
 @question_routes.route('/tags/<tagName>', methods=['GET'])
 def get_questions_by_tag(tagName):
-    tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
+     
+    try:
+        tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
+    except:
+        return {"message": "Tag does not exist", "statusCode": 403}
+    
     matching_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).all()
     matching_question_ids = list( map(lambda x: x.to_dict()['question_id'], matching_questions) )
     
@@ -174,3 +179,7 @@ def get_questions_by_tag(tagName):
     tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
     return {"Tags": tags, "Questions": questions}
 
+# ## Delete a tag for a question they made
+# @question_routes.route('/tags/<tagName>', methods=['GET'])
+# def delete_question_tag(tagName):
+    
