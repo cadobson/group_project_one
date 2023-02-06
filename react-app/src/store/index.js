@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import answerReducer from './answer';
 import answersReducer from './answers';
+import commentReducer from './comment';
 import questionReducer from './question';
 import questionsReducer from './questions';
 import session from './session'
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   questions: questionsReducer,
   question: questionReducer,
   answers: answersReducer,
-  answer: answerReducer
+  answer: answerReducer,
+  comment: commentReducer
 });
 
 

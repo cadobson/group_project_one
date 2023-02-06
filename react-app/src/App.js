@@ -13,13 +13,16 @@ import Questions from './components/Questions';
 import "./overall-style.css"
 import Question from './components/Question';
 import Answer from './components/Answer/Answer';
+import Comment from './components/Comment/Comment'
+import { AddComment } from './components/Comment/AddComment';
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -32,29 +35,38 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar loaded={loaded} />
-        <div className='central-column'>
-          <Switch>
-            <Route path='/questions/:id' exact={true}>
-              <Question />
-            </Route>
-            <Route path='/answers/:id' exact={true}>
-              <Answer />
-            </Route>
-            <Route path='/login' exact={true}>
-              <LoginForm />
-            </Route>
-            <Route path='/sign-up' exact={true}>
-              <SignUpForm />
-            </Route>
-            <ProtectedRoute path='/users' exact={true} >
-              <UsersList/>
-            </ProtectedRoute>
-            <ProtectedRoute path='/users/:userId' exact={true} >
-              <User />
-            </ProtectedRoute>
-            <Route path='/' exact={true} >
-              <Questions />
+      <div className='central-column'>
+        <Switch>
+          <Route path='/questions/:id' exact={true}>
+            <Question />
           </Route>
+          <Route path='/answers/:id' exact={true}>
+            <Answer />
+          </Route>
+          <Route path='/login' exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path='/sign-up' exact={true}>
+            <SignUpForm />
+          </Route>
+          <ProtectedRoute path='/users' exact={true} >
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path='/users/:userId' exact={true} >
+            <User />
+          </ProtectedRoute>
+          <Route path='/' exact={true} >
+            <Questions />
+          </Route>
+
+          <Route exact path='/comments/:commentId'>
+            <Comment />
+          </Route>
+
+          <Route exact path='/answers/:answerId/comments/new'>
+            <AddComment />
+          </Route>
+
         </Switch>
       </div>
     </BrowserRouter>

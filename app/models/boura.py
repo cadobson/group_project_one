@@ -153,9 +153,6 @@ class AnswerComment (db.Model):
         return {
             "id":self.id,
             "body": self.body,
-            "answerer_id":self.answerer_id,
-            "question_id": self.question_id,
-            "questions": self.questions,
-            "answer_comments": self.answer_comments
+            "answer_id":self.answer_id,
         }
 
