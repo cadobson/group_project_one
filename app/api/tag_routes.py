@@ -11,5 +11,6 @@ tag_routes = Blueprint('tag_routes', __name__)
 
 @tag_routes.route('/<tagId>', methods=['PUT'])
 def edit_tag(tagId):
+    print(current_user.id)
     if current_user.is_authenticated:
         return 'True!'

@@ -4,6 +4,7 @@ from flask_login import login_required
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Question, Answer, Tag, TagQuestion, db
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 from app.forms import QuestionForm
 import json
 
@@ -136,7 +137,6 @@ def get_question_sans_comm_ans(id):
         "updatedAt": "2023-02-19 20:35:45",
         }
 
-
     return finalObj
 
 ## Delete a question (all routes) 
@@ -179,8 +179,46 @@ def get_questions_by_tag(tagName):
     tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
     return {"Tags": tags, "Questions": questions}
 
-# ## Delete a tag for a question they made
-@question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
-def delete_question_tags(tagName):
+### Make a tag for a question they made (In Progress)
+@question_routes.route('/<questionId>/tags', methods=['POST'])
+def make_tag(questionId):
     if current_user.is_authenticated:
-        return 'hello world'
+        data = json.loads(request.data)
+        new_tag = Tag(tagName = data["tagName"])
+        
+        try:
+            db.session.add(new_tag)
+            db.session.commit()
+        except:
+            return 'Tag already exists'
+        
+        # Get primary key of newly added tag
+        tagIds = Tag.query.all()
+        last_tag = tagIds[-1].to_dict()['id']
+        
+        # add question_id and tag_id to tags_questions
+        new_rel = TagQuestion(question_id = questionId, tag_id = last_tag)
+        db.session.add(new_rel)
+        db.session.commit()
+            
+        return str(last_tag)
+
+## Delete a tag for a question they made (IN PROGRESS)
+@question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
+def delete_question_tags(tagName, questionId):
+    if current_user.is_authenticated:
+        try:
+            tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
+        except:
+            return {"message": "Tag does not exist", "statusCode": 403}
+    
+    matching_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).all()
+    matching_question_ids = list( map(lambda x: x.to_dict()['question_id'], matching_questions) )
+    
+    # abstract objects of interest
+    questions = list(map(lambda id: Question.query.get(id).to_dict(), matching_question_ids))
+    tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
+    tags_questions =  {"Tags": tags, "Questions": questions}
+    
+    print(current_user.id)
+    return tags_questions
