@@ -79,7 +79,7 @@ def get_question_comm_ans(id):
     
     answers = Answer.query.filter(Answer.question_id == id).all()
     answer_dict = [answer.to_dict() for answer in answers]
-    print(answer_dict[0]['questions'].to_dict(), "<-----------------------------------------")
+    #print(answer_dict[0]['questions'].to_dict(), "<-----------------------------------------")
 
     # abstract necessary information 
     askers = question_dict['askers']
