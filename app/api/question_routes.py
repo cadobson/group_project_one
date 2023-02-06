@@ -179,7 +179,7 @@ def get_questions_by_tag(tagName):
     tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
     return {"Tags": tags, "Questions": questions}
 
-### Make a tag for a question they made (In Progress)
+### Make a tag for a question they made
 @question_routes.route('/<questionId>/tags', methods=['POST'])
 def make_tag(questionId):
     if current_user.is_authenticated:
@@ -190,7 +190,7 @@ def make_tag(questionId):
             db.session.add(new_tag)
             db.session.commit()
         except:
-            return 'Tag already exists'
+            return { "message": "Tag already exists", "statusCode": 502 }
         
         # Get primary key of newly added tag
         tagIds = Tag.query.all()
@@ -200,8 +200,14 @@ def make_tag(questionId):
         new_rel = TagQuestion(question_id = questionId, tag_id = last_tag)
         db.session.add(new_rel)
         db.session.commit()
+        
+        # Retrieve question; retrieve tag
+        question = Question.query.get(questionId)
+        tag = Tag.query.get(last_tag)
             
-        return str(last_tag)
+        return {"Tags": tag.to_dict(), "Question": question.to_dict_sans_askers()}
+
+### Edit a tag for a question they made (In progress)
 
 ## Delete a tag for a question they made (IN PROGRESS)
 @question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
