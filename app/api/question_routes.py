@@ -203,6 +203,10 @@ def make_tag(questionId):
         
         # Retrieve question; retrieve tag
         question = Question.query.get(questionId)
+        
+        if not question:
+            return {"message": "Question could not be found", "statusCode": 404}
+    
         tag = Tag.query.get(last_tag)
             
         return {"Tags": tag.to_dict(), "Question": question.to_dict_sans_askers()}
