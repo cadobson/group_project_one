@@ -21,7 +21,7 @@ export const CommentsUser = () => {
 
     return (
         <div>
-            {allComments?.undefined?.comments?.map((ele,idx) =><li>{ele}</li>)}
+            {allComments?.undefined?.comments?.map((ele,idx) =><li key={idx}>{ele}</li>)}
             
         </div>
     )
