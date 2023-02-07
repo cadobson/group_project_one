@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { loadQuestionFromBackend } from "../../store/question"
+import QuestionAtPageTop from "./QuestionAtPageTop"
 
 
 const Question = () => {
@@ -22,6 +23,7 @@ const Question = () => {
     <div className="thread-holder">
       <div className="question-top-of-page">
         This is the page for one question with id {id}
+        <QuestionAtPageTop questionData={questionData}/>
       </div>
 
     </div>

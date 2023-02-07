@@ -1,16 +1,20 @@
 
 
-const QuestionAtPageTop = ({ question }) => {
+const QuestionAtPageTop = ({ questionData }) => {
+  const {title, body, Asker, Answers, Comments} = questionData
+  const {firstName, lastName, askerProfileImg} = Asker
+  const fullName = `${firstName} ${lastName}`
+
   return (
     <div className="question-top-of-page">
       <div className="question-top-of-page-title">
-        {question.title}
+        {title}
       </div>
       <div className="question-top-of-page-body">
-        {question.body}
+        {body}
       </div>
       <div className="question-top-of-page-author">
-        {question.User.username}
+        {fullName}
       </div>
     </div>
   )
