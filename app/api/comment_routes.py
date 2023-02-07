@@ -66,7 +66,7 @@ def edit_comment(id):
     if current_user.is_authenticated:
         comment = AnswerComment.query.get(id)
         if not comment:
-            return     {
+            return {
                 "message": "answer couldn't be found",
                 "statusCode": 404
                 }
