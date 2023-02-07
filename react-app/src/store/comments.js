@@ -43,7 +43,7 @@ const commentsReducer = (state = {}, action) => {
         };
 
         case GET_USER: {
-            const comments = {...action.comments.Comments};
+            const comments = {...action.Comments};
 
             
             console.log(comments,'comment in reducer')

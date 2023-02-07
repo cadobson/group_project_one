@@ -6,6 +6,7 @@ import commentReducer from './comment';
 import commentsReducer from './comments';
 import questionReducer from './question';
 import questionsReducer from './questions';
+import searchReducer from './search';
 import session from './session'
 
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   answers: answersReducer,
   answer: answerReducer,
   comment: commentReducer,
-  comments:commentsReducer
+  comments:commentsReducer,
+  search:searchReducer
 });
 
 
