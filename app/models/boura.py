@@ -17,6 +17,7 @@ class TagQuestion(db.Model):
     question_id =  db.Column(db.Integer, db.ForeignKey('questions.id'))
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'))
     
+    __table_args__ = (db.UniqueConstraint('question_id', 'tag_id'),)
     # tags = db.relationship('Tag',
     #                           back_populates='tags_questions'
     # )

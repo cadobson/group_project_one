@@ -190,17 +190,23 @@ def make_tag(questionId):
             db.session.add(new_tag)
             db.session.commit()
         except:
-            return { "message": "Tag already exists", "statusCode": 502 }
-        
+            db.session.rollback()
+            #return { "message": "Tag already exists", "statusCode": 502 }
+        print(data['tagName'], "<----------------------")
+            
         # Get primary key of newly added tag
-        tagIds = Tag.query.all()
-        last_tag = tagIds[-1].to_dict()['id']
-        
+        tagIds = Tag.query.filter(Tag.tagName == data['tagName']).all()
+        last_tag = tagIds[0].to_dict()['id']
+                
         # add question_id and tag_id to tags_questions
         new_rel = TagQuestion(question_id = questionId, tag_id = last_tag)
-        db.session.add(new_rel)
-        db.session.commit()
-        
+                
+        try:
+            db.session.add(new_rel)
+            db.session.commit()
+        except: 
+            return { "message": "Assocation already exists", "statusCode": 502 }
+            
         # Retrieve question; retrieve tag
         question = Question.query.get(questionId)
         
@@ -211,7 +217,7 @@ def make_tag(questionId):
             
         return {"Tags": tag.to_dict(), "Question": question.to_dict_sans_askers()}
 
-### Edit a tag for a question they made (In progress)
+# Edit a tag appears on tag_routes 
 
 ## Delete a tag for a question they made (IN PROGRESS)
 @question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
