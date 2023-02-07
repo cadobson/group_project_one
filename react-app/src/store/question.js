@@ -18,12 +18,13 @@ const deleteQuestion = () => ({
 })
 
 export const loadQuestionFromBackend = (questionId) => async dispatch => {
-  const questionDataRes = await fetch(`api/questions/${questionId}/`)
+  const questionDataRes = await fetch(`/api/questions/${questionId}`)
   if (questionDataRes.ok) {
     const questionData = await questionDataRes.json();
 
     dispatch(setQuestion(questionData))
   }
+  console.log(questionDataRes)
   return questionDataRes
 }
 
