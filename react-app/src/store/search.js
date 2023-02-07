@@ -6,19 +6,19 @@ const getSearch =(result)=>({
 
 })
 
-export const loadSearchResult = (result) => async dispatch => {
-    const res = await fetch('/api/search',{
-        method:['POST','GET'],
-        headers:{
-            'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(comment)
-    })
-    if(res.ok){
-        const result = await res.json();
-        dispatch(getSearch(result))
-    }
-}
+// export const loadSearchResult = (result) => async dispatch => {
+//     const res = await fetch('/api/search',{
+//         method:['POST','GET'],
+//         headers:{
+//             'Content-Type': 'application/json',
+//         },
+//         body:JSON.stringify(comment)
+//     })
+//     if(res.ok){
+//         const result = await res.json();
+//         dispatch(getSearch(result))
+//     }
+// }
 
 const searchReducer = (state ={}, action) => {
     switch(action.type){
