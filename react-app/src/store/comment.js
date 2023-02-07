@@ -1,6 +1,8 @@
 
 const GET_COMMENT='comment/GET_COMMENT'
 const POST_COMMENT='comment/POST_COMMENT'
+const UPDATE_COMMENT ='comment/UPDATE_COMMENT'
+const DELETE_COMMENT = 'comment/DELETE_COMMENT'
 
 const getComment = (comment) =>({
     type:GET_COMMENT,
@@ -12,6 +14,15 @@ const newComment = (comment) =>({
     comment
 })
 
+const updateComment=(comment) =>({
+    type:UPDATE_COMMENT,
+    comment
+})
+
+const removeComment = (commentId) => ({
+    type:DELETE_COMMENT,
+    commentId
+})
 
 export const loadComment =(commentId) =>async(dispatch) => {
     const res = await fetch(`/api/comments/${commentId}`);
@@ -23,7 +34,7 @@ export const loadComment =(commentId) =>async(dispatch) => {
 }
 
 export const addComment = (answerId,comment) => async(dispatch) => {
-    console.log('hello1')
+  
     const res = await fetch(`/api/answers/${answerId}`,{
         method:'POST',
         headers:{
@@ -31,12 +42,37 @@ export const addComment = (answerId,comment) => async(dispatch) => {
         },
         body:JSON.stringify(comment)
     })
-    console.log('hello2')
+
     if(res.ok){
         const  data = await res.json();
-        console.log(data, ' this is data')
         dispatch(newComment(data));
         return data
+    }
+
+}
+
+export const editComment = (comment, commentId) => async(dispatch) =>{
+    const res = await fetch(`/api/comments/${commentId}`,{
+        method:'put',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(comment)
+    });
+    if(res.ok){
+        const data = await res.json();
+        dispatch(updateComment(data));
+        return data
+
+    }
+}
+
+export const deleteComment =(commentId) => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}`,{
+        method:'delete'
+    });
+    if(res.ok){
+        dispatch(removeComment(commentId))
     }
 }
 
@@ -51,8 +87,21 @@ const commentReducer = (state = {},action) =>{
 
         case POST_COMMENT:{
             const newState = {...state};
-            newState[action.comment.id] =action.comment
+            newState[action.comment.id] =action.comment;
+            return newState
         };
+
+        case UPDATE_COMMENT:{
+            const newState = {...state};
+            newState[action.comment.id] = action.comment;
+            return newState
+        };
+        
+        case DELETE_COMMENT:{
+            const newState = {...state};
+            delete newState[action.id];
+            return newState
+        }
 
         default:{
             return state

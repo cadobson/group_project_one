@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import answerReducer from './answer';
 import answersReducer from './answers';
 import commentReducer from './comment';
+import commentsReducer from './comments';
 import questionReducer from './question';
 import questionsReducer from './questions';
 import session from './session'
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   question: questionReducer,
   answers: answersReducer,
   answer: answerReducer,
-  comment: commentReducer
+  comment: commentReducer,
+  comments:commentsReducer
 });
 
 

@@ -9,12 +9,15 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import Questions from './components/Questions';
-
 import "./overall-style.css"
 import Question from './components/Question';
 import Answer from './components/Answer/Answer';
 import Comment from './components/Comment/Comment'
 import { AddComment } from './components/Comment/AddComment';
+import { EditComment } from './components/Comment/EditComment';
+import { RemoveComment } from './components/Comment/RemoveComment';
+import {CommentsCur} from './components/Comments/CommentsCur';
+import { CommentsUser } from './components/Comments/CommentsUser';
 
 
 function App() {
@@ -59,10 +62,29 @@ function App() {
             <Questions />
           </Route>
 
+          <Route exact path='/users/:userId/comments'>
+            <CommentsUser />
+          </Route>
+
+
+          <Route exact path='/comments/current'>
+            <CommentsCur />
+          </Route>
+
+
+
+          <Route exact path='/comments/:commentId/edit'>
+            <EditComment />
+          </Route>
+
+          <Route exact path='/comments/:commentId/delete'>
+            <RemoveComment />
+          </Route>
+
           <Route exact path='/comments/:commentId'>
             <Comment />
           </Route>
-
+          
           <Route exact path='/answers/:answerId/comments/new'>
             <AddComment />
           </Route>
