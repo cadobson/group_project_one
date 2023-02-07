@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { loadQuestionFromBackend } from "../../store/question"
-import QuestionAtPageTop from "./QuestionAtPageTop"
+import QuestionBlock from "../QACBlocks.js/QuestionBlock"
 
 
 const Question = () => {
@@ -24,7 +24,7 @@ const Question = () => {
     <div className="thread-holder">
       <div className="question-top-of-page">
         {isLoaded && (
-          <QuestionAtPageTop questionData={questionData}/>
+          <QuestionBlock questionData={questionData}/>
         )}
       </div>
 
