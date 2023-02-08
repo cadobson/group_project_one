@@ -1,0 +1,16 @@
+.profile-img {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+
+.user-block {
+  display: flex;
+  align-items: center;
+}
+
+.user-block-name {
+  margin-left: 8px;
+  font-weight: 700;
+}
