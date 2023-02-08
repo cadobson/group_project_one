@@ -6,25 +6,23 @@ const getSearch =(result)=>({
 
 })
 
-// export const loadSearchResult = (result) => async dispatch => {
-//     const res = await fetch('/api/search',{
-//         method:['POST','GET'],
-//         headers:{
-//             'Content-Type': 'application/json',
-//         },
-//         body:JSON.stringify(comment)
-//     })
-//     if(res.ok){
-//         const result = await res.json();
-//         dispatch(getSearch(result))
-//     }
-// }
+export const loadSearchResult = (input) => async (dispatch) => {
+    const res = await fetch(`/api/search?q=${input}`);
+
+    if(res.ok){
+        const result = await res.json();
+        console.log(result, " this is the result")
+        dispatch(getSearch(result))
+    }
+}
 
 const searchReducer = (state ={}, action) => {
     switch(action.type){
         case SEARCH:{
-            const newState ={};
-            newState = {...action.returnValue}
+            console.log(action.result, " this is action result ")
+            const newState = {...action.result}
+          
+            console.log(newState)
             return newState
         }
         default:{

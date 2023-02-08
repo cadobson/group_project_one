@@ -8,16 +8,16 @@ from sqlalchemy import or_
 
 search_routes = Blueprint('search_routes',__name__)
 
-@search_routes.route('',methods=['GET','POST'])
+@search_routes.route('',methods=['GET'])
 def search():
-    data = request.json["search"]
+    
+    data = request.args.get('q')
+    
 
-    search_value = "%{}%".format(data)
-
-    results = Question.query.filter(Question.title.like(search_value)).options(joinedload(Question.answers)).all()
+    results = Question.query.filter(Question.title.contains(data)).options(joinedload(Question.answers)).all()
 
     result = [result.search_result() for result in results]
 
-    print(result,'this is the value of the search results')
+ 
 
-    return {'returnValue':result}
+    return {'Result':result}
