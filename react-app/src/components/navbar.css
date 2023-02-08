@@ -1,0 +1,37 @@
+.navigation-holder>a {
+  padding: 10px;
+  color: rgb(33, 33, 33);
+  transition: all 0.1s ease;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.navigation-holder>a:hover {
+  color: rgb(169, 169, 169);
+}
+
+.navigation-holder {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  height:40px;
+}
+
+#home-logo {
+  white-space: nowrap;
+  /* color: #B92B27; */
+  color: #B92B27;
+}
+
+#home-logo:hover {
+  color: #CC6966;
+}
+
+.logout-button {
+  padding: 8px 20px;
+  margin: 12px 4px 4px 4px;
+}

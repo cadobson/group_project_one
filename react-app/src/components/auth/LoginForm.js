@@ -18,6 +18,14 @@ const LoginForm = () => {
     }
   };
 
+  const onLoginDemo = async (e) => {
+    e.preventDefault();
+    const data = await (dispatch(login("demo@aa.io", "password")))
+    if (data) {
+      setErrors(data);
+    }
+  }
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -31,34 +39,44 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
+    <div className='login-holder'>
       <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+        <form onSubmit={onLoginDemo}>
+        <button type="submit">Login as Demo</button>
+      </form>
       </div>
       <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
+        <form onSubmit={onLogin}>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <label htmlFor='email'>Email</label>
+            <input
+              name='email'
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div>
+            <label htmlFor='password'>Password</label>
+              <input
+                name='password'
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={updatePassword}
+              />
+            <button type='submit'>Login</button>
+          </div>
+        </form>
       </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-      </div>
-    </form>
+
+    </div>
   );
 };
 

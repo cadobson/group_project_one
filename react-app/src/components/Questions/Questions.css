@@ -1,0 +1,63 @@
+.all-questions, .thread-holder {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-holder {
+  border: 1px solid rgb(222, 224, 225);
+
+  padding: 10px;
+  background-color: white;
+}
+
+.question-card-title {
+  font-size: 15px;
+}
+
+.border-bar {
+  height: 1px;
+  background-color: #ccc;
+  margin: 10px 0;
+}
+
+.login-holder, .signup-holder {
+  width: 300px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Question titles on pages */
+h1 {
+  font-size: 15px;
+}
+
+input[type=text], input[type=password], textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 25px;
+  background-color: #F1F2F2;
+}
+
+button {
+  background-color: #B92B27;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.logout-button {
+  width: max-content;
+}
+
+button:hover {
+  background-color: #CC6966;
+}
