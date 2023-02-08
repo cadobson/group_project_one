@@ -85,11 +85,11 @@ def get_question_comm_ans(id):
     askers = question_dict['askers']
     askerName = askers['first_name'] + ' ' + askers['last_name']
     askerId = askers['id']
-    askerProfilImg = askers['profileimg']
+    askerProfileImg = askers['profileimg']
     askerObj = {
         "askerId": askerId,
         "askerName": askerName,
-        "askerProfilImg": askerProfilImg
+        "profileImg": askerProfileImg
     }
     
     title = question_dict['title'] 
@@ -118,11 +118,11 @@ def get_question_sans_comm_ans(id):
     askers = question_dict['askers']
     askerName = askers['first_name'] + ' ' + askers['last_name']
     askerId = askers['id']
-    askerProfilImg = askers['profileimg']
+    askerProfileImg = askers['profileimg']
     askerObj = {
         "askerId": askerId,
         "askerName": askerName,
-        "askerProfilImg": askerProfilImg
+        "profileImg": askerProfileImg
     }
     
     title = question_dict['title'] 
