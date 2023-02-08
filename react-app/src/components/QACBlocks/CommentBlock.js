@@ -1,9 +1,10 @@
 
 
 const CommentBlock = ({ commentData }) => {
+  console.log("commentData",commentData)
   const { body, Commenter } = commentData
-  const { commenterName, commenterProfileImg } = Commenter
-
+  const { first_name,last_name, commenterProfileImg } = Commenter
+  const commenterName = first_name+' '+last_name
   return (
     <div className="comment-block">
       <div className="comment-block-author">

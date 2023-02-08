@@ -7,7 +7,7 @@ const AnswerBlock = ({answerData}) => {
 
   return (
     <div className="answer-block">
-      Answer:
+      
       <div className="answer-block-author">
         {answererName}
       </div>
@@ -16,14 +16,15 @@ const AnswerBlock = ({answerData}) => {
         {body}
       </div>
 
-      {Comments && Comments.map(answer => {
+      {Comments.length && Comments.map(comment => {
         return (
-          <CommentBlock commentData={Comments}/>
+          <CommentBlock commentData={comment}/>
         )
       })}
 
     </div>
     )
 }
+
 
 export default AnswerBlock

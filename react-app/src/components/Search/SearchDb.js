@@ -9,12 +9,12 @@ export const SearchDb=() => {
 
     const result = useSelector(state => state?.search);
 
-    console.log(result, " this is result")
+    // console.log(result, " this is result")
 
 
-    useEffect(() => {
-        dispatch(loadSearchResult(result),[dispatch])
-    })
+    // useEffect(() => {
+    //     dispatch(loadSearchResult(result),[dispatch])
+    // })
 
 
     return(
