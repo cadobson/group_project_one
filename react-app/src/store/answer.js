@@ -13,7 +13,7 @@ const deleteAnswer = (answer) => ({
 })
 
 export const loadAnswerFromBackend = (answerId) => async dispatch => {
-  const answerDataRes = await fetch(`api/answers/${answerId}/`)
+  const answerDataRes = await fetch(`/api/answers/${answerId}`)
   if (answerDataRes.ok) {
     const answerData = await answerDataRes.json();
 

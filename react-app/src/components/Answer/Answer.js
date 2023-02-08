@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { loadAnswerFromBackend } from "../../store/answer"
+import AnswerBlock from "../QACBlocks/AnswerBlock"
 
 const Answer = () => {
   const {id} = useParams()
@@ -15,6 +16,7 @@ const Answer = () => {
   useEffect(() => {
     dispatch(loadAnswerFromBackend(id))
     .then(() => {setIsLoaded(true)})
+    // .then(() =>{console.log})
   }, [dispatch, id])
 
   return (
@@ -23,8 +25,12 @@ const Answer = () => {
         The question will go here
       </div>
       <div className="answer-holder">
-        <p>The answer will go here.</p>
-        <p>This is the page for one answer with id {id}</p>
+
+        {isLoaded && (
+          <AnswerBlock answerData={
+            answerData
+          } />
+        ) }
       </div>
     </div>
   )

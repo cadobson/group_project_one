@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { loadQuestionFromBackend } from "../../store/question"
+import QuestionBlock from "../QACBlocks/QuestionBlock"
 
 
 const Question = () => {
@@ -16,12 +17,15 @@ const Question = () => {
   useEffect(() => {
     dispatch(loadQuestionFromBackend(id))
     .then(() => {setIsLoaded(true)})
+    .then(() => {console.log("=====================", questionData)})
   }, [dispatch, id])
 
   return (
     <div className="thread-holder">
       <div className="question-top-of-page">
-        This is the page for one question with id {id}
+        {isLoaded && (
+          <QuestionBlock questionData={questionData}/>
+        )}
       </div>
 
     </div>
