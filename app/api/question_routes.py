@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import flask
 from flask import Blueprint, render_template, jsonify, redirect, request
 from flask_login import login_required
@@ -91,7 +89,7 @@ def get_question_comm_ans(id):
     askerObj = {
         "askerId": askerId,
         "askerName": askerName,
-        "askerProfilImg": askerProfileImg
+        "profileImg": askerProfileImg
     }
     
     title = question_dict['title'] 
@@ -101,6 +99,7 @@ def get_question_comm_ans(id):
         "id": id,
         "Asker": askerObj,
         "title": title,
+        
         "body": body,
         "createdAt": "2023-02-19 20:30:45",
         "updatedAt": "2023-02-19 20:35:45",
@@ -120,11 +119,11 @@ def get_question_sans_comm_ans(id):
     askers = question_dict['askers']
     askerName = askers['first_name'] + ' ' + askers['last_name']
     askerId = askers['id']
-    askerProfilImg = askers['profileimg']
+    askerProfileImg = askers['profileimg']
     askerObj = {
         "askerId": askerId,
         "askerName": askerName,
-        "askerProfilImg": askerProfilImg
+        "profileImg": askerProfileImg
     }
     
     title = question_dict['title'] 
@@ -265,4 +264,3 @@ def delete_question_tags(tagName, questionId):
             db.session.commit()
         
         return {"message": "Tag successfully deleted", "statusCode": 200}
->>>>>>> routes_david
