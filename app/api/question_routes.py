@@ -218,37 +218,48 @@ def make_tag(questionId):
 
 # Edit a tag appears on tag_routes 
 
-## Delete a tag for a question they made (IN PROGRESS)
+## Delete a tag for a question they made
 @question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
 def delete_question_tags(tagName, questionId):
     if current_user.is_authenticated:
+        
+        question = Question.query.get(questionId)
+        
+        # handle error if question does not exist
+        if not question:
+            return {"message": "Question does not exist", "statusCode": 404}
+
+        askId = question.to_dict()['askId']
+        if askId != current_user.id:
+             return {"message": "User does not own question", "statusCode": 405}
+         
+        # Handle error if tag does not exist
         try:
             tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
         except:
-            return {"message": "Tag does not exist", "statusCode": 403}
+            return {"message": "Tag does not exist", "statusCode": 404}
     
-    # Retrieve and delete the relevant records from the table
-    matching_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).filter(TagQuestion.question_id == questionId).all()
-    tags_questions_id = matching_questions[0].to_dict()['id']
-    print(tags_questions_id, "<-------------------------------------")
-    TagQuestion.query.filter(TagQuestion.id == tags_questions_id).delete()
-    db.session.commit()
-    
-    # now, measure length of remaining questions. If zero, delete tag.
-    rem_questions = TagQuestion.query.filter(TagQuestion.question_id == questionId).all()
-    rem_question_ids = list( map(lambda x: x.to_dict()['question_id'], rem_questions) )
-    questions = list(map(lambda id: Question.query.get(id).to_dict(), rem_question_ids))
-    # rem_quest_len = len(questions) # length of array of questions that are still tagged
-    # print(rem_quest_len)
-    print(questions, "<------------------------- questions")
-    print(len(questions), "<--------------------- the final countdown")
-    if not questions:
-        print('no questions remain')
-        Tag.query.filter(Tag.tagName == tagName).delete()
+        # Retrieve and delete the relevant records from the table
+        matching_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).filter(TagQuestion.question_id == questionId).all()
+        
+        if not matching_questions:
+            return {"message": "Tag is not associated with question", "statusCode": 404}
+        
+        tags_questions_id = matching_questions[0].to_dict()['id']
+        TagQuestion.query.filter(TagQuestion.id == tags_questions_id).delete()
         db.session.commit()
-    
-    tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
-    tags_questions =  {"Tags": tags, "Questions": questions}
-    
-    print(current_user.id)
-    return tags_questions
+        
+        # now, measure length of remaining questions. If zero, delete tag.
+        tagId = Tag.query.filter(Tag.tagName == tagName).all()[0].to_dict()['id']
+
+        rem_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).all()
+        rem_question_ids = list( map(lambda x: x.to_dict()['question_id'], rem_questions) )
+        questions = list(map(lambda id: Question.query.get(id).to_dict(), rem_question_ids))
+        rem_quest_len = len(questions) # length of array of questions that are still tagged
+
+        if rem_quest_len == 0:
+            print('no questions remain')
+            Tag.query.filter(Tag.tagName == tagName).delete()
+            db.session.commit()
+        
+        return {"message": "Tag successfully deleted", "statusCode": 200}
