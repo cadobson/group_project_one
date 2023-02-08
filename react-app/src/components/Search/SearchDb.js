@@ -51,7 +51,7 @@ export const SearchDb=() => {
             </button>
             {result && (
                 <ul>
-                    {result.map(ele => (
+                    {result.Result.map(ele => (
                         <li>{ele.body}</li>
 
                     ))}
