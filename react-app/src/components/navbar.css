@@ -19,6 +19,8 @@
   display: flex;
   align-items: center;
   height:40px;
+  
+  
 }
 
 #home-logo {
@@ -34,4 +36,8 @@
 .logout-button {
   padding: 8px 20px;
   margin: 12px 4px 4px 4px;
+};
+
+.searchBar{
+  margin-right: 40px;
 }

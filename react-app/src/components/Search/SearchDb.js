@@ -2,15 +2,16 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { loadSearchResult } from "../../store/search"
+import "./search.css"
 
-
-export const SearchDb=() => {
+export const SearchDb = () => {
     const dispatch = useDispatch()
+    const hisotry = useHistory()
     console.log('hello')
     const result = useSelector(state => {
         console.log(state, 'this is the state in the component')
         return state?.search
-    } );
+    });
 
     console.log(result, ' this is the result on the component')
 
@@ -23,49 +24,53 @@ export const SearchDb=() => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        dispatch(loadSearchResult(input))
+        const searchResult = dispatch(loadSearchResult(input)).then(() => hisotry.push('/search/result'))
+
+
     }
 
 
-    return(
-        <form
-            className='search-form'
-            onSubmit={handleSubmit}
-        >
+    return (
+        <>
+            <div className="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
 
-            <label>
-                search
-                <input
-                    type='text'
-                    name='body'
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    required
-                />
-            </label>
-            <button
-                className='search-form'
-                type='submit'
-            >
-                submit
-            </button>
-            {result && (
-                <ul>
-                    {result.Result.map(ele => (
-                        <li>{ele.body}</li>
+                <form
+                    className='search-form'
+                    onSubmit={handleSubmit}
+                >
+                    <label>
 
-                    ))}
-                </ul>
-            )}
-        </form >
+                        <input
+                            type='text'
+                            name='body'
+                            placeholder="search buora"
+                            value={input}
+                            onChange={e => setInput(e.target.value)}
+                            required
+                        />
+
+                    </label>
+                </form >
+
+            </div>
+
+
+
+            <div className='search-returnValues'>
+                {result && (
+
+                    <ul>
+
+                        {result?.Result?.map(ele => (
+                            <li>{ele.body}</li>
+
+                        ))}
+                    </ul>
+                )}
+            </div>
+        </>
+
     )
-
-
-
-
-
-
-
-
 
 }
