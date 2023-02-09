@@ -42,6 +42,8 @@ class TagQuestion(db.Model):
 
 class Question(db.Model):
     __tablename__ = 'questions'
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
@@ -91,6 +93,8 @@ class Question(db.Model):
 
 class Tag(db.Model):
     __tablename__ = 'tags'
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     tagName = db.Column(db.String(255), nullable=False, unique=True)
@@ -110,6 +114,8 @@ class Tag(db.Model):
 
 class Answer(db.Model):
     __tablename__ = 'answers'
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
 
@@ -148,6 +154,8 @@ class Answer(db.Model):
 
 class AnswerComment (db.Model):
     __tablename__ = 'answer_comments'
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(10000), nullable=False)
