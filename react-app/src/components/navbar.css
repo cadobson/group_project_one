@@ -17,7 +17,7 @@
   border-bottom: 1px solid #ddd;
   background-color: white;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   height:40px;
   
   
@@ -39,5 +39,12 @@
 };
 
 .searchBar{
-  margin-right: 40px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 25px;
+    background-color: #F1F2F2;
 }
