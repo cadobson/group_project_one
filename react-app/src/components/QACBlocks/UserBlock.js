@@ -8,7 +8,6 @@ const UserBlock = ({ userData }) => {
 
   // TODO: Change this to profileImg once the backend is updated
   let {profileImg, profileimg} = userData;
-  console.log("profileImg: ", profileImg, profileimg)
   if (!profileImg && !profileimg) {
     profileImg = defaultimg
     profileimg = defaultimg
