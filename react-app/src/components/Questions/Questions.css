@@ -4,7 +4,7 @@
   width: 600px;
 }
 
-.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-holder {
+.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-block, .comment-block {
   border: 1px solid rgb(222, 224, 225);
 
   padding: 10px;

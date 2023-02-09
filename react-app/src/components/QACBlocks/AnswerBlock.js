@@ -1,4 +1,5 @@
 import CommentBlock from "./CommentBlock"
+import UserBlock from "./UserBlock"
 
 
 const AnswerBlock = ({answerData}) => {
@@ -7,12 +8,11 @@ const AnswerBlock = ({answerData}) => {
 
   return (
     <div className="answer-block">
-      
-      <div className="answer-block-author">
-        {answererName}
+
+      <div className="question-block-author">
+        <UserBlock userData={Answerer}/>
       </div>
       <div className="answer-block-body">
-        Answer:
         {body}
       </div>
 

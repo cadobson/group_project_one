@@ -2,23 +2,29 @@ import defaultimg from "./blank-profile-img.png";
 import "./UserBlock.css"
 
 const UserBlock = ({ userData }) => {
-  const {askerName} = userData;
+  //TODO: Change backend to only provide askerName
+  const {askerName, first_name, last_name} = userData;
+  const displayName = askerName || first_name + ' ' + last_name
 
   // TODO: Change this to profileImg once the backend is updated
-  let {askerProfilImg} = userData;
-  console.log(askerProfilImg)
-  if (!askerProfilImg) {
-    askerProfilImg = defaultimg
+  let {profileImg, profileimg} = userData;
+  console.log("profileImg: ", profileImg, profileimg)
+  if (!profileImg && !profileimg) {
+    profileImg = defaultimg
+    profileimg = defaultimg
   }
+
+  const displayImg = profileImg || profileimg
+
 
   return (
     <div className="user-block">
       <div className="user-block-profile-img">
-        <img className="profile-img" src={askerProfilImg} alt={`profile avatar for user ${askerName}`} />
+        <img className="profile-img" src={displayImg} alt={`profile avatar for user ${askerName}`} />
 
       </div>
       <div className="user-block-name">
-        {askerName}
+        {displayName}
       </div>
 
     </div>

@@ -1,3 +1,4 @@
+import UserBlock from "./UserBlock"
 
 
 const CommentBlock = ({ commentData }) => {
@@ -7,11 +8,10 @@ const CommentBlock = ({ commentData }) => {
   const commenterName = first_name+' '+last_name
   return (
     <div className="comment-block">
-      <div className="comment-block-author">
-        {commenterName}
+      <div className="question-block-author">
+        <UserBlock userData={Commenter}/>
       </div>
       <div className="comment-block-body">
-        Comment:
         {body}
       </div>
     </div>
