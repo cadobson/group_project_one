@@ -77,9 +77,9 @@ def get_question_comm_ans(id):
     question = Question.query.get(id)
     question_dict = question.to_dict()
     
+    # Get answers and comments
     answers = Answer.query.filter(Answer.question_id == id).all()
-    answer_dict = [answer.to_dict() for answer in answers]
-    #print(answer_dict[0]['questions'].to_dict(), "<-----------------------------------------")
+    answers_dict = list(map(lambda x: x.to_dict(), answers))
 
     # abstract necessary information 
     askers = question_dict['askers']
@@ -103,8 +103,7 @@ def get_question_comm_ans(id):
         "body": body,
         "createdAt": "2023-02-19 20:30:45",
         "updatedAt": "2023-02-19 20:35:45",
-        "Answers": [],
-        "Comments": []
+        "Answers": answers_dict,
         }
 
     return finalObj
