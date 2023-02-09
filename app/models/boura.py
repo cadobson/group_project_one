@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA
-from db.py import add_prefix_for_prod
+from .db import add_prefix_for_prod
 
 
 # tags_questions = db.Table(
@@ -11,12 +11,17 @@ from db.py import add_prefix_for_prod
 #     )
 
 class TagQuestion(db.Model):
-    __tablename__='tags_questions'
+    __tablename__ = 'tags_questions'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
 
-    question_id =  db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')))
-    tag_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('tags.id')))
+    question_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('questions.id')))
+    tag_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('tags.id')))
 
     __table_args__ = (db.UniqueConstraint('question_id', 'tag_id'),)
     # tags = db.relationship('Tag',
@@ -36,130 +41,134 @@ class TagQuestion(db.Model):
 
 
 class Question(db.Model):
-    __tablename__= 'questions'
+    __tablename__ = 'questions'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable = False)
-    body = db.Column(db.String(10000), nullable = False)
-    ask_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+    title = db.Column(db.String(255), nullable=False)
+    body = db.Column(db.String(10000), nullable=False)
+    ask_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')))
 
     tags = db.relationship('Tag',
-                            secondary='tags_questions',
-                            back_populates ='questions'
-    )
+                           secondary='tags_questions',
+                           back_populates='questions'
+                           )
 
     answers = db.relationship('Answer',
                               back_populates='questions',
 
                               cascade="all, delete-orphan"
-    )
+                              )
 
     askers = db.relationship('User',
-                            back_populates='questions'
-    )
+                             back_populates='questions'
+                             )
 
     def to_dict(self):
         return {
-            "id" :self.id,
-            "title" : self.title,
-            "body" :self.body,
+            "id": self.id,
+            "title": self.title,
+            "body": self.body,
             "askId": self.ask_id,
-            "askers":self.askers.to_dict()
+            "askers": self.askers.to_dict()
         }
 
     def to_dict_sans_askers(self):
         return {
-            "id" :self.id,
-            "title" : self.title,
-            "body" :self.body,
+            "id": self.id,
+            "title": self.title,
+            "body": self.body,
             "askId": self.ask_id,
         }
 
     def search_result(self):
         return {
-            "title" : self.title,
-            "body" : self.body,
-            "answers":[answer.body for answer in self.answers]
+            "title": self.title,
+            "body": self.body,
+            "answers": [answer.body for answer in self.answers]
         }
 
 
 class Tag(db.Model):
-    __tablename__='tags'
+    __tablename__ = 'tags'
 
     id = db.Column(db.Integer, primary_key=True)
-    tagName = db.Column(db.String(255), nullable = False, unique=True)
+    tagName = db.Column(db.String(255), nullable=False, unique=True)
 
     questions = db.relationship('Question',
                                 secondary='tags_questions',
                                 back_populates='tags'
-    )
-
+                                )
 
     def to_dict(self):
         return {
-            "id":self.id,
+            "id": self.id,
             "tagName": self.tagName,
 
         }
 
+
 class Answer(db.Model):
-    __tablename__='answers'
+    __tablename__ = 'answers'
 
     id = db.Column(db.Integer, primary_key=True)
 
-    body = db.Column(db.String(10000), nullable = False)
+    body = db.Column(db.String(10000), nullable=False)
 
-    answerer_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+    answerer_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')))
 
-    question_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')))
+    question_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('questions.id')))
 
     questions = db.relationship("Question",
                                 back_populates='answers'
-    )
+                                )
 
     answer_comments = db.relationship('AnswerComment',
                                       back_populates='answers',
                                       cascade="all, delete-orphan"
-    )
+                                      )
 
     answerers = db.relationship('User',
                                 back_populates='answers'
-    )
+                                )
 
     def to_dict(self):
         return {
-            "id":self.id,
+            "id": self.id,
             "body": self.body,
-            "answerer_id":self.answerer_id,
+            "answerer_id": self.answerer_id,
             "question_id": self.question_id,
             "questions": self.questions.to_dict(),
-            "Answerer":self.answerers.to_dict(),
-            "Comments":[comment.to_dict() for comment in self.answer_comments]
+            "Answerer": self.answerers.to_dict(),
+            "Comments": [comment.to_dict() for comment in self.answer_comments]
         }
 
 
-
 class AnswerComment (db.Model):
-    __tablename__='answer_comments'
+    __tablename__ = 'answer_comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(10000), nullable = False)
+    body = db.Column(db.String(10000), nullable=False)
 
-    commenter_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    answer_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('answers.id')))
+    commenter_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')))
+    answer_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('answers.id')))
 
     answers = db.relationship('Answer',
                               back_populates='answer_comments'
-    )
+                              )
 
     commenters = db.relationship('User',
                                  back_populates='answer_comments'
-    )
+                                 )
 
     def to_dict(self):
         return {
-            "id":self.id,
+            "id": self.id,
             "body": self.body,
-            "answer_id":self.answer_id,
-            "Commenter":self.commenters.to_dict_public()
+            "answer_id": self.answer_id,
+            "Commenter": self.commenters.to_dict_public()
         }
