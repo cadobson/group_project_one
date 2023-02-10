@@ -355,17 +355,17 @@ Returns the details of a question specified by its id
 
 Returns the title and body of a question without any of the child answers or comments
 
-* Require Authentication: false
-* Request
-  * Method: GET
-  * URL: /api/questions/:questionId/truncated
-  * Body: none
+* Require Authentication: false [X]
+* Request [X]
+  * Method: GET [X]
+  * URL: /api/questions/:questionId/truncated [X]
+  * Body: none [X]
 
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+* Successful Response [X]
+  * Status Code: 200 [X]
+  * Headers: [X]
+    * Content-Type: application/json [X]
+  * Body: [X]
 
     ```json
     {
@@ -463,11 +463,11 @@ Description of what the route does
     }
     ```
 
-* Error response: Body validation errors
-  * Status Code: 400
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+* Error response: Body validation errors [X]
+  * Status Code: 400 [X]
+  * Headers: [X]
+    * Content-Type: application/json [X]
+  * Body: [X]
 
     ```json
     {
