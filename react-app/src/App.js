@@ -19,6 +19,7 @@ import { RemoveComment } from './components/Comment/RemoveComment';
 import {CommentsCur} from './components/Comments/CommentsCur';
 import { CommentsUser } from './components/Comments/CommentsUser';
 import { SearchDb } from './components/Search/SearchDb';
+import { SearchResult } from './components/Search/SearchResult';
 
 
 function App() {
@@ -90,6 +91,10 @@ function App() {
           <Route exact path='/search'>
             <SearchDb />
           </Route>
+          <Route exact path='/search/result'>
+            <SearchResult />
+          </Route>
+
 
         </Switch>
       </div>

@@ -1,19 +1,16 @@
+import "./search.css"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { loadSearchResult } from "../../store/search"
-import "./search.css"
+
 
 export const SearchDb = () => {
     const dispatch = useDispatch()
     const hisotry = useHistory()
     console.log('hello')
-    const result = useSelector(state => {
-        console.log(state, 'this is the state in the component')
-        return state?.search
-    });
 
-    console.log(result, ' this is the result on the component')
+    // console.log(result, ' this is the result on the component')
 
 
     const [input, setInput] = useState('')
@@ -26,6 +23,10 @@ export const SearchDb = () => {
 
         const searchResult = dispatch(loadSearchResult(input))
 
+        if(searchResult){
+            hisotry.push('/search/result')
+        }
+
     }
 
 
@@ -36,11 +37,13 @@ export const SearchDb = () => {
 
                 <form
                     className='search-form'
+
                     onSubmit={handleSubmit}
                 >
                     <label>
 
                         <input
+                            id="search-input"
                             type='text'
                             name='body'
                             placeholder="search buora"
@@ -52,24 +55,6 @@ export const SearchDb = () => {
                     </label>
                 </form >
 
-            </div>
-
-
-
-            <div className='search-returnValues'>
-                {result && (
-
-                    <ul>
-
-                        {result?.Result?.map(ele => (
-                            <ul>
-                                <li>Question:{ele.title}</li>
-                                <li>-{ele.answers}</li>
-                            </ul>
-
-                        ))}
-                    </ul>
-                )}
             </div>
         </>
 
