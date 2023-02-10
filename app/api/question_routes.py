@@ -39,10 +39,11 @@ def post_simple_form():
             "title": new_question.title,
             "body": new_question.body,
             "ask_id":new_question.ask_id,
-            "askers":current_user.to_dict()
+            "askers":current_user.to_dict(),
+            "statusCode": 201
         }
 
-        return result
+        return result, 201
     return {'errors': ['Unauthorized']}
 
 ### Edit a question specified by its id
