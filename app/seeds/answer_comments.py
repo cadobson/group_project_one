@@ -7,13 +7,13 @@ def seed_answer_comments():
         answer_id=1,
         commenter_id=1,
         body="What a great question!"
-        )        
+        )
     comment2 = AnswerComment(
         answer_id=2,
         commenter_id=2,
         body="ChatGPT will never replace us!"
         )
-    
+
     comment3 = AnswerComment(
         answer_id=3,
         commenter_id=3,
@@ -35,8 +35,8 @@ def seed_answer_comments():
 # it will reset the primary keys for you as well.
 def undo_answer_comments():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.answer_comments RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM users")
-        
+
     db.session.commit()

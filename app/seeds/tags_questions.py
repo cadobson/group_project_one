@@ -5,14 +5,14 @@ def seed_tags_questions():
     tag_question_4_1 = TagQuestion(
         tag_id = 4,
         question_id=1,
-        )        
+        )
     tag_question_5_1 = TagQuestion(
         tag_id=5,
         question_id=1,
         )
     tag_question_4_2 = TagQuestion(
         tag_id=4,
-        question_id=2,        
+        question_id=2,
         )
     tag_question_4_3 = TagQuestion(
         tag_id=4,
@@ -22,7 +22,7 @@ def seed_tags_questions():
         tag_id=5,
         question_id=3,
         )
-        
+
     db.session.add(tag_question_4_1)
     db.session.add(tag_question_5_1)
     db.session.add(tag_question_4_2)
@@ -38,8 +38,8 @@ def seed_tags_questions():
 # it will reset the primary keys for you as well.
 def undo_tags_questions():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.tags_questions RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM tags_questions")
-        
+
     db.session.commit()

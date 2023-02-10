@@ -4,7 +4,7 @@ from app.models import db, Tag, environment, SCHEMA
 def seed_tags():
     tag1 = Tag(
         tagName="Physics"
-        )        
+        )
     tag2 = Tag(
         tagName="Chemistry"
         )
@@ -34,8 +34,8 @@ def seed_tags():
 # it will reset the primary keys for you as well.
 def undo_tags():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.tags RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM tags")
-        
+
     db.session.commit()
