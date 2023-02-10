@@ -25,11 +25,10 @@ export const SearchDb = () => {
         e.preventDefault();
 
         const searchResult = dispatch(loadSearchResult(input)).then(() => hisotry.push('/search/result'))
-
-
+        
     }
 
-
+ 
     return (
         <>
             <div className="search-container">
