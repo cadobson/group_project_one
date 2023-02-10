@@ -24,11 +24,11 @@ export const SearchDb = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const searchResult = dispatch(loadSearchResult(input)).then(() => hisotry.push('/search/result'))
-        
+        const searchResult = dispatch(loadSearchResult(input))
+
     }
 
- 
+
     return (
         <>
             <div className="search-container">
@@ -62,7 +62,10 @@ export const SearchDb = () => {
                     <ul>
 
                         {result?.Result?.map(ele => (
-                            <li>{ele.body}</li>
+                            <ul>
+                                <li>Question:{ele.title}</li>
+                                <li>-{ele.answers}</li>
+                            </ul>
 
                         ))}
                     </ul>
