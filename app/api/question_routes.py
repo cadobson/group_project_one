@@ -23,9 +23,28 @@ def get_all_questions():
 @question_routes.route('/', methods=['POST'])
 def post_simple_form():
     if current_user.is_authenticated:
-            
+        
         data = json.loads(request.data)
-            
+        
+        # error handle empty title, body, or both
+        title = data['title'],
+        body = data['body'],
+        
+        # title cannot be empty
+        if not title[0]:
+            result = {"title": "Title cannot be null or empty string"}
+            return result, 400
+
+        # title must be under 256 characters
+        if len(title[0]) >= 256:
+            result = {"title": "Title must be under 256 characters"}
+            return result, 400
+        
+        # body length may not exceed 10,000 characters
+        if len(body[0]) >= 10**4:
+            result = {"title": "Body must be under 10,000 characters"}
+            return result, 400
+                    
         new_question = Question(
             title = data['title'],
             body = data['body'],
@@ -40,7 +59,6 @@ def post_simple_form():
             "body": new_question.body,
             "ask_id":new_question.ask_id,
             "askers":current_user.to_dict(),
-            "statusCode": 201
         }
 
         return result, 201

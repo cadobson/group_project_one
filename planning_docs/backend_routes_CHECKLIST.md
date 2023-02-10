@@ -447,11 +447,11 @@ Description of what the route does
     }
     ```
 
-* Successful Response
-  * Status Code: 201
-  * Headers:
+* Successful Response [X]
+  * Status Code: 201 [X]
+  * Headers: [X]
     * Content-Type: application/json
-  * Body:
+  * Body: [X] (except created at/updated at)
 
     ```json
     {
