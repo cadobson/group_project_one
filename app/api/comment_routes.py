@@ -31,8 +31,9 @@ def post_comment(id):
 
     if current_user.is_authenticated:
         data = request.json
+        print(data)
 
-        if not data:
+        if not data or data['body'].length ==0:
                return  {
                 "message": "Validation error",
                 "statusCode": 400,
@@ -46,30 +47,35 @@ def post_comment(id):
             commenter_id=current_user.id,
             answer_id = id
         )
-    db.session.add(newComment)
-    db.session.commit()
+        db.session.add(newComment)
+        db.session.commit()
 
-    result = {
+        result = {
         "id":newComment.id,
         "answerId":newComment.answer_id,
         "body":newComment.body,
-    }
+        }
 
 
-    return result
+        return result
 
-
+    return {'errors': ['Unauthorized']}
+ 
 ### Edit a comment
 
 @comment_routes.route('/<int:id>', methods=['PUT'])
 def edit_comment(id):
     if current_user.is_authenticated:
+        
+
         comment = AnswerComment.query.get(id)
         if not comment:
             return {
                 "message": "answer couldn't be found",
                 "statusCode": 404
                 }
+        if current_user.id is not comment.commenter_id:
+            return {'errors': ['Unauthorized']} 
         data=request.json
 
         if not data:

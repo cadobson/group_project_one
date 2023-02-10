@@ -89,6 +89,11 @@ def edit_answer(id):
                 }
                 } 
         answer = Answer.query.get(id)
+        
+
+        if current_user.id is not answer.answerer_id:
+            return {'errors': ['Unauthorized']} 
+            
         if not answer:
             return     {
                 "message": "answer couldn't be found",
