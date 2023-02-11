@@ -72,9 +72,27 @@ def edit_question(id):
             
         data = request.json
         
-        question=Question.query.get_or_404(id)
-
+        # error handle empty title, body, or both
+        title = data['title'],
+        body = data['body'],
         
+        # title cannot be empty
+        if not title[0]:
+            result = {"title": "Title cannot be null or empty string"}
+            return result, 400
+
+        # title must be under 256 characters
+        if len(title[0]) >= 256:
+            result = {"title": "Title must be under 256 characters"}
+            return result, 400
+        
+        # body length may not exceed 10,000 characters
+        if len(body[0]) >= 10**4:
+            result = {"title": "Body must be under 10,000 characters"}
+            return result, 400
+        
+        question= Question.query.get_or_404(id)
+
         question.title = data['title']
         question.body = data['body']
 
