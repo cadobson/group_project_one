@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { editComment } from "../../store/comment";
-import { loadQuestionFromBackend } from "../../store/question";
+import { sendAnswerEditRequest } from "../../store/answer";
+import { loadQuestionFromBackend } from "../../store/question"
 
-const EditComment = ({commentData}) => {
-  const { id, body } = commentData;
+const EditAnswer = ({answerData}) => {
+  const { body, id } = answerData;
   const [editedBody, setEditedBody] = useState(body);
   const [serverErrors, setServerErrors] = useState([]);
   const [localErrors, setLocalErrors] = useState([]);
@@ -17,8 +17,9 @@ const EditComment = ({commentData}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+
     if (editedBody.length < 1) {
-      setLocalErrors(["Comment body cannot be empty"]);
+      setLocalErrors(["Answer body cannot be empty"]);
       return;
     }
 
@@ -26,8 +27,8 @@ const EditComment = ({commentData}) => {
       body: editedBody,
     };
 
-    dispatch(editComment(payload, id))
-    .then(() => {dispatch(loadQuestionFromBackend(questionId.id))})
+    dispatch(sendAnswerEditRequest(payload, id))
+      .then(() => {dispatch(loadQuestionFromBackend(questionId.id))})
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -39,7 +40,7 @@ const EditComment = ({commentData}) => {
   }
 
   return (
-    <div className="edit-comment-form">
+    <div className="edit-answer-form">
       {serverErrors.map((error, index) => <li key={index}>{error}</li>)}
       {localErrors.map((error, index) => <li key={index}>{error}</li>)}
       <form onSubmit={handleSubmit}>
@@ -52,9 +53,6 @@ const EditComment = ({commentData}) => {
       </form>
     </div>
   )
-
-
-
 }
 
-export default EditComment;
+export default EditAnswer

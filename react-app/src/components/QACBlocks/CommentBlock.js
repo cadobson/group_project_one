@@ -5,7 +5,8 @@ import { useSelector } from "react-redux"
 import "./QACBlocks.css"
 import EditComment from "./EditComment"
 import { deleteComment } from "../../store/comment"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
+import { loadQuestionFromBackend } from "../../store/question"
 
 const CommentBlock = ({ commentData }) => {
   const [showEdit, setShowEdit] = useState(false)
@@ -16,6 +17,7 @@ const CommentBlock = ({ commentData }) => {
   const currentSessionUser = useSelector(state => state.session.user)
   const currentSessionUserId = currentSessionUser.id
 
+  const questionId = useParams()
   const history = useHistory()
 
 
@@ -24,8 +26,7 @@ const CommentBlock = ({ commentData }) => {
 
     dispatch(deleteComment(id))
       .then(() => {
-        window.location.reload()
-        // TODO: Clean this up to work with react
+        dispatch(loadQuestionFromBackend(questionId.id))
       })
 
   }

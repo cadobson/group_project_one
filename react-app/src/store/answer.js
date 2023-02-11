@@ -37,10 +37,11 @@ export const sendAnswerCreationRequest = (answerToCreate) => async dispatch => {
 
 export const sendAnswerEditRequest = (answerToEdit, answerId) => async dispatch => {
   const reqObj = {
-    method: "POST",
+    method: "PUT",
     body: JSON.stringify(answerToEdit)
   }
-  const editAnswerRes = await fetch(`/api/answers/${answerId}/`, reqObj)
+  reqObj.headers = { "Content-Type": "application/json" };
+  const editAnswerRes = await fetch(`/api/answers/${answerId}`, reqObj)
   if (editAnswerRes.ok) {
     const updatedAnswerData = await editAnswerRes.json();
     dispatch(setAnswer(updatedAnswerData))
@@ -52,7 +53,7 @@ export const sendAnswerDeleteRequest = (answerId) => async dispatch => {
   const reqObj = {
     method: "DELETE"
   }
-  const deleteAnswerRes = await fetch(`/api/answers/${answerId}/`, reqObj)
+  const deleteAnswerRes = await fetch(`/api/answers/${answerId}`, reqObj)
   if (deleteAnswerRes.ok) {
     dispatch(deleteAnswer())
     dispatch(loadAnswersFromBackend)

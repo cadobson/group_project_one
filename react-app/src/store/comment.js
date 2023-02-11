@@ -1,4 +1,3 @@
-
 const GET_COMMENT='comment/GET_COMMENT'
 const POST_COMMENT='comment/POST_COMMENT'
 const UPDATE_COMMENT ='comment/UPDATE_COMMENT'
@@ -26,7 +25,7 @@ const removeComment = (commentId) => ({
 
 export const loadComment =(commentId) =>async(dispatch) => {
     const res = await fetch(`/api/comments/${commentId}`);
-    
+
     if(res.ok) {
         const comment = await res.json();
         dispatch(getComment(comment))
@@ -34,7 +33,7 @@ export const loadComment =(commentId) =>async(dispatch) => {
 }
 
 export const addComment = (answerId,comment) => async(dispatch) => {
-  
+
     const res = await fetch(`/api/answers/${answerId}`,{
         method:'POST',
         headers:{
@@ -74,6 +73,7 @@ export const deleteComment =(commentId) => async dispatch => {
     if(res.ok){
         dispatch(removeComment(commentId))
     }
+    return res
 }
 
 const commentReducer = (state = {},action) =>{
@@ -96,7 +96,7 @@ const commentReducer = (state = {},action) =>{
             newState[action.comment.id] = action.comment;
             return newState
         };
-        
+
         case DELETE_COMMENT:{
             const newState = {...state};
             delete newState[action.id];
