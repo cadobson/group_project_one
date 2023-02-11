@@ -36,17 +36,17 @@ def post_simple_form():
         
         # title cannot be empty
         if not title[0]:
-            result = {"title": "Title cannot be null or empty string"}
+            result = {"title": "Title cannot be null or empty string", "statusCode": 400}
             return result, 400
 
         # title must be under 256 characters
         if len(title[0]) >= 256:
-            result = {"title": "Title must be under 256 characters"}
+            result = {"title": "Title must be under 256 characters", "statusCode": 400}
             return result, 400
         
         # body length may not exceed 10,000 characters
         if len(body[0]) >= 10**4:
-            result = {"title": "Body must be under 10,000 characters"}
+            result = {"title": "Body must be under 10,000 characters", "statusCode": 400}
             return result, 400
                     
         new_question = Question(
@@ -63,6 +63,7 @@ def post_simple_form():
             "body": new_question.body,
             "ask_id":new_question.ask_id,
             "askers":current_user.to_dict(),
+            "statusCode": 201 
         }
 
         return result, 201
