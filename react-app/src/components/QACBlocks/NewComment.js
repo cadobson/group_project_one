@@ -5,6 +5,7 @@ import { addComment } from '../../store/comment'
 import { loadQuestionFromBackend } from '../../store/question'
 
 const NewComment = ({answerId, setShowNewComment}) => {
+
   const [body, setBody] = useState('')
   const [errors, setErrors] = useState([])
   const [serverErrors, setServerErrors] = useState([])
@@ -23,6 +24,8 @@ const NewComment = ({answerId, setShowNewComment}) => {
     const payload = {
       body,
     }
+
+    console.log("Sending off a request to add a comment to answer", answerId)
 
     dispatch(addComment(answerId, payload))
       .then(() => {dispatch(loadQuestionFromBackend(questionId.id))})

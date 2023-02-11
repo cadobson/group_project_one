@@ -43,7 +43,9 @@ export const addComment = (answerId,comment) => async(dispatch) => {
   const res = await fetch(`/api/answers/${answerId}`,reqObj)
 
   if(res.ok){
+    console.log("Posted a new comment. Res: ", res)
       const  data = await res.json();
+      console.log("Posted a new comment. Data: ", data)
       dispatch(newComment(data));
       return data
   }

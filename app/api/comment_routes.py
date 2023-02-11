@@ -26,7 +26,8 @@ def comments_current():
 
 @answer_routes.route('/<int:id>', methods=['POST'])
 def post_comment(id):
-    if not AnswerComment.query.get(id):
+    print("======================= got a request to post a new comment on answer with id: ", id)
+    if not Answer.query.get(id):
         return {
             "message": "answer couldn't be found",
             "statusCode": 404
