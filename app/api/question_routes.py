@@ -14,11 +14,15 @@ question_routes = Blueprint('question_routes', __name__)
 
 @question_routes.route('/', methods=['GET'])
 def get_all_questions():
-    questions = Question.query.options(joinedload(Question.askers)).all()
-
+    try:
+        questions = Question.query.options(joinedload(Question.askers)).all()
+    except: 
+        result = {"message": "Questions cannot be found", "statusCode": 404}
+        return result, 404
+    
     data = [question.to_dict() for question in questions ]
-
-    return {"Questions": data}
+    
+    return {"Questions": data, "statusCode": 200}
 
 @question_routes.route('/', methods=['POST'])
 def post_simple_form():
