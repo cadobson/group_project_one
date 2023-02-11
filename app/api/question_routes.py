@@ -83,17 +83,17 @@ def edit_question(id):
         
         # title cannot be empty
         if not title[0]:
-            result = {"title": "Title cannot be null or empty string"}
+            result = {"title": "Title cannot be null or empty string", "statusCode": 400}
             return result, 400
 
         # title must be under 256 characters
         if len(title[0]) >= 256:
-            result = {"title": "Title must be under 256 characters"}
+            result = {"title": "Title must be under 256 characters", "statusCode": 400}
             return result, 400
         
         # body length may not exceed 10,000 characters
         if len(body[0]) >= 10**4:
-            result = {"title": "Body must be under 10,000 characters"}
+            result = {"title": "Body must be under 10,000 characters", "statusCode": 400}
             return result, 400
         
         question= Question.query.get_or_404(id)
@@ -101,12 +101,12 @@ def edit_question(id):
         question.title = data['title']
         question.body = data['body']
 
-
         db.session.commit()
 
         result = {
             "title": question.title,
             "body": question.body,
+            "statusCode": 200
         }
         
         return result
