@@ -222,7 +222,7 @@ def get_questions_by_tag(tagName):
     try:
         tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
     except:
-        return {"message": "Tag does not exist", "statusCode": 403}
+        return {"message": "Tag does not exist", "statusCode": 403}, 403
     
     matching_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).all()
     matching_question_ids = list( map(lambda x: x.to_dict()['question_id'], matching_questions) )
@@ -257,13 +257,13 @@ def make_tag(questionId):
             db.session.add(new_rel)
             db.session.commit()
         except: 
-            return { "message": "Assocation already exists", "statusCode": 502 }
+            return { "message": "Assocation already exists", "statusCode": 502 }, 502
             
         # Retrieve question; retrieve tag
         question = Question.query.get(questionId)
         
         if not question:
-            return {"message": "Question could not be found", "statusCode": 404}
+            return {"message": "Question could not be found", "statusCode": 404}, 404
     
         tag = Tag.query.get(last_tag)
             
@@ -280,23 +280,23 @@ def delete_question_tags(tagName, questionId):
         
         # handle error if question does not exist
         if not question:
-            return {"message": "Question does not exist", "statusCode": 404}
+            return {"message": "Question does not exist", "statusCode": 404}, 404
 
         askId = question.to_dict()['askId']
         if askId != current_user.id:
-             return {"message": "User does not own question", "statusCode": 405}
+             return {"message": "User does not own question", "statusCode": 405}, 405
          
         # Handle error if tag does not exist
         try:
             tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
         except:
-            return {"message": "Tag does not exist", "statusCode": 404}
+            return {"message": "Tag does not exist", "statusCode": 404}, 404
     
         # Retrieve and delete the relevant records from the table
         matching_questions = TagQuestion.query.filter(TagQuestion.tag_id == tagId).filter(TagQuestion.question_id == questionId).all()
         
         if not matching_questions:
-            return {"message": "Tag is not associated with question", "statusCode": 404}
+            return {"message": "Tag is not associated with question", "statusCode": 404}, 404
         
         tags_questions_id = matching_questions[0].to_dict()['id']
         TagQuestion.query.filter(TagQuestion.id == tags_questions_id).delete()
