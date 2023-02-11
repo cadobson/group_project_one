@@ -14,7 +14,11 @@ class TagQuestion(db.Model):
     __tablename__ = 'tags_questions'
 
     if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+        __table_args__ = (db.UniqueConstraint(
+            'question_id', 'tag_id'), {'schema': SCHEMA})
+
+    else:
+        __table_args__ = (db.UniqueConstraint('question_id', 'tag_id'),)
 
     id = db.Column(db.Integer, primary_key=True)
 
@@ -23,14 +27,13 @@ class TagQuestion(db.Model):
     tag_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod('tags.id')))
 
-    __table_args__ = (db.UniqueConstraint('question_id', 'tag_id'),)
-    # tags = db.relationship('Tag',
-    #                           back_populates='tags_questions'
-    # )
+    tags = db.relationship('Tag',
+                           back_populates='questions'
+                           )
 
-    # questions = db.relationship('Question',
-    #                              back_populates='tags_questions'
-    # )
+    questions = db.relationship('Question',
+                                back_populates='tags'
+                                )
 
     def to_dict(self):
         return {
@@ -51,14 +54,12 @@ class Question(db.Model):
     ask_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod('users.id')))
 
-    tags = db.relationship('Tag',
-                           secondary='tags_questions',
+    tags = db.relationship('TagQuestion',
                            back_populates='questions'
                            )
 
     answers = db.relationship('Answer',
                               back_populates='questions',
-
                               cascade="all, delete-orphan"
                               )
 
@@ -99,8 +100,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tagName = db.Column(db.String(255), nullable=False, unique=True)
 
-    questions = db.relationship('Question',
-                                secondary='tags_questions',
+    questions = db.relationship('TagQuestion',
                                 back_populates='tags'
                                 )
 
@@ -108,7 +108,6 @@ class Tag(db.Model):
         return {
             "id": self.id,
             "tagName": self.tagName,
-
         }
 
 
