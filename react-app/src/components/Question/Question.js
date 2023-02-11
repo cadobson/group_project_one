@@ -17,7 +17,6 @@ const Question = () => {
   useEffect(() => {
     dispatch(loadQuestionFromBackend(id))
     .then(() => {setIsLoaded(true)})
-    .then(() => {console.log("=====================", questionData)})
   }, [dispatch, id])
 
   return (
