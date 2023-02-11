@@ -159,6 +159,11 @@ def get_question_comm_ans(id):
 @question_routes.route('/<int:id>/truncated', methods=['GET'])
 def get_question_sans_comm_ans(id):
     question = Question.query.get(id)
+    
+    if not question:
+        result = {"message": "Questions cannot be found", "statusCode": 404}
+        return result, 404 
+    
     question_dict = question.to_dict()
 
     # abstract necessary information 
