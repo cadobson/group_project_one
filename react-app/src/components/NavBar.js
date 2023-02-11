@@ -35,9 +35,7 @@ const NavBar = ({ loaded }) => {
         </NavLink>
 
         {loaded && sessionLinks }
-        {/* <div className='searchBar' style={{ position: "absolute", margin: "auto", left: "42%"}}><SearchDb /></div> */}
-
-       
+        <SearchDb />
 
       </nav>
 
