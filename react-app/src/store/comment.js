@@ -33,20 +33,20 @@ export const loadComment =(commentId) =>async(dispatch) => {
 }
 
 export const addComment = (answerId,comment) => async(dispatch) => {
+  const reqObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(comment)
+  }
+  const res = await fetch(`/api/answers/${answerId}`,reqObj)
 
-    const res = await fetch(`/api/answers/${answerId}`,{
-        method:'POST',
-        headers:{
-            'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(comment)
-    })
-
-    if(res.ok){
-        const  data = await res.json();
-        dispatch(newComment(data));
-        return data
-    }
+  if(res.ok){
+      const  data = await res.json();
+      dispatch(newComment(data));
+      return data
+  }
 
 }
 

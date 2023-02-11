@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editComment } from "../../store/comment";
 import { loadQuestionFromBackend } from "../../store/question";
@@ -11,7 +11,6 @@ const EditComment = ({commentData}) => {
   const [localErrors, setLocalErrors] = useState([]);
 
   const dispatch = useDispatch();
-  const history = useHistory();
   const questionId = useParams()
 
   const handleSubmit = (e) => {

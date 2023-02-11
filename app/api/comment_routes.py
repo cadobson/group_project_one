@@ -1,106 +1,109 @@
 from flask import Blueprint, jsonify, request
-from app.models import Answer, User, AnswerComment, db,Question
+from app.models import Answer, User, AnswerComment, db, Question
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from .answers import answer_routes
 from .user_routes import user_routes
 
-comment_routes = Blueprint('comment_routes',__name__)
+comment_routes = Blueprint('comment_routes', __name__)
 
-### Get all Comments of the Current User
-@comment_routes.route('/current',methods=['GET'])
+# Get all Comments of the Current User
+
+
+@comment_routes.route('/current', methods=['GET'])
 def comments_current():
     if current_user.is_authenticated:
-        comments = AnswerComment.query.filter(AnswerComment.commenter_id == current_user.id).all()
+        comments = AnswerComment.query.filter(
+            AnswerComment.commenter_id == current_user.id).all()
 
         result = [comment.to_dict() for comment in comments]
 
-        return {'Comments':result}
+        return {'Comments': result}
     return {'errors': ['Unauthorized']}
 
 
-## Create a Comment for an answer based on the answers Id
+# Create a Comment for an answer based on the answers Id
 
 @answer_routes.route('/<int:id>', methods=['POST'])
 def post_comment(id):
     if not AnswerComment.query.get(id):
         return {
-                "message": "answer couldn't be found",
-                "statusCode": 404
-            }
+            "message": "answer couldn't be found",
+            "statusCode": 404
+        }
 
     if current_user.is_authenticated:
         data = request.json
         print(data)
 
-        if not data or data['body'].length ==0:
-               return  {
+        if not data or len(data['body']) == 0:
+            return {
                 "message": "Validation error",
                 "statusCode": 400,
                 "errors": {
                     "body": "comment text is required",
                 }
-                }
+            }
 
         newComment = AnswerComment(
             body=data["body"],
             commenter_id=current_user.id,
-            answer_id = id
+            answer_id=id
         )
         db.session.add(newComment)
         db.session.commit()
 
         result = {
-        "id":newComment.id,
-        "answerId":newComment.answer_id,
-        "body":newComment.body,
+            "id": newComment.id,
+            "answerId": newComment.answer_id,
+            "body": newComment.body,
         }
-
 
         return result
 
     return {'errors': ['Unauthorized']}
- 
-### Edit a comment
+
+# Edit a comment
+
 
 @comment_routes.route('/<int:id>', methods=['PUT'])
 def edit_comment(id):
     if current_user.is_authenticated:
-        
 
         comment = AnswerComment.query.get(id)
         if not comment:
             return {
                 "message": "answer couldn't be found",
                 "statusCode": 404
-                }
+            }
         if current_user.id is not comment.commenter_id:
-            return {'errors': ['Unauthorized']} 
-        data=request.json
+            return {'errors': ['Unauthorized']}
+        data = request.json
 
         if not data:
-            return    {
+            return {
                 "message": "Validation error",
                 "statusCode": 400,
                 "errors": {
-                "answers": "body text is required",
+                    "answers": "body text is required",
                 }
-                } 
+            }
 
         comment.body = data['body']
 
         db.session.commit()
 
         result = {
-            "id":comment.id,
-            "answerId":comment.answer_id,
-            "body":comment.body
+            "id": comment.id,
+            "answerId": comment.answer_id,
+            "body": comment.body
         }
 
         return result
     return {'errors': ['Unauthorized']}
- 
- ### Delete a Comment
+
+ # Delete a Comment
+
 
 @comment_routes.route('/<int:id>', methods=['DELETE'])
 def delete_comment(id):
@@ -117,12 +120,11 @@ def delete_comment(id):
             return "Successfully"
         except:
             return 'This comment does not hit database'
-    
-    return {'errors': ['Unauthorized']} 
+
+    return {'errors': ['Unauthorized']}
 
 
-
-### Get all Comments belonging to a user based on userID
+# Get all Comments belonging to a user based on userID
 
 @user_routes.route('/<int:id>/comments', methods=['GET'])
 def get_all_comments_by_userId(id):
@@ -135,21 +137,22 @@ def get_all_comments_by_userId(id):
             "statusCode": 404
         }
 
-    comments = User.query.options(joinedload(User.answer_comments)).filter(User.id == id).all()
+    comments = User.query.options(joinedload(
+        User.answer_comments)).filter(User.id == id).all()
 
     result = [comment.to_dict_c() for comment in comments]
 
     return {'Comments': result}
 
 
-### Get a Comment based Comment Id
+# Get a Comment based Comment Id
 
-@comment_routes.route('/<int:id>',methods=['GET'])
+@comment_routes.route('/<int:id>', methods=['GET'])
 def comment_by_id(id):
     comment = AnswerComment.query.get(id)
     if not comment:
-        return  {
-                "message": "comment couldn't be found",
-                "statusCode": 404
-            }
+        return {
+            "message": "comment couldn't be found",
+            "statusCode": 404
+        }
     return comment.to_dict()

@@ -6,12 +6,14 @@ import { useParams } from "react-router-dom"
 import {sendAnswerDeleteRequest} from "../../store/answer"
 import { loadQuestionFromBackend } from "../../store/question"
 import EditAnswer from "./EditAnswer"
+import NewComment from "./NewComment"
 
 const AnswerBlock = ({answerData}) => {
   const {body, Answerer, Comments, id} = answerData
 
   const showComments = Comments.length !== 0
   const [showEdit, setShowEdit] = useState(false)
+  const [showNewComment, setShowNewComment] = useState(false)
 
   const currentSessionUser = useSelector(state => state.session.user)
   const currentSessionUserId = currentSessionUser.id
@@ -34,7 +36,20 @@ const AnswerBlock = ({answerData}) => {
         {body}
       </div>
 
-      {currentSessionUserId === Answerer.id && (
+      <div className="interactions">
+        {currentSessionUser && (
+          <div className="new-comment-button">
+            <button className="new-comment-button" onClick={() => setShowNewComment(!showNewComment)}>New Comment</button>
+            {showNewComment && (
+              <div>
+                <NewComment answerId={id} setShowNewComment={setShowNewComment} />
+              </div>
+            )}
+          </div>
+        )}
+
+
+        {currentSessionUserId === Answerer.id && (
         <div className="answer-block-owner-controls">
           <button className="edit-delete-qac" onClick={() => setShowEdit(!showEdit)}>Edit</button>
           <button className="edit-delete-qac" onClick={handleDelete}>Delete</button>
@@ -47,9 +62,14 @@ const AnswerBlock = ({answerData}) => {
       )}
 
 
+      </div>
+
+
+
+
       {showComments && Comments.map(comment => {
         return (
-          <CommentBlock commentData={comment}/>
+          <CommentBlock key={comment.id} commentData={comment}/>
         )
       })}
 

@@ -18,8 +18,6 @@ const CommentBlock = ({ commentData }) => {
   const currentSessionUserId = currentSessionUser.id
 
   const questionId = useParams()
-  const history = useHistory()
-
 
   const handleDelete = (e) => {
     e.preventDefault()
