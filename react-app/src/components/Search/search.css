@@ -43,29 +43,28 @@ input:-webkit-autofill:focus {
 .search-return{
     align-items: center;
     justify-content: center;
-    background-color:white;
-    padding:2px;
-    margin:auto;
-
   
 }
 
 .search-result-container{
-    border:1px solid black;
+    border:1px solid rgb(216, 212, 212);
     background-color:white;
     padding:2px;
     margin:auto;
-    
-
 }
+
+
 #search-result-user{
     flex-direction: row;
     margin:5px
-
-
 }
 
 .search-result-question{
-    margin:5px;
-    border:1px solid
+    margin:10px;
+    border:1px solid rgb(216, 212, 212);
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: space-around;
 }
+
