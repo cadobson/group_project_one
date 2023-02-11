@@ -116,6 +116,11 @@ def edit_question(id):
 @question_routes.route('/<int:id>', methods=['GET'])
 def get_question_comm_ans(id):
     question = Question.query.get(id)
+    
+    if not question:
+        result = {"message": "Questions cannot be found", "statusCode": 404}
+        return result, 404 
+        
     question_dict = question.to_dict()
     
     # Get answers and comments
@@ -145,6 +150,7 @@ def get_question_comm_ans(id):
         "createdAt": "2023-02-19 20:30:45",
         "updatedAt": "2023-02-19 20:35:45",
         "Answers": answers_dict,
+        "statusCode": 200
         }
 
     return finalObj
