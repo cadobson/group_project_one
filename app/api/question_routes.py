@@ -67,9 +67,9 @@ def post_simple_form():
 ### Edit a question specified by its id
 @question_routes.route('/<int:id>', methods=['PUT'])
 def edit_question(id):
-
-    if current_user.is_authenticated:
-            
+    question = Question.query.get_or_404(id)
+    if current_user.is_authenticated and (current_user.id == question.ask_id):
+       
         data = request.json
         
         # error handle empty title, body, or both
@@ -102,11 +102,10 @@ def edit_question(id):
         result = {
             "title": question.title,
             "body": question.body,
-
         }
-
+        
         return result
-    return {'errors': ['Unauthorized']}
+    return {'errors': 'Unauthorized'}, 401
 
 ### Get a question by id with comments and answers 
 @question_routes.route('/<int:id>', methods=['GET'])
