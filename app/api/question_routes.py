@@ -219,6 +219,12 @@ def get_questions_by_tag(tagName):
 def make_tag(questionId):
     # if the tag DNE, create tag then associate. Otherwiese, just associate"
     if current_user.is_authenticated:
+        
+        question = Question.query.get(questionId)
+        askId = question.to_dict()['askId']
+        if askId != current_user.id:
+            return {"message": "User does not own question", "statusCode": 405}, 405
+        
         data = json.loads(request.data)
         new_tag = Tag(tagName=data["tagName"])
 
@@ -254,7 +260,6 @@ def make_tag(questionId):
 # Edit a tag appears on tag_routes
 
 # Delete a tag for a question they made
-
 
 @question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
 def delete_question_tags(tagName, questionId):
@@ -306,3 +311,24 @@ def delete_question_tags(tagName, questionId):
             db.session.commit()
 
         return {"message": "Tag successfully deleted", "statusCode": 200}
+
+# Get all of the tags for a particular
+@question_routes.route('/<questionId>/tags', methods=['GET'])
+def get_question_tags(questionId):
+    tag_questions = TagQuestion.query.filter(TagQuestion.question_id == questionId).all()
+    question = Question.query.get(questionId)
+    
+    # Error handling
+    if not question:
+            return {"message": "Question does not exist", "statusCode": 404}
+    
+    if not tag_questions:
+         return {"message": "Question does not have any tags", "statusCode": 404}
+
+    # Get integer tag ids
+    tag_ids = [item.to_dict()['tag_id'] for item in tag_questions]
+    
+    # get tag names to plug into tags table
+    tag_names = [Tag.query.get(tag_id).to_dict()['tagName'] for tag_id in tag_ids]
+    
+    return {"Tags": tag_names, "Question": question.to_dict()}
