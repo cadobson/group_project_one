@@ -3,8 +3,7 @@ import UserBlock from "./UserBlock"
 
 
 const QuestionBlock = ({ questionData }) => {
-  const {title, body, Asker, Answers, Comments} = questionData
-  const {askerName, askerProfileImg} = Asker
+  const {title, body, Asker, Answers} = questionData
 
   return (
     <div className="question-block">
@@ -22,7 +21,7 @@ const QuestionBlock = ({ questionData }) => {
 
       {Answers && Answers.map(answer => {
         return (
-          <AnswerBlock answerData={answer}/>
+          <AnswerBlock key={answer.id} answerData={answer}/>
         )
       })}
 

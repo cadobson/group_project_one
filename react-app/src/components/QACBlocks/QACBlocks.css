@@ -1,4 +1,4 @@
-.edit-delete-qac {
+.edit-delete-qac, .post-new-comment-button {
   background-color: #B92B27;
   color: white;
   padding: 14px 20px;
@@ -6,4 +6,10 @@
   border: none;
   cursor: pointer;
   width: auto;
+}
+
+.interactions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
