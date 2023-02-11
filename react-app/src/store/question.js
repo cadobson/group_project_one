@@ -37,6 +37,7 @@ export const sendQuestionCreationRequest = (questionToCreate) => async dispatch 
   if (createQuestionRes.ok) {
     const newQuestionData = await createQuestionRes.json();
     dispatch(setQuestion(newQuestionData))
+    return newQuestionData
   }
   return createQuestionRes
 }

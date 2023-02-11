@@ -24,7 +24,7 @@ const NewQuestion = () => {
     }
     const newQuestionData = {title, body}
     dispatch(sendQuestionCreationRequest(newQuestionData))
-      .then((data) => {console.log("SUCCESS:", data)})//TODO: replace with history.push(`/questions/${data.id}`)
+      .then((data) => {history.push(`/questions/${data.id}`)})
       .catch(async (res) => {//TODO: Implement error storage and display
         console.log("ERRORS:")
         console.log(res)
