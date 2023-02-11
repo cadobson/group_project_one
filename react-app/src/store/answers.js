@@ -1,7 +1,13 @@
 const SET_ANSWERS = "answers/SET_ANSWERS"
+const ANSWERS_USER = 'answers/USER'
 
 const setAnswers = (answers) => ({
   type: SET_ANSWERS,
+  answers
+})
+
+const answersByUserId=(answers) => ({
+  type:ANSWERS_USER,
   answers
 })
 
@@ -14,10 +20,21 @@ export const loadAnswersFromBackend = () => async dispatch => {
   return answersDataRes
 }
 
+export const loadAnswersByUserId = (userId) => async dispatch => {
+  const res = await fetch(`/api/user/${userId}/answers`)
+  if(res.ok){
+    const answers = await res.json();
+    dispatch(answersByUserId(answers))
+  }
+}
+
 const answersReducer = (state = {}, action) => {
   switch (action.type) {
     case (SET_ANSWERS): {
       return action.answers.Answers
+    }
+    case ANSWERS_USER:{
+      return action.answers
     }
     default: {
       return state

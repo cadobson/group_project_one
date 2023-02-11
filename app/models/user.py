@@ -66,7 +66,10 @@ class User(db.Model, UserMixin):
         return {
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'answers':[answer.body for answer in self.answers]
+            # 'answers':[answer.body for answer in self.answers],
+            # 'answers_id':[answer.id for answer in self.answers],
+             'answers':[answer.to_dict() for answer in self.answers],
+
             
         }
     def to_dict_c(self):
