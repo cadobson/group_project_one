@@ -38,13 +38,9 @@ const AnswerBlock = ({answerData}) => {
 
       <div className="interactions">
         {currentSessionUser && (
-          <div className="new-comment-button">
+          <div className="new-comment-button-controls">
             <button className="new-comment-button" onClick={() => setShowNewComment(!showNewComment)}>New Comment</button>
-            {showNewComment && (
-              <div>
-                <NewComment answerId={id} setShowNewComment={setShowNewComment} />
-              </div>
-            )}
+
           </div>
         )}
 
@@ -53,19 +49,22 @@ const AnswerBlock = ({answerData}) => {
         <div className="answer-block-owner-controls">
           <button className="edit-delete-qac" onClick={() => setShowEdit(!showEdit)}>Edit</button>
           <button className="edit-delete-qac" onClick={handleDelete}>Delete</button>
-          {showEdit && (
-            <div>
-              <EditAnswer answerData={answerData}/>
-            </div>
-          )}
+
         </div>
       )}
-
-
       </div>
-
-
-
+      <div className="edit-and-new-forms">
+        {showNewComment && (
+          <div>
+            <NewComment answerId={id} setShowNewComment={setShowNewComment} />
+          </div>
+        )}
+        {showEdit && (
+          <div>
+            <EditAnswer answerData={answerData}/>
+          </div>
+        )}
+      </div>
 
       {showComments && Comments.map(comment => {
         return (

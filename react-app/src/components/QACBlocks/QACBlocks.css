@@ -1,7 +1,8 @@
-.edit-delete-qac, .post-new-comment-button {
+.edit-delete-qac, .post-new-comment-button, .new-comment-button {
   background-color: #B92B27;
   color: white;
-  padding: 14px 20px;
+  font-size: 11px;
+  padding: 3px 4px;
   margin: 8px 8px;
   border: none;
   cursor: pointer;
