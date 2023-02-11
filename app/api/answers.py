@@ -34,7 +34,6 @@ def answer_current():
 # Create an Answer for a question based on the question Id
 @question_routes.route('/<int:id>', methods=['POST'])
 def post_answer(id):
-
     if current_user.is_authenticated:
 
         if not Question.query.get(id):

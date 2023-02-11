@@ -22,12 +22,13 @@ export const loadAnswerFromBackend = (answerId) => async dispatch => {
   return answerDataRes
 }
 
-export const sendAnswerCreationRequest = (answerToCreate) => async dispatch => {
+export const sendAnswerCreationRequest = (questionId, answerToCreate) => async dispatch => {
   const reqObj = {
     method: "POST",
     body: JSON.stringify(answerToCreate)
   }
-  const createAnswerRes = await fetch(`/api/answers/`, reqObj)
+  reqObj.headers = { "Content-Type": "application/json" };
+  const createAnswerRes = await fetch(`/api/questions/${questionId}`, reqObj)
   if (createAnswerRes.ok) {
     const newAnswerData = await createAnswerRes.json();
     dispatch(setAnswer(newAnswerData))

@@ -51,7 +51,7 @@ const AnswerBlock = ({answerData}) => {
           <button className="edit-delete-qac" onClick={handleDelete}>Delete</button>
 
         </div>
-      )}
+        )}
       </div>
       <div className="edit-and-new-forms">
         {showNewComment && (

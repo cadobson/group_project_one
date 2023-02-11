@@ -40,32 +40,7 @@ const OneQuestion = ({question}) => {
       </div>
       <div className="border-bar" />
     </>
-
-
-
-
   )
 }
 
 export default OneQuestion
-// <>
-    //   <div className="card-for-one-question">
-    //     <div className="question-card-user">
-    //       {name}
-    //     </div>
-    //     <div className="question-card-title-holder">
-    //       <Link to={`questions/${id}`}>
-    //         <h2 className="question-card-title">{title}</h2>
-    //       </Link>
-
-    //     </div>
-    //     <div className="question-card-body">
-    //       {body}
-    //     </div>
-    //     <div className="tags">
-    //       One day #tags will be right here.
-    //     </div>
-    //   </div>
-
-    //   <div className="border-bar" />
-    // </>

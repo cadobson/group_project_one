@@ -45,11 +45,15 @@ export const sendQuestionCreationRequest = (questionToCreate) => async dispatch 
 export const sendQuestionEditRequest = (questionToEdit, questionId) => async dispatch => {
   const reqObj = {
     method: "PUT",
-    body: JSON.stringify(questionToEdit)
+    body: JSON.stringify(questionToEdit),
+    headers: {
+      "Content-Type": "application/json"
+    }
   }
-  const editQuestionRes = await fetch(`/api/questions/${questionId}/`, reqObj)
+  const editQuestionRes = await fetch(`/api/questions/${questionId}`, reqObj)
   if (editQuestionRes.ok) {
     const updatedQuestionData = await editQuestionRes.json();
+    console.log("==============Edited questions: ", updatedQuestionData)
     dispatch(setQuestion(updatedQuestionData))
   }
   return editQuestionRes

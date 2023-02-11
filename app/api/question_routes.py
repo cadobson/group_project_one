@@ -87,7 +87,8 @@ def edit_question(id):
         result = {
             "title": question.title,
             "body": question.body,
-
+            "id": question.id,
+            "Asker": current_user.to_dict(),
         }
 
         return result

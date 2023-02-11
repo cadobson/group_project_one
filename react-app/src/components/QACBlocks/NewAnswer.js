@@ -1,23 +1,21 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { addComment } from '../../store/comment'
-import { loadQuestionFromBackend } from '../../store/question'
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { sendAnswerCreationRequest } from "../../store/answer"
+import { loadQuestionFromBackend } from "../../store/question"
 
-const NewComment = ({answerId, setShowNewComment}) => {
 
+const NewAnswer = ({questionId, setShowNewAnswer}) => {
   const [body, setBody] = useState('')
   const [errors, setErrors] = useState([])
   const [serverErrors, setServerErrors] = useState([])
 
-  const questionId = useParams()
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
     if (body.length < 1) {
-      setErrors(['Comment body cannot be empty'])
+      setErrors(['Answer body cannot be empty'])
       return
     }
 
@@ -25,9 +23,9 @@ const NewComment = ({answerId, setShowNewComment}) => {
       body,
     }
 
-    dispatch(addComment(answerId, payload))
-      .then(() => {dispatch(loadQuestionFromBackend(questionId.id))})
-      .then(() => {setShowNewComment(false)})
+    dispatch(sendAnswerCreationRequest(questionId, payload))
+      .then(() => {dispatch(loadQuestionFromBackend(questionId))})
+      .then(() => {setShowNewAnswer(false)})
       .catch(async (res) => {
         const data = await res.json()
         if (data && data.errors) {
@@ -36,6 +34,7 @@ const NewComment = ({answerId, setShowNewComment}) => {
         }
       })
   }
+
 
   return (
     <div className="edit-answer-form">
@@ -53,4 +52,4 @@ const NewComment = ({answerId, setShowNewComment}) => {
   )
 }
 
-export default NewComment
+export default NewAnswer
