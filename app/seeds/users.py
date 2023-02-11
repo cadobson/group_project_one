@@ -26,7 +26,7 @@ def seed_users():
         password='password',
         first_name='Sarah',
         last_name='Johnson',
-        profileimg='https://imgur.com/t/cats/UTuvBZg'
+        profileimg='https://imgur.com/t/cats/UTuvBZg.jpeg'
     )
 
     db.session.add(demo)

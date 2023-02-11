@@ -6,6 +6,8 @@ const AnswerBlock = ({answerData}) => {
   const {body, Answerer, Comments} = answerData
   const {answererName, answererProfileImg} = Answerer
 
+  const showComments = Comments.length !== 0
+
   return (
     <div className="answer-block">
 
@@ -16,7 +18,7 @@ const AnswerBlock = ({answerData}) => {
         {body}
       </div>
 
-      {Comments.length && Comments.map(comment => {
+      {showComments && Comments.map(comment => {
         return (
           <CommentBlock commentData={comment}/>
         )
