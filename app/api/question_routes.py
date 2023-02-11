@@ -185,6 +185,7 @@ def get_question_sans_comm_ans(id):
         "Asker": askerObj,
         "title": title,
         "body": body,
+        "statusCode": 200,
         "createdAt": "2023-02-19 20:30:45",
         "updatedAt": "2023-02-19 20:35:45",
         }
@@ -198,14 +199,14 @@ def delete_question(id):
     
     question = Question.query.get(id)
     if not question:
-        return {"message": "Question could not be found", "statusCode": 404}
+        return {"message": "Question could not be found", "statusCode": 404}, 404
     
     # values must match to make sure user owns question
     askerId = int(question.to_dict()['askId'])
     userId = int(current_user.get_id())
     
     if askerId != userId:
-        return {"message": "User does not own question", "statusCode": 404}
+        return {"message": "User does not own question", "statusCode": 404}, 404
     
     if current_user.is_authenticated and askerId == userId:
         db.session.delete(question)
