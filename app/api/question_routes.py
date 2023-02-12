@@ -101,10 +101,12 @@ def edit_question(id):
 def get_question_comm_ans(id):
     question = Question.query.get(id)
     if not question:
-        return {
+        res = jsonify({
                 "message": "question couldn't be found",
                 "statusCode": 404
-                }
+        })
+        res.status_code = 404
+        return res
     question_dict = question.to_dict()
 
     # Get related tags
@@ -153,6 +155,14 @@ def get_question_comm_ans(id):
 @question_routes.route('/<int:id>/truncated', methods=['GET'])
 def get_question_sans_comm_ans(id):
     question = Question.query.get(id)
+    if not question:
+        res = jsonify({
+                "message": "question couldn't be found",
+                "statusCode": 404
+        })
+        res.status_code = 404
+        return res
+
     question_dict = question.to_dict()
 
     # abstract necessary information
@@ -188,7 +198,13 @@ def delete_question(id):
 
     question = Question.query.get(id)
     if not question:
-        return {"message": "Question could not be found", "statusCode": 404}
+        res = jsonify({
+                "message": "question couldn't be found",
+                "statusCode": 404
+        })
+        res.status_code = 404
+        return res
+
 
     # values must match to make sure user owns question
     askerId = int(question.to_dict()['askId'])
