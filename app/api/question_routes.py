@@ -102,16 +102,15 @@ def get_question_comm_ans(id):
     question = Question.query.get(id)
     if not question:
         return {
-                "message": "question couldn't be found",
-                "statusCode": 404
-                }
+            "message": "question couldn't be found",
+            "statusCode": 404
+        }
     question_dict = question.to_dict()
 
     # Get related tags
     tag_questions = TagQuestion.query.filter(
         TagQuestion.question_id == id).all()
-    
-    
+
     tag_ids = [item.to_dict()['tag_id'] for item in tag_questions]
     tag_names = [Tag.query.get(tag_id).to_dict()['tagName']
                  for tag_id in tag_ids]
@@ -214,7 +213,7 @@ def get_questions_by_tag(tagName):
         tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
     except:
         return {"message": "Tag does not exist", "statusCode": 403}
-
+    # questions = Question.query.options(joinedload(Question.askers)).all()
     matching_questions = TagQuestion.query.filter(
         TagQuestion.tag_id == tagId).all()
     matching_question_ids = list(
@@ -222,7 +221,7 @@ def get_questions_by_tag(tagName):
 
     # abstract objects of interest
     questions = list(map(lambda id: Question.query.get(
-        id).to_dict_sans_askers(), matching_question_ids))
+        id).search_result(), matching_question_ids))
     tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
     return {"Tags": tags, "Questions": questions}
 
