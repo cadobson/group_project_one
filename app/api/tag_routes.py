@@ -9,6 +9,18 @@ import json
 
 tag_routes = Blueprint('tag_routes', __name__)
 
+# Get all tags
+@tag_routes.route('/', methods=['GET'])
+def get_tags():
+    tags = Tag.query.all()
+    
+    tag_names = [tag.tagName for tag in tags]
+
+    if not tag_names:
+        return {"message": "No tags exist in database", "statusCode": 404}, 404
+    
+    return { "Tags": tag_names }
+
 # determined on 2023-02-11 that route is not needed
 @tag_routes.route('/<tagId>', methods=['PUT'])
 def edit_tag(tagId):
@@ -51,3 +63,4 @@ def edit_tag(tagId):
                 
         # ask_id
         return 'Hello world'
+    
