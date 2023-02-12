@@ -53,7 +53,6 @@ export const sendQuestionEditRequest = (questionToEdit, questionId) => async dis
   const editQuestionRes = await fetch(`/api/questions/${questionId}`, reqObj)
   if (editQuestionRes.ok) {
     const updatedQuestionData = await editQuestionRes.json();
-    console.log("==============Edited questions: ", updatedQuestionData)
     dispatch(setQuestion(updatedQuestionData))
   }
   return editQuestionRes
@@ -69,6 +68,24 @@ export const sendQuestionDeleteRequest = (questionId) => async dispatch => {
     // dispatch(loadQuestionsFromBackend)
   }
   return deleteQuestionRes
+}
+
+export const sendTagAdditionRequest = (tagToAdd, questionId) => async dispatch => {
+  const reqObj = {
+    method: "POST",
+    body: JSON.stringify(tagToAdd),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+  const addTagRes = await fetch(`/api/questions/${questionId}/tags`, reqObj)
+  if (addTagRes.ok) {
+    // const updatedQuestionData = await addTagRes.json();
+    // dispatch(setQuestion(updatedQuestionData))
+    // Now that we know the tag creation went through, we can update request a the udpatd question data from the backend
+    dispatch(loadQuestionFromBackend(questionId))
+  }
+  return addTagRes
 }
 
 const questionReducer = (state = {}, action) => {

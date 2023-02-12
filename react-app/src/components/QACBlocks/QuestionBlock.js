@@ -4,7 +4,9 @@ import { useHistory, useParams } from "react-router-dom"
 import { loadQuestionFromBackend, sendQuestionDeleteRequest } from "../../store/question"
 import AnswerBlock from "./AnswerBlock"
 import EditQuestion from "./EditQuestion"
+import EditTags from "./EditTags"
 import NewAnswer from "./NewAnswer"
+import TagBlock from "./Tags"
 import UserBlock from "./UserBlock"
 
 
@@ -15,6 +17,7 @@ const QuestionBlock = ({ questionData }) => {
 
   const [showNewAnswer, setShowNewAnswer] = useState(false)
   const [showEdit, setShowEdit] = useState(false)
+  const [showTagEdit, setShowTagEdit] = useState(false)
 
   const currentSessionUser = useSelector(state => state.session.user)
   const currentSessionUserId = currentSessionUser.id
@@ -43,14 +46,9 @@ const QuestionBlock = ({ questionData }) => {
         {body}
       </div>
       <div className="question-block-tags">
-        Tags:
-        {Tags.length && Tags.map((tag, index) => {
-          return (
-            <div key={index} className="tag">
-              {tag}
-            </div>
-          )
-        })}
+        {Tags && (
+          <TagBlock tags={Tags}/>
+        )}
       </div>
 
       <div className="interactions">
@@ -64,9 +62,9 @@ const QuestionBlock = ({ questionData }) => {
 
         {currentSessionUserId === Asker.askerId && (
         <div className="answer-block-owner-controls">
-          <button className="edit-delete-qac" onClick={() => setShowEdit(!showEdit)}>Edit</button>
+          <button className="edit-delete-qac" onClick={() => setShowEdit(!showEdit)}>Edit Body</button>
           <button className="edit-delete-qac" onClick={handleDelete}>Delete</button>
-
+          <button className="edit-delete-qac" onClick={() => setShowTagEdit(!showTagEdit)}>Edit Tags</button>
         </div>
         )}
       </div>
@@ -82,6 +80,11 @@ const QuestionBlock = ({ questionData }) => {
           </div>
         )}
       </div>
+      {showTagEdit && (
+        <div>
+          <EditTags tagList={Tags} questionId={id} />
+        </div>
+      )}
 
 
       {Answers && Answers.map(answer => {
