@@ -39,11 +39,11 @@ def post_answer(id):
             return {
                 "message": "question couldn't be found",
                 "statusCode": 404
-                }, 
+                }, 404
 
         data = request.json
 
-        if not data:
+        if not data or len(data['body']):
             return    {
                     "message": "Validation error",
                     "statusCode": 400,
