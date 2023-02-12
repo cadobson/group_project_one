@@ -133,8 +133,10 @@ def get_question_comm_ans(id):
         TagQuestion.question_id == id).all()
 
     tag_ids = [item.to_dict()['tag_id'] for item in tag_questions]
-    tag_names = [Tag.query.get(tag_id).to_dict()['tagName']
-                 for tag_id in tag_ids]
+    try: 
+        tag_names = [Tag.query.get(tag_id).to_dict()['tagName'] for tag_id in tag_ids]
+    except:
+        tag_names = []                
 
     # Get answers and comments
     answers = Answer.query.filter(Answer.question_id == id).all()
@@ -289,7 +291,7 @@ def make_tag(questionId):
 
         data = json.loads(request.data)
         tag_name_lower_case = data["tagName"].lower()
-        new_tag = Tag(tagName="lower_case")
+        new_tag = Tag(tagName=tag_name_lower_case)
 
         try:
             db.session.add(new_tag)
@@ -299,8 +301,11 @@ def make_tag(questionId):
 
         # Get primary key of newly added tag
         tagIds = Tag.query.filter(Tag.tagName == tag_name_lower_case).all()
-        last_tag = tagIds[0].to_dict()['id']
-
+        try: 
+            last_tag = tagIds[0].to_dict()['id']
+        except: 
+            last_tag = []
+            
         # add question_id and tag_id to tags_questions
         new_rel = TagQuestion(question_id=questionId, tag_id=last_tag)
 
