@@ -14,9 +14,9 @@ input:-webkit-autofill:focus {
 }
 
 .search-container{
-    
+
     width:200px;
-    height:20px;
+    height:32px;
     padding:5px;
     display: flex;
     flex-direction: row;
@@ -37,13 +37,13 @@ input:-webkit-autofill:focus {
     border: 0;
     outline: none;
     background-color:transparent;
-  
+
 };
 
 .search-return{
     align-items: center;
     justify-content: center;
-  
+
 }
 
 .search-result-container{
@@ -67,4 +67,3 @@ input:-webkit-autofill:focus {
     align-items:flex-start;
     justify-content: space-around;
 }
-
