@@ -2,6 +2,12 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 0 white inset !important;
   box-shadow: 0 0 0 0 white inset !important;
 };
+input:focus {
+    outline: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+ }
 
 #question-link:hover {
     text-decoration: underline;
