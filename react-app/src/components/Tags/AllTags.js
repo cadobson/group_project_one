@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { loadTagsFromBackend } from "../../store/tags"
 
 
@@ -23,7 +24,7 @@ const AllTags = () => {
           <div className="tag-block">
 
             {allTagData.Tags.map((tag, index) => {
-              return <div className="tag" key={index}>{tag}</div>
+              return <Link to={`/tags/${tag}`}><div className="tag" key={index}>{tag}</div></Link>
             })}
           </div>
         )}

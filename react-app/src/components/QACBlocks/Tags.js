@@ -1,12 +1,15 @@
+import { Link } from "react-router-dom";
 
 
 const TagBlock = ({ tags }) => {
   return (
     <div className="tag-block">
-      Tags: 
+      Tags:
       {tags.map((tag, i) => (
         <div key={i} className="tag">
-          {tag}
+          <Link to={`/tags/${tag}`}>
+            {tag}
+          </Link>
         </div>
       ))}
     </div>

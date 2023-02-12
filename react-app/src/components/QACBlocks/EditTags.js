@@ -16,6 +16,7 @@ const EditTags = ({tagList, questionId}) => {
 
     const newLocalErrors = []
     if (newTag.length === 0) newLocalErrors.push("You can't add a tag if there isn't any text!")
+    if (newTag.includes(" ")) newLocalErrors.push("Tags can't have spaces!")
     if (newLocalErrors.length) {
       setLocalErrors(newLocalErrors)
       return

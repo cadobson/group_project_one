@@ -47,7 +47,8 @@ export const loadQuestionsByUserId = (userId) => async dispatch =>{
 const questionsReducer = (state = {}, action) => {
   switch (action.type) {
     case (SET_QUESTIONS): {
-      return action.questions.Questions
+      const newState = [...action.questions.Questions]
+      return newState
     }
     case QUESTIONS_USER:{
       const newState = {...action.questions}
