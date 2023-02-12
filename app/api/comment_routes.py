@@ -72,7 +72,7 @@ def edit_comment(id):
             return {
                 "message": "answer couldn't be found",
                 "statusCode": 404
-            }404
+            }, 404
         if current_user.id is not comment.commenter_id:
             return {'errors': ['Unauthorized']}
         data = request.json
