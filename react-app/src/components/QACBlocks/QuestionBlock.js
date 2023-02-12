@@ -9,7 +9,8 @@ import UserBlock from "./UserBlock"
 
 
 const QuestionBlock = ({ questionData }) => {
-  const {id, title, body, Asker, Answers} = questionData
+  const {id, title, body, Asker, Answers, Tags} = questionData
+  // console.log("Tags: ", Tags)
 
 
   const [showNewAnswer, setShowNewAnswer] = useState(false)
@@ -40,6 +41,16 @@ const QuestionBlock = ({ questionData }) => {
       </div>
       <div className="question-block-body">
         {body}
+      </div>
+      <div className="question-block-tags">
+        Tags:
+        {Tags.length && Tags.map((tag, index) => {
+          return (
+            <div key={index} className="tag">
+              {tag}
+            </div>
+          )
+        })}
       </div>
 
       <div className="interactions">
