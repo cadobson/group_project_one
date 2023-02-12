@@ -26,6 +26,16 @@ export const loadQuestionsFromBackend = () => async dispatch => {
   return questionsDataRes
 }
 
+export const loadQuestionsByTag = (tag) => async dispatch =>{
+  const res = await fetch(`/api/questions/tags/${tag}`)
+  if(res.ok){
+    const questions = await res.json();
+    console.log("Questions to be placed into the store: ", questions)
+    dispatch(setQuestions(questions))
+  }
+  return res
+}
+
 export const loadQuestionsByUserId = (userId) => async dispatch =>{
   const res = await fetch(`/api/user/${userId}/questions`)
   if(res.ok){
@@ -38,7 +48,7 @@ const questionsReducer = (state = {}, action) => {
   switch (action.type) {
     case (SET_QUESTIONS): {
       return action.questions.Questions
-    };
+    }
     case QUESTIONS_USER:{
       const newState = {...action.questions}
       return newState

@@ -23,6 +23,7 @@ import { SearchResult } from './components/Search/SearchResult';
 import { UseridQuestions } from './components/Questions/UseridQuestions';
 import { AnswersByUserId } from './components/Answers/AnswersByUserId';
 import AllTags from './components/Tags/AllTags';
+import OneTag from './components/Search/OneTag';
 
 
 function App() {
@@ -45,25 +46,25 @@ function App() {
       <NavBar loaded={loaded} />
       <div className='central-column'>
         <Switch>
-          <Route path='/questions/:id' exact={true}>
+          <Route path='/questions/:id' exact>
             <Question />
           </Route>
-          <Route path='/answers/:id' exact={true}>
+          <Route path='/answers/:id' exact>
             <Answer />
           </Route>
-          <Route path='/login' exact={true}>
+          <Route path='/login' exact>
             <LoginForm />
           </Route>
-          <Route path='/sign-up' exact={true}>
+          <Route path='/sign-up' exact>
             <SignUpForm />
           </Route>
-          <ProtectedRoute path='/users' exact={true} >
+          <ProtectedRoute path='/users' exact >
             <UsersList />
           </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId' exact={true} >
+          <ProtectedRoute path='/users/:userId' exact >
             <User />
           </ProtectedRoute>
-          <Route path='/' exact={true} >
+          <Route path='/' exact >
             <Questions />
           </Route>
 
@@ -111,6 +112,9 @@ function App() {
 
           <Route exact path='/tags'>
             <AllTags />
+          </Route>
+          <Route exact path='/tags/:tagName'>
+            <OneTag />
           </Route>
 
 
