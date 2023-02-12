@@ -100,11 +100,18 @@ def edit_question(id):
 @question_routes.route('/<int:id>', methods=['GET'])
 def get_question_comm_ans(id):
     question = Question.query.get(id)
+    if not question:
+        return {
+                "message": "question couldn't be found",
+                "statusCode": 404
+                }
     question_dict = question.to_dict()
 
     # Get related tags
     tag_questions = TagQuestion.query.filter(
         TagQuestion.question_id == id).all()
+    
+    
     tag_ids = [item.to_dict()['tag_id'] for item in tag_questions]
     tag_names = [Tag.query.get(tag_id).to_dict()['tagName']
                  for tag_id in tag_ids]
