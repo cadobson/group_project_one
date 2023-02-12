@@ -1,0 +1,22 @@
+.user-detail-info{
+    display: flex;
+    width:max-content;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: white;
+}
+
+.user-detail-info li {
+    list-style-type: none;
+}
+
+.user-info {
+    margin:auto atuo
+}
+
+.user-list{
+    display: flex;
+    flex-direction:column ;
+}

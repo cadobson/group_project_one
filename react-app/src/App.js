@@ -20,6 +20,8 @@ import {CommentsCur} from './components/Comments/CommentsCur';
 import { CommentsUser } from './components/Comments/CommentsUser';
 import { SearchDb } from './components/Search/SearchDb';
 import { SearchResult } from './components/Search/SearchResult';
+import { UseridQuestions } from './components/Questions/UseridQuestions';
+import { AnswersByUserId } from './components/Answers/AnswersByUserId';
 
 
 function App() {
@@ -64,9 +66,20 @@ function App() {
             <Questions />
           </Route>
 
+          <Route exact path='/users/:userId/questions'>
+            <UseridQuestions />
+          </Route>
+
           <Route exact path='/users/:userId/comments'>
             <CommentsUser />
           </Route>
+          <Route exact path='/users/:userId/answers'>
+            <AnswersByUserId />
+          </Route>
+
+
+
+
 
           <Route exact path='/comments/current'>
             <CommentsCur />

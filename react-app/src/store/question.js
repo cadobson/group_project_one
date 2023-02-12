@@ -63,10 +63,10 @@ export const sendQuestionDeleteRequest = (questionId) => async dispatch => {
   const reqObj = {
     method: "DELETE"
   }
-  const deleteQuestionRes = await fetch(`/api/questions/${questionId}/`, reqObj)
+  const deleteQuestionRes = await fetch(`/api/questions/${questionId}`, reqObj)
   if (deleteQuestionRes.ok) {
-    dispatch(deleteQuestion())
-    dispatch(loadQuestionsFromBackend)
+    // dispatch(deleteQuestion())
+    // dispatch(loadQuestionsFromBackend)
   }
   return deleteQuestionRes
 }

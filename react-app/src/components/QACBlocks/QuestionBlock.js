@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
+import { loadQuestionFromBackend, sendQuestionDeleteRequest } from "../../store/question"
 import AnswerBlock from "./AnswerBlock"
 import EditQuestion from "./EditQuestion"
 import NewAnswer from "./NewAnswer"
@@ -19,9 +20,12 @@ const QuestionBlock = ({ questionData }) => {
 
   const questionId = useParams()
   const dispatch = useDispatch()
+  const history = useHistory();
 
   const handleDelete = (e) => {
-
+    e.preventDefault()
+    dispatch(sendQuestionDeleteRequest(id))
+      .then(() => {history.push("/")})
   }
 
   return (
