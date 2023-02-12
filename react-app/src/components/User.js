@@ -33,31 +33,32 @@ function User() {
   }
 
   return (
-    <div className='user-detail-info'>
-      <ul className='user-info'>
-        <li>
-          <strong>User Id</strong> {userId}
-        </li>
-        <li>
-          <strong>Username</strong> {user.username}
-        </li>
-        <li>
-          <strong>Email</strong> {user.email}
-        </li>
-      </ul>
-      <div className='user-components' style = {{display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+    <div className='user-list'>
+      <div className='card-for-one-question'>
+        <ul>
+          <li key="id">
+            <strong>User Id</strong> {userId}
+          </li>
+          <li key="username">
+            <strong>Username</strong> {user.username}
+          </li>
+          <li key="email">
+            <strong>Email</strong> {user.email}
+          </li>
+        </ul>
+        <div className='user-components' style = {{display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
 
-        <button onClick={()=>setShowQuestions(!showQuestions)}>questions</button>
-        {showQuestions && <UseridQuestions />}
+          <button onClick={()=>setShowQuestions(!showQuestions)}>Questions</button>
+          {showQuestions && <UseridQuestions />}
 
-        <button onClick={()=>setShowAnswers(!showAnswers)}>answers</button>
-        {showAnswers && <AnswersByUserId />}
+          {/* <button onClick={()=>setShowAnswers(!showAnswers)}>answers</button>
+          {showAnswers && <AnswersByUserId />}
 
-        <button onClick={()=>setShowComments(!showComments)}>comments</button>
-        {showComments && <CommentsUser />}
+          <button onClick={()=>setShowComments(!showComments)}>comments</button>
+          {showComments && <CommentsUser />} */}
 
+        </div>
       </div>
-
     </div>
   );
 }

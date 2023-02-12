@@ -25,7 +25,7 @@ const NavBar = ({ loaded }) => {
   }
 
   return (
-    
+
       <nav className="navigation-holder">
 
         <NavLink to='/' exact={true} activeClassName='active'><span id="home-logo">Boura</span></NavLink>
@@ -34,12 +34,16 @@ const NavBar = ({ loaded }) => {
           Users
         </NavLink>
 
+        <NavLink to='/tags' exact={true} activeClassName='active'>
+          Tags
+        </NavLink>
+
         {loaded && sessionLinks }
         <SearchDb />
 
       </nav>
 
-    
+
 
 
 
