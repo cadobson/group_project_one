@@ -233,7 +233,8 @@ def make_tag(questionId):
             return {"message": "User does not own question", "statusCode": 405}, 405
 
         data = json.loads(request.data)
-        new_tag = Tag(tagName=data["tagName"])
+        tag_name_lower_case = data["tagName"].lower()
+        new_tag = Tag(tagName="lower_case")
 
         try:
             db.session.add(new_tag)
@@ -242,7 +243,7 @@ def make_tag(questionId):
             db.session.rollback()
 
         # Get primary key of newly added tag
-        tagIds = Tag.query.filter(Tag.tagName == data['tagName']).all()
+        tagIds = Tag.query.filter(Tag.tagName == tag_name_lower_case).all()
         last_tag = tagIds[0].to_dict()['id']
 
         # add question_id and tag_id to tags_questions
@@ -252,7 +253,7 @@ def make_tag(questionId):
             db.session.add(new_rel)
             db.session.commit()
         except:
-            return {"message": "Assocation already exists", "statusCode": 502}
+            return {"message": "Association already exists", "statusCode": 502}
 
         # Retrieve question; retrieve tag
         question = Question.query.get(questionId)

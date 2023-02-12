@@ -3,19 +3,19 @@ from app.models import db, Tag, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_tags():
     tag1 = Tag(
-        tagName="Physics"
+        tagName="physics"
         )
     tag2 = Tag(
-        tagName="Chemistry"
+        tagName="chemistry"
         )
     tag3 = Tag(
-        tagName="Shakespeare"
+        tagName="shakespeare"
         )
     tag4 = Tag(
-        tagName="Health"
+        tagName="health"
         )
     tag5 = Tag(
-        tagName="Fitness"
+        tagName="fitness"
         )
 
 
