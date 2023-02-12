@@ -33,7 +33,7 @@ def get_question_by_id(id):
     users = User.query.all()
     user_ids = [user.to_dict_public()['id'] for user in users]
     if id not in user_ids:
-        return { "message": "User could not be found", "statusCode": 404}
+        return { "message": "User could not be found"}, 404
 
     questions = Question.query.options(joinedload(Question.askers)).filter(Question.ask_id == id)
 
