@@ -102,6 +102,13 @@ def get_question_comm_ans(id):
     question = Question.query.get(id)
     question_dict = question.to_dict()
 
+    # Get related tags
+    tag_questions = TagQuestion.query.filter(
+        TagQuestion.question_id == id).all()
+    tag_ids = [item.to_dict()['tag_id'] for item in tag_questions]
+    tag_names = [Tag.query.get(tag_id).to_dict()['tagName']
+                 for tag_id in tag_ids]
+
     # Get answers and comments
     answers = Answer.query.filter(Answer.question_id == id).all()
     answers_dict = list(map(lambda x: x.to_dict(), answers))
@@ -124,7 +131,7 @@ def get_question_comm_ans(id):
         "id": id,
         "Asker": askerObj,
         "title": title,
-
+        "Tags": tag_names,
         "body": body,
         "createdAt": "2023-02-19 20:30:45",
         "updatedAt": "2023-02-19 20:35:45",
@@ -219,12 +226,12 @@ def get_questions_by_tag(tagName):
 def make_tag(questionId):
     # if the tag DNE, create tag then associate. Otherwiese, just associate"
     if current_user.is_authenticated:
-        
+
         question = Question.query.get(questionId)
         askId = question.to_dict()['askId']
         if askId != current_user.id:
             return {"message": "User does not own question", "statusCode": 405}, 405
-        
+
         data = json.loads(request.data)
         new_tag = Tag(tagName=data["tagName"])
 
@@ -260,6 +267,7 @@ def make_tag(questionId):
 # Edit a tag appears on tag_routes
 
 # Delete a tag for a question they made
+
 
 @question_routes.route('/<questionId>/<tagName>', methods=['DELETE'])
 def delete_question_tags(tagName, questionId):
@@ -313,22 +321,26 @@ def delete_question_tags(tagName, questionId):
         return {"message": "Tag successfully deleted", "statusCode": 200}
 
 # Get all of the tags for a particular
+
+
 @question_routes.route('/<questionId>/tags', methods=['GET'])
 def get_question_tags(questionId):
-    tag_questions = TagQuestion.query.filter(TagQuestion.question_id == questionId).all()
+    tag_questions = TagQuestion.query.filter(
+        TagQuestion.question_id == questionId).all()
     question = Question.query.get(questionId)
-    
+
     # Error handling
     if not question:
-            return {"message": "Question does not exist", "statusCode": 404}
-    
+        return {"message": "Question does not exist", "statusCode": 404}
+
     if not tag_questions:
-         return {"message": "Question does not have any tags", "statusCode": 404}
+        return {"message": "Question does not have any tags", "statusCode": 404}
 
     # Get integer tag ids
     tag_ids = [item.to_dict()['tag_id'] for item in tag_questions]
-    
+
     # get tag names to plug into tags table
-    tag_names = [Tag.query.get(tag_id).to_dict()['tagName'] for tag_id in tag_ids]
-    
+    tag_names = [Tag.query.get(tag_id).to_dict()['tagName']
+                 for tag_id in tag_ids]
+
     return {"Tags": tag_names, "Question": question.to_dict()}
