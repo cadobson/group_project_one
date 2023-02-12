@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { sendTagAdditionRequest } from "../../store/question"
+import { loadQuestionFromBackend, sendTagAdditionRequest, sendTagRemovalRequest } from "../../store/question"
 
 
 const EditTags = ({tagList, questionId}) => {
   const [newTag, setNewTag] = useState('')
+  const [tagToDelete, setTagToDelete] = useState([])
   const [localErrors, setLocalErrors] = useState([])
+  const [serverErrors, setServerErrors] = useState([])
 
   const dispatch = useDispatch()
 
@@ -24,6 +26,19 @@ const EditTags = ({tagList, questionId}) => {
     }
 
     dispatch(sendTagAdditionRequest(payload, questionId))
+  }
+
+  const handleSubmitDeleteTag = (e) => {
+    e.preventDefault()
+    const newLocalErrors = []
+    if (tagToDelete.length === 0) newLocalErrors.push("You can't delete a tag if there isn't any text!")
+    if (newLocalErrors.length) {
+      setLocalErrors(newLocalErrors)
+      return
+    }
+
+    dispatch(sendTagRemovalRequest(tagToDelete, questionId))
+      //TODO: Handle Errors
 
 
   }
@@ -38,7 +53,10 @@ const EditTags = ({tagList, questionId}) => {
         </form>
       </div>
       <div className="remove-tag">
-
+      <form onSubmit={handleSubmitDeleteTag}>
+          <input type="text" value={tagToDelete} onChange={(e) => setTagToDelete(e.target.value)}/>
+          <button type="submit" value="Remove Tag">Remove Tag</button>
+        </form>
       </div>
     </div>
   )

@@ -88,6 +88,20 @@ export const sendTagAdditionRequest = (tagToAdd, questionId) => async dispatch =
   return addTagRes
 }
 
+export const sendTagRemovalRequest = (tagToRemove, questionId) => async dispatch => {
+  const reqObj = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+  const removeTagRes = await fetch(`/api/questions/${questionId}/${tagToRemove}`, reqObj)
+  if (removeTagRes.ok) {
+    dispatch(loadQuestionFromBackend(questionId))
+  }
+  return removeTagRes
+}
+
 const questionReducer = (state = {}, action) => {
   switch (action.type) {
     case (SET_QUESTION): {
