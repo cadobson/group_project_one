@@ -26,6 +26,7 @@ export const loadAnswersByUserId = (userId) => async dispatch => {
     const answers = await res.json();
     dispatch(answersByUserId(answers))
   }
+  return res
 }
 
 const answersReducer = (state = {}, action) => {
@@ -33,7 +34,8 @@ const answersReducer = (state = {}, action) => {
     case (SET_ANSWERS): {
       return action.answers.Answers
     }
-    case ANSWERS_USER:{
+    case (ANSWERS_USER): {
+      console.log("Answer being put into the reducer 2: ", action.answers)
       return action.answers
     }
     default: {

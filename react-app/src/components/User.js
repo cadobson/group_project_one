@@ -48,14 +48,14 @@ function User() {
         </ul>
         <div className='user-components' style = {{display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
 
-          <button onClick={()=>setShowQuestions(!showQuestions)}>questions</button>
+          <button onClick={()=>setShowQuestions(!showQuestions)}>Questions</button>
           {showQuestions && <UseridQuestions />}
 
-          <button onClick={()=>setShowAnswers(!showAnswers)}>answers</button>
+          {/* <button onClick={()=>setShowAnswers(!showAnswers)}>answers</button>
           {showAnswers && <AnswersByUserId />}
 
           <button onClick={()=>setShowComments(!showComments)}>comments</button>
-          {showComments && <CommentsUser />}
+          {showComments && <CommentsUser />} */}
 
         </div>
       </div>
