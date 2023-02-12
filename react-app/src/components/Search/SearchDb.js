@@ -7,8 +7,7 @@ import { loadSearchResult } from "../../store/search"
 
 export const SearchDb = () => {
     const dispatch = useDispatch()
-    const hisotry = useHistory()
-    console.log('hello')
+    const history = useHistory()
 
     // console.log(result, ' this is the result on the component')
 
@@ -24,7 +23,7 @@ export const SearchDb = () => {
         const searchResult = dispatch(loadSearchResult(input))
 
         if(searchResult){
-            hisotry.push('/search/result')
+            history.push('/search/result')
         }
 
     }

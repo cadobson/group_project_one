@@ -88,8 +88,9 @@ class Question(db.Model):
         return {
             "title": self.title,
             "body": self.body,
-            "id":self.id,
-            "answers": [answer.to_dict() for answer in self.answers]
+            "id": self.id,
+            # "answers": [answer.to_dict() for answer in self.answers]
+            "Asker": self.askers.to_dict_public()
         }
 
 
