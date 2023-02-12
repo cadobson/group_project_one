@@ -8,7 +8,7 @@ import questionReducer from './question';
 import questionsReducer from './questions';
 import searchReducer from './search';
 import session from './session'
-import tagReducer from './tag';
+import tagsReducer from './tags';
 
 const rootReducer = combineReducers({
   session,
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   comment: commentReducer,
   comments:commentsReducer,
   search:searchReducer,
-  tag:tagReducer
+  tags :tagsReducer
 });
 
 

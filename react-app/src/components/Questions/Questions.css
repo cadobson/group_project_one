@@ -4,7 +4,7 @@
   width: 600px;
 }
 
-.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-block, .comment-block, .search-results-header {
+.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-block, .comment-block, .search-results-header, .all-tags-holder {
   border: 1px solid rgb(222, 224, 225);
 
   padding: 10px;
@@ -60,4 +60,20 @@ button {
 
 button:hover {
   background-color: #CC6966;
+}
+
+.tag-block {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.tag {
+  font-size: 12px;
+  /* color: white; */
+  /* border: 1px solid blue; */
+  background-color: #ccc;
+  width: auto;
+  padding: 2px 2px;
+  margin: 4px 4px;
 }
