@@ -32,7 +32,7 @@ const OneQuestion = ({question}) => {
           <div className="question-block-author">
             <UserBlock userData={questionStructure.Asker}/>
           </div>
-          <Link to={`questions/${questionStructure.id}`}>
+          <Link to={`/questions/${questionStructure.id}`} exact={true}>
             <div className="question-block-title">
               <h1>
                 {title}

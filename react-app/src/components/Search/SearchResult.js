@@ -20,9 +20,14 @@ export const SearchResult = () => {
             <h1>Search Results</h1>
           </div>
           <div className="border-bar" />
-          {result.Result.map((question) => {
-            return <OneQuestion key={question.id} question={question} />
-          })}
+          {result.Result && (
+            <>
+              {result.Result.map((question) => {
+                return <OneQuestion key={question.id} question={question} />
+              })}
+            </>
+          )}
+
         </div>
       </>
     )
