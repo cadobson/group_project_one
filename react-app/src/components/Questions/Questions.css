@@ -1,10 +1,10 @@
-.all-questions, .thread-holder {
+.all-questions, .thread-holder, .search-results-all-questions {
   display: flex;
   flex-direction: column;
   width: 600px;
 }
 
-.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-block, .comment-block {
+.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-block, .comment-block, .search-results-header {
   border: 1px solid rgb(222, 224, 225);
 
   padding: 10px;

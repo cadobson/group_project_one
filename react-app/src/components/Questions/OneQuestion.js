@@ -4,14 +4,20 @@ import UserBlock from "../QACBlocks/UserBlock"
 import "./Questions.css"
 
 const OneQuestion = ({question}) => {
-  let {title, body, askers, id} = question
+  let {title, body, askers, id, Asker} = question
   let name
+
+  //TODO: Clean this up by fixing backend return keys
   if (askers) {
     name = askers.first_name + " " + askers.last_name
   }
   else {
     name = "No name provided"
   }
+  if (Asker) {
+    askers = Asker
+  }
+
 
   const questionStructure = {
     title, body, id,
@@ -26,7 +32,7 @@ const OneQuestion = ({question}) => {
           <div className="question-block-author">
             <UserBlock userData={questionStructure.Asker}/>
           </div>
-          <Link to={`questions/${questionStructure.id}`}>
+          <Link to={`/questions/${questionStructure.id}`} exact={true}>
             <div className="question-block-title">
               <h1>
                 {title}
