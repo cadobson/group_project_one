@@ -1,4 +1,4 @@
-.all-questions, .thread-holder, .search-results-all-questions {
+.all-questions, .thread-holder, .search-results-all-questions, .user-list {
   display: flex;
   flex-direction: column;
   width: 600px;
