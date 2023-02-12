@@ -32,7 +32,7 @@ export const SearchDb = () => {
     return (
         <>
             <div className="search-container">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
 
                 <form
                     className='search-form'
