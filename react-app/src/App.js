@@ -22,6 +22,7 @@ import { SearchDb } from './components/Search/SearchDb';
 import { SearchResult } from './components/Search/SearchResult';
 import { UseridQuestions } from './components/Questions/UseridQuestions';
 import { AnswersByUserId } from './components/Answers/AnswersByUserId';
+import AllTags from './components/Tags/AllTags';
 
 
 function App() {
@@ -96,7 +97,7 @@ function App() {
           <Route exact path='/comments/:commentId'>
             <Comment />
           </Route>
-          
+
           <Route exact path='/answers/:answerId/comments/new'>
             <AddComment />
           </Route>
@@ -106,6 +107,10 @@ function App() {
           </Route>
           <Route exact path='/search/result'>
             <SearchResult />
+          </Route>
+
+          <Route exact path='/tags'>
+            <AllTags />
           </Route>
 
 

@@ -42,7 +42,6 @@ const questionsReducer = (state = {}, action) => {
     case QUESTIONS_USER:{
       const newState = {...action.questions}
       return newState
-      console.log(newState, " this is new State")
     }
 
     default: {
