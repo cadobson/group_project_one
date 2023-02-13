@@ -23,9 +23,19 @@ def seed_answers():
         question_id=2
     )
     answer_3 = Answer(
-        body=' To maintain a healthy lifestyle, making healthy lifestyle choices such as exercising regularly, eating a balanced diet, getting enough sleep, managing stress, and avoiding unhealthy habits can help to achieve a healthy lifestyle.',
+        body='To maintain a healthy lifestyle, making healthy lifestyle choices such as exercising regularly, eating a balanced diet, getting enough sleep, managing stress, and avoiding unhealthy habits can help to achieve a healthy lifestyle.',
         answerer_id=3,
         question_id=3
+    )
+    answer_4 = Answer(
+        body='The best way to learn a new language is to start with the basics and practice regularly. Focus on learning the fundamentals such as grammar and pronunciation. Listen to native speakers and try to imitate their pronunciation. Find a language exchange partner or take classes to practice conversation and learn more advanced language skills. Use resources like apps, websites, books, and podcasts to supplement your learning. Lastly, dont give up and keep practicing!',
+        answerer_id=2,
+        question_id=4
+    )
+    answer_5 = Answer(
+        body='The best way to learn a new language is to start with the basics and practice regularly. Focus on learning the fundamentals such as grammar and pronunciation. Listen to native speakers and try to imitate their pronunciation. Find a language exchange partner or take classes to practice conversation and learn more advanced language skills. Use resources like apps, websites, books, and podcasts to supplement your learning. Lastly, dont give up and keep practicing!',
+        answerer_id=3,
+        question_id=5
     )
 
     db.session.add(answer_1a)
@@ -33,6 +43,8 @@ def seed_answers():
     db.session.add(answer_1c)
     db.session.add(answer_2)
     db.session.add(answer_3)
+    db.session.add(answer_4)
+    db.session.add(answer_5)
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't

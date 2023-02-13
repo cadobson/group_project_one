@@ -19,7 +19,7 @@ const QuestionBlock = ({ questionData }) => {
   const [showEdit, setShowEdit] = useState(false)
   const [showTagEdit, setShowTagEdit] = useState(false)
 
-  const currentSessionUser = useSelector(state => state.session.user)
+  const currentSessionUser = useSelector(state => state.session.user) || {id: 0}
   const currentSessionUserId = currentSessionUser.id
 
   const dispatch = useDispatch()
@@ -51,7 +51,7 @@ const QuestionBlock = ({ questionData }) => {
       </div>
 
       <div className="interactions">
-        {currentSessionUser && (
+        {currentSessionUser.id > 0 && (
           <div className="new-comment-button-controls">
             <button className="new-comment-button" onClick={() => setShowNewAnswer(!showNewAnswer)}>New Answer</button>
 

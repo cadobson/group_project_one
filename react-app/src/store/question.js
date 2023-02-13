@@ -84,6 +84,8 @@ export const sendTagAdditionRequest = (tagToAdd, questionId) => async dispatch =
     // dispatch(setQuestion(updatedQuestionData))
     // Now that we know the tag creation went through, we can update request a the udpatd question data from the backend
     dispatch(loadQuestionFromBackend(questionId))
+  } else {
+    throw new Error("You may not create a duplicate tag");
   }
   return addTagRes
 }
@@ -95,10 +97,14 @@ export const sendTagRemovalRequest = (tagToRemove, questionId) => async dispatch
       "Content-Type": "application/json"
     }
   }
+
   const removeTagRes = await fetch(`/api/questions/${questionId}/${tagToRemove}`, reqObj)
   if (removeTagRes.ok) {
     dispatch(loadQuestionFromBackend(questionId))
+  } else {
+    throw new Error("No such tag was found");
   }
+  // console.log("response object: ", removeTagRes)
   return removeTagRes
 }
 

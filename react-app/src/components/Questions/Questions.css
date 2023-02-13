@@ -4,7 +4,7 @@
   width: 600px;
 }
 
-.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-block, .comment-block, .search-results-header, .all-tags-holder {
+.card-for-one-question, .card-for-new-question, .question-top-of-page, .answer-block, .comment-block, .search-results-header, .all-tags-holder, .signup-holder {
   border: 1px solid rgb(222, 224, 225);
 
   padding: 10px;
@@ -76,4 +76,8 @@ button:hover {
   width: auto;
   padding: 2px 2px;
   margin: 4px 4px;
+}
+
+.error-line {
+  color: red;
 }

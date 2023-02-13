@@ -317,9 +317,10 @@ def make_tag(questionId):
             db.session.commit()
         except:
             res = jsonify({
-                "message": "Assocation already exists", "statusCode": 502
+                "message": "Assocation already exists", "statusCode": 400,
+                "errors": ["Assocation already exists"]
             })
-            res.status_code = 502
+            res.status_code = 400
             return res
 
         # Retrieve question; retrieve tag
@@ -368,7 +369,8 @@ def delete_question_tags(tagName, questionId):
             tagId = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()['id']
         except:
             res = jsonify({
-                "message": "Tag does not exist", "statusCode": 404
+                "message": "Tag does not exist", "statusCode": 404,
+                "errors": ["Tag does not exist"]
             })
             res.status_code = 404
             return res

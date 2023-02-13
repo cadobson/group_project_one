@@ -19,9 +19,23 @@ def seed_questions():
         ask_id=3
     )
 
+    question_4 = Question(
+        title='What is the best way to learn a new language?',
+        body='I do not have any language-learning experience.',
+        ask_id=3
+    )
+
+    question_5 = Question(
+        title='How can I start a business with no money?',
+        body='',
+        ask_id=3
+    )
+
     db.session.add(question_1)
     db.session.add(question_2)
     db.session.add(question_3)
+    db.session.add(question_4)
+    db.session.add(question_5)
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't

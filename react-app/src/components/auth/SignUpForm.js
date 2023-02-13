@@ -16,11 +16,16 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+    console.log("Attempted sign up")
+    setErrors([])
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password, firstName, lastName));
       if (data) {
         setErrors(data)
       }
+    }
+    else {
+      setErrors(['Passwords must match'])
     }
   };
 
@@ -57,7 +62,7 @@ const SignUpForm = () => {
       <form onSubmit={onSignUp}>
       <div>
         {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
+          <div className='error-line' key={ind}>{error}</div>
         ))}
       </div>
       <div>

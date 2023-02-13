@@ -15,7 +15,7 @@ const AnswerBlock = ({answerData}) => {
   const [showEdit, setShowEdit] = useState(false)
   const [showNewComment, setShowNewComment] = useState(false)
 
-  const currentSessionUser = useSelector(state => state.session.user)
+  const currentSessionUser = useSelector(state => state.session.user) || {id: 0}
   const currentSessionUserId = currentSessionUser.id
 
   const questionId = useParams()
@@ -37,7 +37,7 @@ const AnswerBlock = ({answerData}) => {
       </div>
 
       <div className="interactions">
-        {currentSessionUser && (
+        {currentSessionUser.id > 0 && (
           <div className="new-comment-button-controls">
             <button className="new-comment-button" onClick={() => setShowNewComment(!showNewComment)}>New Comment</button>
 

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 import { loadQuestionFromBackend, sendTagAdditionRequest, sendTagRemovalRequest } from "../../store/question"
 
 
@@ -10,9 +11,13 @@ const EditTags = ({tagList, questionId}) => {
   const [serverErrors, setServerErrors] = useState([])
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleSubmitNewTag = (e) => {
     e.preventDefault()
+
+    setLocalErrors([])
+    setServerErrors([])
 
     const newLocalErrors = []
     if (newTag.length === 0) newLocalErrors.push("You can't add a tag if there isn't any text!")
@@ -27,10 +32,18 @@ const EditTags = ({tagList, questionId}) => {
     }
 
     dispatch(sendTagAdditionRequest(payload, questionId))
+    .catch(async (error) => {
+      console.log(error)
+      setServerErrors([error.message])
+    })
   }
 
   const handleSubmitDeleteTag = (e) => {
     e.preventDefault()
+
+    setLocalErrors([])
+    setServerErrors([])
+
     const newLocalErrors = []
     if (tagToDelete.length === 0) newLocalErrors.push("You can't delete a tag if there isn't any text!")
     if (newLocalErrors.length) {
@@ -39,7 +52,12 @@ const EditTags = ({tagList, questionId}) => {
     }
 
     dispatch(sendTagRemovalRequest(tagToDelete, questionId))
-      //TODO: Handle Errors
+      .catch(async (error) => {
+        console.log(error)
+        setServerErrors([error.message])
+      })
+
+      //TODO: Handle Errors more gracefully
 
 
   }
@@ -47,15 +65,16 @@ const EditTags = ({tagList, questionId}) => {
   return (
     <div className="edit-tags">
       <div className="add-tag">
-      {localErrors.map((error, index) => <li key={index}>{error}</li>)}
+      {localErrors.map((error, index) => <li  className='error-line' key={index}>{error}</li>)}
+      {serverErrors.map((error, index) => <li  className='error-line' key={index}>{error}</li>)}
         <form onSubmit={handleSubmitNewTag}>
-          <input type="text" value={newTag} onChange={(e) => setNewTag(e.target.value)}/>
+          <input type="text" placeholder="Type in your new tag here" value={newTag} onChange={(e) => setNewTag(e.target.value)}/>
           <button type="submit" value="Add Tag">New Tag</button>
         </form>
       </div>
       <div className="remove-tag">
       <form onSubmit={handleSubmitDeleteTag}>
-          <input type="text" value={tagToDelete} onChange={(e) => setTagToDelete(e.target.value)}/>
+          <input type="text" placeholder="Type in the tag to delete here" value={tagToDelete} onChange={(e) => setTagToDelete(e.target.value)}/>
           <button type="submit" value="Remove Tag">Remove Tag</button>
         </form>
       </div>

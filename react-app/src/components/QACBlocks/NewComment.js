@@ -45,8 +45,8 @@ const NewComment = ({answerId, setShowNewComment}) => {
 
   return (
     <div className="edit-answer-form">
-      {serverErrors.map((error, index) => <li key={index}>{error}</li>)}
-      {errors.map((error, index) => <li key={index}>{error}</li>)}
+      {serverErrors.map((error, index) => <li  className='error-line' key={index}>{error}</li>)}
+      {errors.map((error, index) => <li  className='error-line' key={index}>{error}</li>)}
       <form onSubmit={handleSubmit}>
         <textarea
           type="text"

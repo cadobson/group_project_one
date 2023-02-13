@@ -14,7 +14,7 @@ const CommentBlock = ({ commentData }) => {
 
   const { id, body, Commenter } = commentData
 
-  const currentSessionUser = useSelector(state => state.session.user)
+  const currentSessionUser = useSelector(state => state.session.user) || {id: 0}
   const currentSessionUserId = currentSessionUser.id
 
   const questionId = useParams()

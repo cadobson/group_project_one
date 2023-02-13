@@ -5,7 +5,7 @@ import { sendQuestionCreationRequest } from "../../store/question"
 
 
 const NewQuestion = () => {
-  const [title, setTitle] = useState("What do you want to ask?")
+  const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
   const [showBody, setShowBody] = useState(false)
   const [localErrors, setLocalErrors] = useState([])
@@ -35,7 +35,7 @@ const NewQuestion = () => {
   }
 
   const handleFocus = (e) => {
-    setTitle("")
+    // setTitle("")
     setShowBody(true)
   }
 
@@ -53,12 +53,13 @@ const NewQuestion = () => {
     <>
       <div className="card-for-new-question">
         <form onSubmit={handleSubmit}>
-          {localErrors.map((error, index) => <li key={index}>{error}</li>)}
+          {localErrors.map((error, index) => <li className='error-line' key={index}>{error}</li>)}
           <label>
             <input
               type="text"
               value={title}
               onChange={e => setTitle(e.target.value)}
+              placeholder="What do you want to ask?"
               onFocus={handleFocus}
               />
           </label>
