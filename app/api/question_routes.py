@@ -267,8 +267,11 @@ def get_questions_by_tag(tagName):
         map(lambda x: x.to_dict()['question_id'], matching_questions))
 
     # abstract objects of interest
-    questions = list(map(lambda id: Question.query.get(
-        id).search_result(), matching_question_ids))
+    try:
+        questions = list(map(lambda id: Question.query.get(id).search_result(), matching_question_ids))
+    except: 
+        questions = []
+    
     tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
     return {"Tags": tags, "Questions": questions}
 
