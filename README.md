@@ -1,6 +1,6 @@
 # Boura
 
-Boura is a portfolio project Quora clone by Ray X, David Pratt, and Christopher Dobson. This project was meant to build our soft skills in interacting with peers on a common project.
+Boura is a portfolio project Quora clone by Ray Yu, David Pratt, and Christopher Dobson. This project was meant to build our soft skills in interacting with peers on a common project.
 
 ## Setup and Installation
 
