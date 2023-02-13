@@ -56,7 +56,6 @@ def post_simple_form():
             res.status_code = 400
             return res
 
-
         new_question = Question(
             title=data['title'],
             body=data['body'],
@@ -97,7 +96,6 @@ def edit_question(id):
             res.status_code = 404
             return res
 
-
         question.title = data['title']
         question.body = data['body']
 
@@ -121,8 +119,8 @@ def get_question_comm_ans(id):
     question = Question.query.get(id)
     if not question:
         res = jsonify({
-                "message": "question couldn't be found",
-                "statusCode": 404
+            "message": "question couldn't be found",
+            "statusCode": 404
         })
         res.status_code = 404
         return res
@@ -133,10 +131,11 @@ def get_question_comm_ans(id):
         TagQuestion.question_id == id).all()
 
     tag_ids = [item.to_dict()['tag_id'] for item in tag_questions]
-    try: 
-        tag_names = [Tag.query.get(tag_id).to_dict()['tagName'] for tag_id in tag_ids]
+    try:
+        tag_names = [Tag.query.get(tag_id).to_dict()['tagName']
+                     for tag_id in tag_ids]
     except:
-        tag_names = []                
+        tag_names = []
 
     # Get answers and comments
     answers = Answer.query.filter(Answer.question_id == id).all()
@@ -177,8 +176,8 @@ def get_question_sans_comm_ans(id):
     question = Question.query.get(id)
     if not question:
         res = jsonify({
-                "message": "question couldn't be found",
-                "statusCode": 404
+            "message": "question couldn't be found",
+            "statusCode": 404
         })
         res.status_code = 404
         return res
@@ -219,12 +218,11 @@ def delete_question(id):
     question = Question.query.get(id)
     if not question:
         res = jsonify({
-                "message": "question couldn't be found",
-                "statusCode": 404
+            "message": "question couldn't be found",
+            "statusCode": 404
         })
         res.status_code = 404
         return res
-
 
     # values must match to make sure user owns question
     askerId = int(question.to_dict()['askId'])
@@ -241,7 +239,7 @@ def delete_question(id):
         db.session.delete(question)
         db.session.commit()
         res = jsonify({
-            "message": "Successfully deleted", 
+            "message": "Successfully deleted",
             "statusCode": 200
         })
         res.status_code = 200
@@ -265,13 +263,15 @@ def get_questions_by_tag(tagName):
         TagQuestion.tag_id == tagId).all()
     matching_question_ids = list(
         map(lambda x: x.to_dict()['question_id'], matching_questions))
-
+    matching_question_ids = [
+        element for element in matching_question_ids if element]
     # abstract objects of interest
     try:
-        questions = list(map(lambda id: Question.query.get(id).search_result(), matching_question_ids))
-    except: 
+        questions = list(map(lambda id: Question.query.get(
+            id).search_result(), matching_question_ids))
+    except:
         questions = []
-    
+
     tags = Tag.query.filter(Tag.tagName == tagName)[0].to_dict()
     return {"Tags": tags, "Questions": questions}
 
@@ -304,11 +304,11 @@ def make_tag(questionId):
 
         # Get primary key of newly added tag
         tagIds = Tag.query.filter(Tag.tagName == tag_name_lower_case).all()
-        try: 
+        try:
             last_tag = tagIds[0].to_dict()['id']
-        except: 
+        except:
             last_tag = []
-            
+
         # add question_id and tag_id to tags_questions
         new_rel = TagQuestion(question_id=questionId, tag_id=last_tag)
 
@@ -321,7 +321,6 @@ def make_tag(questionId):
             })
             res.status_code = 502
             return res
-
 
         # Retrieve question; retrieve tag
         question = Question.query.get(questionId)
