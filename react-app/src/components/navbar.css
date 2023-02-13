@@ -1,4 +1,4 @@
-.navigation-holder>a {
+.navigation-holder>a, .navigation-holder>.logout-text {
   padding: 10px;
   color: rgb(33, 33, 33);
   transition: all 0.1s ease;
@@ -7,7 +7,7 @@
   font-size: 30px;
 }
 
-.navigation-holder>a:hover {
+.navigation-holder>a:hover, .navigation-holder>.logout-text:hover {
   color: rgb(169, 169, 169);
 }
 
@@ -19,8 +19,8 @@
   display: flex;
   /* align-items: center; */
   height:40px;
-  
-  
+
+
 }
 
 #home-logo {
@@ -47,4 +47,8 @@
     box-sizing: border-box;
     border-radius: 25px;
     background-color: #F1F2F2;
+}
+
+.logout-text:hover {
+  cursor: pointer;
 }

@@ -9,6 +9,7 @@ const NewQuestion = () => {
   const [body, setBody] = useState("")
   const [showBody, setShowBody] = useState(false)
   const [localErrors, setLocalErrors] = useState([])
+  const [serverErrors, setServerErrors] = useState([])
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -17,7 +18,8 @@ const NewQuestion = () => {
     e.preventDefault()
 
     const newLocalErrors = []
-    if (!title.length || !showBody) newLocalErrors.push("You can't ask a question if there isn't any text!")
+    if (!title.length || !showBody) newLocalErrors.push("You can't ask a question if there isn't any text in the question!")
+    if (title.length > 255) newLocalErrors.push("Your question title is too long! (Max 255 characters)")
     if (newLocalErrors.length) {
       setLocalErrors(newLocalErrors)
       return
@@ -25,9 +27,9 @@ const NewQuestion = () => {
     const newQuestionData = {title, body}
     dispatch(sendQuestionCreationRequest(newQuestionData))
       .then((data) => {history.push(`/questions/${data.id}`)})
-      .catch(async (res) => {//TODO: Implement error storage and display
-        console.log("ERRORS:")
-        console.log(res)
+      .catch(async (res) => {
+        const data = await res.json()
+        if (data && data.errors) setServerErrors(data.errors)
       })
   }
 

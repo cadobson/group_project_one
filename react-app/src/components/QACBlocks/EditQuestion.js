@@ -18,7 +18,7 @@ const EditQuestion = ({questionData}) => {
     e.preventDefault()
 
     if (editedBody.length < 1) {
-      setLocalErrors(["Answer body cannot be empty"]);
+      setLocalErrors(["Answer body cannot be empty after creation."]);
       return;
     }
 

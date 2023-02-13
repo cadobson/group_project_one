@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { logout } from '../store/session';
 import LogoutButton from './auth/LogoutButton';
 import "./navbar.css"
 import { SearchDb } from './Search/SearchDb';
@@ -9,10 +10,21 @@ import { SearchDb } from './Search/SearchDb';
 const NavBar = ({ loaded }) => {
   const sessionUser = useSelector(state => state.session.user)
 
+  const dispatch = useDispatch()
+  const onLogout = async (e) => {
+    await dispatch(logout());
+  };
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <LogoutButton />
+      // <LogoutButton />
+      // <NavLink to="/signup" exact={true} activeClassName='active'>
+      //   Logout
+      // </NavLink>
+      <div className='logout-text' onClick={onLogout}>
+        Logout
+      </div>
     )
   } else {
     sessionLinks = (
