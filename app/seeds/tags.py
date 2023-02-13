@@ -6,23 +6,23 @@ from app.models import db, Tag, environment, SCHEMA
 def seed_tags():
     tag1 = Tag(
         tagName="physics"
-        )
+    )
     tag2 = Tag(
         tagName="chemistry"
-        )
+    )
     tag3 = Tag(
         tagName="shakespeare"
-        )
+    )
     tag4 = Tag(
         tagName="health"
-        )
+    )
     tag5 = Tag(
         tagName="fitness"
-        )
+    )
 
-    # db.session.add(tag1)
-    # db.session.add(tag2)
-    # db.session.add(tag3)
+    db.session.add(tag1)
+    db.session.add(tag2)
+    db.session.add(tag3)
     db.session.add(tag4)
     db.session.add(tag5)
     db.session.commit()
