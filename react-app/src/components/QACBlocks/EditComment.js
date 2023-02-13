@@ -16,8 +16,14 @@ const EditComment = ({commentData}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setLocalErrors([]);
+    setServerErrors([]);
     if (editedBody.length < 1) {
       setLocalErrors(["Comment body cannot be empty"]);
+      return;
+    }
+    if (editedBody.length > 9999) {
+      setLocalErrors(["Comment body cannot be longer than 10000 characters."]);
       return;
     }
 

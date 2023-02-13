@@ -16,8 +16,14 @@ const NewComment = ({answerId, setShowNewComment}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    setErrors([])
+    setServerErrors([])
     if (body.length < 1) {
       setErrors(['Comment body cannot be empty'])
+      return
+    }
+    if (body.length > 9999) {
+      setErrors(['Comment body cannot be longer than 10000 characters'])
       return
     }
 

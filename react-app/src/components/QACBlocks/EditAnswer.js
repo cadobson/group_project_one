@@ -17,9 +17,14 @@ const EditAnswer = ({answerData}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
+    setLocalErrors([])
+    setServerErrors([])
     if (editedBody.length < 1) {
       setLocalErrors(["Answer body cannot be empty"]);
+      return;
+    }
+    if (editedBody.length > 9999) {
+      setLocalErrors(["Answer body cannot be longer than 10000 characters."]);
       return;
     }
 
