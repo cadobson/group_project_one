@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useParams } from "react-router-dom"
-import { loadQuestionFromBackend, sendQuestionDeleteRequest } from "../../store/question"
+import { useHistory } from "react-router-dom"
+import { sendQuestionDeleteRequest } from "../../store/question"
 import AnswerBlock from "./AnswerBlock"
 import EditQuestion from "./EditQuestion"
 import EditTags from "./EditTags"
@@ -22,7 +22,6 @@ const QuestionBlock = ({ questionData }) => {
   const currentSessionUser = useSelector(state => state.session.user)
   const currentSessionUserId = currentSessionUser.id
 
-  const questionId = useParams()
   const dispatch = useDispatch()
   const history = useHistory();
 

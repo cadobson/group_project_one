@@ -20,6 +20,7 @@ const NewQuestion = () => {
     const newLocalErrors = []
     if (!title.length || !showBody) newLocalErrors.push("You can't ask a question if there isn't any text in the question!")
     if (title.length > 255) newLocalErrors.push("Your question title is too long! (Max 255 characters)")
+    if (body.length > 9999) newLocalErrors.push("Your question body is too long! (Max 10000 characters)")
     if (newLocalErrors.length) {
       setLocalErrors(newLocalErrors)
       return

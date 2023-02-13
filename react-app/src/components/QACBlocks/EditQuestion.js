@@ -21,6 +21,10 @@ const EditQuestion = ({questionData}) => {
       setLocalErrors(["Answer body cannot be empty after creation."]);
       return;
     }
+    if (editedBody.length > 9999) {
+      setLocalErrors(["Answer body cannot be longer than 10000 characters."]);
+      return;
+    }
 
     const payload = {
       body: editedBody,
