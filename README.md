@@ -1,6 +1,12 @@
 # Boura
 
-Boura is a portfolio project Quora clone by Ray X, David Pratt, and Christopher Dobson. This project was meant to build our soft skills in interacting with peers on a common project.
+Live site: https://boura.onrender.com/
+
+## About
+
+Boura is a partial clone of the website Quora. Boura is a portfolio project by Ray X, David Pratt, and Christopher Dobson. This project was meant to build our soft skills in interacting with peers on a common project.
+
+The core functionality of the website is to allow users to ask questions, and for other users to answer those questions. Users can also comment on answers, and tag questions with relevant tags.
 
 ## Setup and Installation
 
@@ -51,3 +57,11 @@ Users can search the bodies and titles of questions, and view a list of all ques
 ### Users
 
 As a prerequisite for the project, users can register an account, sign in, and access protected routes that require authentication.
+
+## API Documentation
+
+Backend routes are [documented extensively in their own README file](./planning_docs/backend_routes.md), located in the `planning_docs` folder.
+
+## Database Schema
+
+![Database schema](./planning_docs/quora_clone_db_diagram.png)
